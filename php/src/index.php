@@ -1,4 +1,19 @@
 <?php
+require_once 'controllers/UserController.php';
 
-echo 'Hello World!';
-echo '<script src="/public/index.js"></script>';
+$uri = $_SERVER['REQUEST_URI'];
+
+switch ($uri) {
+    case '/':
+        (new UserController())->home();
+        break;
+    case '/login':
+        (new UserController())->login();
+        break;
+    case '/register':
+        (new UserController())->register();
+        break;
+    default:
+        echo '404 Not Found';
+        break;
+}

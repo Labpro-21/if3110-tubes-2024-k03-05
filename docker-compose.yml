@@ -2,7 +2,20 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile
-    # TODO
+      dockerfile: php/Dockerfile
+
   db:
-# TODO
+    image: mysql:8.0
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: linkedin
+
+volumes:
+  mysqldata:

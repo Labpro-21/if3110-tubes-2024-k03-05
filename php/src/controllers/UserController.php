@@ -1,9 +1,9 @@
 <?php
 
-use config\Database;
+namespace controllers;
 
-require_once 'models/User.php';
-require_once 'config/Database.php';
+use config\Database;
+use models\User;
 
 class UserController {
     private $db;
@@ -15,11 +15,13 @@ class UserController {
         $this->user = new User($db);
     }
 
-    public function home() {
-        include 'views/home.php';
+    public function home(): void
+    {
+        include __DIR__ . '/../views/home.php';
     }
 
-    public function login() {
+    public function login(): void
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -31,10 +33,10 @@ class UserController {
                 exit;
             } else {
                 $error = "Invalid credentials";
-                include 'views/login.php';
+                include __DIR__ . '/../views/login.php';
             }
         } else {
-            include 'views/login.php';
+            include __DIR__ . '/../views/login.php';
         }
     }
 
@@ -45,6 +47,6 @@ class UserController {
     }
 
     public function register() {
-        // Handle registration logic
+
     }
 }

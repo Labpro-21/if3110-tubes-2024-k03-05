@@ -33,5 +33,7 @@ $router->add('GET', '/logout', [UserController::class, 'logout']);
 $router->add('GET', '/register', [UserController::class, 'register']);
 $router->add('POST', '/register', [UserController::class, 'register']);
 
+
+
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

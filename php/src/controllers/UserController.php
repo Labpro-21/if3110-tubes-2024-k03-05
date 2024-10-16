@@ -2,6 +2,9 @@
 
 namespace controllers;
 
+include __DIR__ . '/../config/database.php';
+include __DIR__ . '/../models/User.php';
+
 use config\Database;
 use models\User;
 

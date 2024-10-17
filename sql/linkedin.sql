@@ -23,6 +23,7 @@ CREATE TABLE `company_detail`
     `user_id` varchar(255) NOT NULL,
     `lokasi`  varchar(255) NOT NULL,
     `about`   text         NOT NULL,
+    `tagline` text         NOT NULL,
     constraint fk_company_detail_user foreign key (user_id) references user (user_id)
 );
 
@@ -32,7 +33,7 @@ CREATE TABLE `lowongan`
     `company_id`      varchar(255) NOT NULL,
     `posisi`          varchar(255) NOT NULL,
     `deskripsi`       text         NOT NULL,
-    `jenis_pekerjaan` varchar(255) NOT NULL,
+    `jenis_pekerjaan` enum('internship', 'part-time', 'full-time') NOT NULL,
     `jenis_lokasi`    enum('on-site', 'hybrid', 'remote') NOT NULL,
     `is_open`         tinyint(1) NOT NULL,
     `created_at`      timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,

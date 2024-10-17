@@ -1,19 +1,37 @@
 <?php
-require_once 'controllers/UserController.php';
+spl_autoload_register(function ($class_name) {
+    $file = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
+    if (file_exists($file)) {
+        include $file;
+    }
+});
 
-$uri = $_SERVER['REQUEST_URI'];
+include 'Router.php';
+use controllers\UserController;
 
-switch ($uri) {
-    case '/':
-        (new UserController())->home();
-        break;
-    case '/login':
-        (new UserController())->login();
-        break;
-    case '/register':
-        (new UserController())->register();
-        break;
-    default:
-        echo '404 Not Found';
-        break;
-}
+$router = new Router();
+
+// [Controller] : Controller Class
+// Eg: UserController::class
+// [function] : Controller Function
+// Eg: home => home() function in UserController
+// [method] : HTTP Method
+// Eg: GET, POST, PUT, DELETE
+// [path] : URL Path
+// Eg: /, /login, /dashboard
+//$router->add([method], '[path]', [[Controller]::class, '[function]']);
+// Eg: $router->add('GET', '/', [UserController::class, 'home']);
+
+$router->add('GET', '/', [UserController::class, 'home']);
+$router->add('GET', '', [UserController::class, 'home']);
+
+
+$router->add('GET', '/login', [UserController::class, 'login']);
+$router->add('POST', '/login', [UserController::class, 'login']);
+$router->add('GET', '/logout', [UserController::class, 'logout']);
+
+$router->add('GET', '/register', [UserController::class, 'register']);
+$router->add('POST', '/register', [UserController::class, 'register']);
+
+$path = $_SERVER['REQUEST_URI'];
+$router->dispatch($path);

@@ -44,10 +44,10 @@ class UserController {
                 exit;
             } else {
                 $error = "Invalid credentials";
-                include __DIR__ . '/../views/login.php';
+                include __DIR__ . '/../views/Login.php';
             }
         } else {
-            include __DIR__ . '/../views/login.php';
+            include __DIR__ . '/../views/Login.php';
         }
     }
 

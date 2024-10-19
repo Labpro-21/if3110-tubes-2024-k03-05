@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Lowongan</title>
+    <link rel="stylesheet" href="../CSS/riwayatEmpty.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <!-- Name Card -->
+            <div class="name-card box">
+                <div style="height: 0.05px;"></div>
+                <header>
+                    My Jobs
+                </header>
+                <ul class="filter-buttons">
+                    <li><button class="active" onclick="filterJobs('all')">All</button></li>
+                    <li><button onclick="filterJobs('waiting')">Waiting</button></li>
+                    <li><button onclick="filterJobs('accept')">Accept</button></li>
+                    <li><button onclick="filterJobs('reject')">Reject</button></li>
+                </ul>
+                <hr>
+                <div class="no-jobs">
+                    <img src="../image/noJob.png" alt="No Jobs Image">
+                    <h2>No recent job activity</h2>
+                    <p>Find new opportunities and manage your job search progress here.</p>
+                    <button onclick="window.location.href="">Search for jobs</button>
+                </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -2,25 +2,26 @@
 
 namespace models;
 
+use PDO;
+
 class User {
     private $conn;
-    private $table_name = "users";
 
     public $id;
     public $username;
     public $email;
-    public $password;
+    public $role;
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    public function create($username, $email, $password) {
+    public function create($nama, $email, $password) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO " . $this->table_name . " (username, email, password) VALUES (?, ?, ?)";
+        $query = "INSERT INTO user (nama, email, password) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $username);
+        $stmt->bindParam(1, $nama);
         $stmt->bindParam(2, $email);
         $stmt->bindParam(3, $hashed_password);
 
@@ -30,20 +31,23 @@ class User {
         return false;
     }
 
-    public function authenticate($email, $password) {
-        $query = "SELECT id, username, password FROM " . $this->table_name . " WHERE email = ?";
+    public function authenticate($email, $password): null|static
+    {
+        $query = "SELECT user_id, nama, password, role FROM user WHERE email = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $email);
         $stmt->execute();
 
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            if (password_verify($password, $row['password'])) {
-                $this->id = $row['id'];
-                $this->username = $row['username'];
-                return true;
+            if ($password == $row['password']) {
+                $this->id = $row['user_id'];
+                $this->username = $row['nama'];
+                $this->email = $email;
+                $this->role = $row['role'];
+                return $this;
             }
         }
 
-        return false;
+        return null;
     }
 }

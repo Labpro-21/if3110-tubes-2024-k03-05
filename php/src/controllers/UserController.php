@@ -2,6 +2,10 @@
 
 namespace controllers;
 
+include __DIR__ . '/../config/database.php';
+include __DIR__ . '/../models/User.php';
+include __DIR__ . '/../middleware.php';
+
 use config\Database;
 use models\User;
 
@@ -17,11 +21,16 @@ class UserController {
 
     public function home(): void
     {
-        include __DIR__ . '/../views/home.php';
+        echo "Welcome to Landing Page";
     }
 
     public function login(): void
     {
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /dashboard");
+            exit;
+        }
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -29,6 +38,8 @@ class UserController {
             if ($this->user->authenticate($email, $password)) {
                 $_SESSION['user_id'] = $this->user->id;
                 $_SESSION['username'] = $this->user->username;
+                $_SESSION['role'] = $this->user->role;
+                $_SESSION['email'] = $this->user->email;
                 header("Location: /dashboard");
                 exit;
             } else {
@@ -47,6 +58,30 @@ class UserController {
     }
 
     public function register() {
+        if (isset($_SESSION['user_id'])) {
+            header("Location: /dashboard");
+            exit;
+        }
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $role = $_POST['role'];
+
+            if ($this->user->register($username, $email, $password, $role)) {
+                $_SESSION['user_id'] = $this->user->id;
+                $_SESSION['username'] = $this->user->username;
+                $_SESSION['role'] = $this->user->role;
+                $_SESSION['email'] = $this->user->email;
+                header("Location: /dashboard");
+                exit;
+            } else {
+                $error = "Invalid credentials";
+                include __DIR__ . '/../views/register.php';
+            }
+        } else {
+            include __DIR__ . '/../views/register.php';
+        }
     }
 }

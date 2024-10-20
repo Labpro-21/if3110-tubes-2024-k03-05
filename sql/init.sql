@@ -32,7 +32,7 @@ CREATE TABLE `lowongan`
     `company_id`      varchar(255) NOT NULL,
     `posisi`          varchar(255) NOT NULL,
     `deskripsi`       text         NOT NULL,
-    `jenis_pekerjaan` varchar(255) NOT NULL,
+    `jenis_pekerjaan` enum('part-time','internship',) NOT NULL,
     `jenis_lokasi`    enum('on-site', 'hybrid', 'remote') NOT NULL,
     `is_open`         tinyint(1) NOT NULL,
     `created_at`      timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,

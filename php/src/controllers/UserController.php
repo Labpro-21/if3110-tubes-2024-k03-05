@@ -78,10 +78,10 @@ class UserController {
                 exit;
             } else {
                 $error = "Invalid credentials";
-                include __DIR__ . '/../views/register.php';
+                include __DIR__ . '/../views/Register.php';
             }
         } else {
-            include __DIR__ . '/../views/register.php';
+            include __DIR__ . '/../views/Register.php';
         }
     }
 }

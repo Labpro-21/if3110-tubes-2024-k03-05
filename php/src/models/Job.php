@@ -41,6 +41,17 @@ class Job
         return $row['total'];
     }
 
+    public function getTotalApplicants($id)
+    {
+        $query = "SELECT COUNT(*) as total FROM lamaran WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['total'];
+    }
+
     public function addLowongan($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen)
     {
         $query = "INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi, is_open) VALUES (?, ?, ?, ?, ?, ?)";
@@ -66,7 +77,7 @@ class Job
     }
 
     public function getLowonganById($lowonganId) {
-        $query = "SELECT posisi, deskripsi, jenis_pekerjaan, jenis_lokasi FROM lowongan WHERE lowongan_id = ?";
+        $query = "SELECT * FROM lowongan WHERE lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
         $stmt->execute();

@@ -29,4 +29,28 @@ class JobController {
         header('Content-Type: application/json');
         echo json_encode($jobs);
     }
+
+    public function detailLowonganJobseeker(): void
+    {
+        if (!isset($_GET['id'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Missing id parameter']);
+            exit;
+        }
+
+        $id = $_GET['id'];
+
+        $job = $this->job->getLowonganById($id);
+
+        if (!$job) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Job not found']);
+            exit;
+        }
+
+        $totalApplicants = $this->job->getTotalApplicants($id);
+
+        include __DIR__ . '/../views/DetailLowonganJobseeker.php';
+    }
+
 }

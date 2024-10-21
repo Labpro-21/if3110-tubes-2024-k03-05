@@ -12,6 +12,7 @@ include 'Router.php';
 use controllers\JobController;
 use controllers\SiteController;
 use controllers\UserController;
+use controllers\CompanyController;
 
 $router = new Router();
 
@@ -40,6 +41,8 @@ $router->add('POST', '/register', [UserController::class, 'register']);
 $router->add('GET', '/dashboard', [SiteController::class, 'dashboard']);
 $router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
 
+$router->add('GET', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
+$router->add('POST', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

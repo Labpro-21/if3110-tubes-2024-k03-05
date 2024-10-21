@@ -30,4 +30,17 @@ class Job {
 
         return $row['total'];
     }
+
+    public function addLowongan($companyId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen)
+    {
+        $query = "INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi, is_open) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $companyId, PDO::PARAM_INT); 
+        $stmt->bindParam(2, $posisi, PDO::PARAM_STR);
+        $stmt->bindParam(3, $deskripsi, PDO::PARAM_STR);
+        $stmt->bindParam(4, $jenisPekerjaan, PDO::PARAM_STR);
+        $stmt->bindParam(5, $jenisLokasi, PDO::PARAM_STR);
+        $stmt->bindParam(6, $isOpen, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

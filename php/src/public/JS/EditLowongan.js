@@ -10,15 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'snow',
     });
 
+    const descriptionInput = document.getElementById('descriptionInput');
     const companyForm = document.querySelector('form');
 
-    companyForm.addEventListener('submit', function(event) {
-        const descriptionInput = document.getElementById('descriptionInput');
-        descriptionInput.value = quill.root.innerHTML;
+    quill.root.innerHTML = descriptionInput.value; 
 
-        if (!descriptionInput.value) {
+    companyForm.addEventListener('submit', function(event) {
+        descriptionInput.value = quill.root.innerHTML; 
+
+        if (!descriptionInput.value.trim()) {
             alert('Deskripsi tidak boleh kosong!');
-            event.preventDefault(); 
+            event.preventDefault();
         }
+    });
+
+    // Update the hidden input when the content of the editor changes
+    quill.on('text-change', function() {
+        descriptionInput.value = quill.root.innerHTML; // Menyimpan HTML
     });
 });

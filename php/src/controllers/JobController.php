@@ -28,4 +28,21 @@ class JobController {
         header('Content-Type: application/json');
         echo json_encode($jobs);
     }
+
+    public function seeLamaran(): void {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] === 'company') {
+            header("Location: /login");
+            exit();
+        }
+
+        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+
+        $jobs = $this->job->getJobsByUserId($_SESSION['user_id'], $status);
+
+        if (count($jobs) > 0) {
+            include __DIR__ . '/../views/RiwayatNonEmpty.php';
+        } else {
+            include __DIR__ . '/../views/RiwayatEmpty.php';
+        }
+    }
 }

@@ -6,8 +6,6 @@
     <title>Tambah Lowongan</title>
     <link rel="stylesheet" href="../public/CSS/tambahLowongan.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="../public/JS/TambahLowongan.js"></script>
 </head>
 <body>
     <div class="container" id="signin">
@@ -49,6 +47,8 @@
         </div>
     </div>
 
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="../public/JS/TambahLowongan.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 </body>
 </html>

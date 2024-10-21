@@ -24,6 +24,7 @@ spl_autoload_register(function ($class_name) {
 include 'Router.php';
 
 use controllers\JobController;
+use controllers\JobseekerController;
 use controllers\SiteController;
 use controllers\UserController;
 use controllers\CompanyController;
@@ -64,6 +65,7 @@ $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs'
 $router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
 $router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
 
+$router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

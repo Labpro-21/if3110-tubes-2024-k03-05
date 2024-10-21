@@ -101,8 +101,6 @@ class CompanyController {
         include __DIR__ . '/../views/editLowongan.php';
     }
 
-    
-}
 
     public function dashboard(): void
     {

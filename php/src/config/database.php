@@ -13,7 +13,7 @@ class Database
     private $password = 'secret';
     public $conn;
 
-    public function getConnection()
+    public function getConnection(): ?PDO
     {
         $this->conn = null;
         try {

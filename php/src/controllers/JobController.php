@@ -18,7 +18,8 @@ class JobController {
         $this->job = new Job($this->db);
     }
 
-    public function getJobs() {
+    public function getJobs(): void
+    {
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;

@@ -61,5 +61,9 @@ $router->add('POST', '/tambahLowongan', [CompanyController::class, 'tambahLowong
 $router->add('GET', '/getAllJobs', [JobController::class, 'getAllJobs']);
 $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
 
+$router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
+$router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
+
+
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

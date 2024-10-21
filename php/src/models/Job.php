@@ -54,6 +54,7 @@ class Job
         return $stmt->execute();
     }
 
+
     public function getLowonganByCompanyId(mixed $user_id)
     {
         $query = "SELECT * FROM lowongan WHERE company_id = ?";
@@ -63,4 +64,30 @@ class Job
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getLowonganById($lowonganId) {
+        $query = "SELECT posisi, deskripsi, jenis_pekerjaan, jenis_lokasi FROM lowongan WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen)
+    {
+        $query = "UPDATE lowongan 
+                SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?, is_open = ?
+                WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
+        $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
+        $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
+        $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
+        $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
+        $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+
 }

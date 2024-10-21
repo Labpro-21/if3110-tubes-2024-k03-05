@@ -1,36 +1,3 @@
-<?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../models/User.php';
-
-use config\Database;
-use models\User;
-
-// Check if the form has been submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form data
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hashing the password
-
-    // Check if it's a Job Seeker or Company form
-    if (isset($_POST['registerJobSeeker'])) {
-        // Job Seeker registration
-        $sql = "INSERT INTO job_seekers (name, email, password) VALUES ('$name', '$email', '$password')";
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        echo "Job Seeker Registered!";
-    } elseif (isset($_POST['registerCompany'])) {
-        // Company registration
-        $location = $_POST['location'];
-        $about = $_POST['about'];
-        $sql = "INSERT INTO companies (name, email, password, location, about) VALUES ('$name', '$email', '$password', '$location', '$about')";
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        echo "Company Registered!";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="../public/CSS/register.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="../public/JS/Register.js"></script>
 </head>
 <body>
@@ -49,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p>Stay updated on your professional world.</p>
 
         <!-- Job Seeker Form -->
-        <form id="jobseekerForm" action="Register.php" method="POST" class="active-form">
+        <form id="jobseekerForm" action="/register" method="POST" class="active-form">
+            <input type="hidden" name="role" value="jobseeker">
             <div class="input-group">
                 <input type="text" name="name" placeholder="Name" required>
                 <label for="name">Name</label>
@@ -79,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
 
         <!-- Company Form -->
-        <form id="companyForm" action="Register.php" method="POST" style="display: none;">
+        <form id="companyForm" action="/register" method="POST" style="display: none;">
+            <input type="hidden" name="role" value="company">
             <div class="input-group">
                 <input type="text" name="name" placeholder="Name" required>
                 <label for="name">Name</label>
@@ -94,17 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span id="togglePasswordCompany" onclick="togglePassword('passwordCompany', 'togglePasswordCompany')"></span>
             </div>
             <div class="input-group">
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" required id="confirmPasswordJobSeeker">
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" required id="confirmPasswordCompany">
                 <label for="confirmPassword">Confirm Password</label>
-                <span id="toggleConfirmPasswordJobSeeker" onclick="togglePassword('confirmPasswordJobSeeker', 'toggleConfirmPasswordJobSeeker')"></span>
+                <span id="toggleConfirmPasswordCompany" onclick="togglePassword('confirmPasswordCompany', 'toggleConfirmPasswordCompany')"></span>
             </div>
             <div class="input-group">
                 <input type="text" name="location" placeholder="Location" required>
                 <label for="location">Location</label>
             </div>
             <div class="input-group">
-                <input type="text" name="about" placeholder="About" required>
-                <label for="about">About</label>
+                <p>About The Company</p>
+                <div id="editor"></div>
+                <input type="hidden" name="about" id="aboutInput" required>
             </div>
             <div class="role">
                 Join as?
@@ -115,38 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <input type="submit" class="btn" value="Sign Up" name="registerCompany">
         </form>
-
+    </div>
+    <div class="links">
+        Already on LinkInPurry?
+        <a href="/login">Sign in</a>
     </div>
 </div>
 
-<script>
-    const jobseekerBtn = document.getElementById('jobseekerBtn');
-    const companyBtn = document.getElementById('companyBtn');
-    const jobseekerForm = document.getElementById('jobseekerForm');
-    const companyForm = document.getElementById('companyForm');
 
-    jobseekerBtn.addEventListener('click', () => {
-        jobseekerForm.style.display = 'block';
-        companyForm.style.display = 'none';
-        jobseekerBtn.classList.add('active');
-        companyBtn.classList.remove('active');
-    });
-
-    companyBtn.addEventListener('click', () => {
-        jobseekerForm.style.display = 'none';
-        companyForm.style.display = 'block';
-        companyBtn.classList.add('active');
-        jobseekerBtn.classList.remove('active');
-    });
-
-    jobseekerBtnCompany.addEventListener('click', () => {
-    jobseekerForm.style.display = 'block';
-    companyForm.style.display = 'none';
-    jobseekerBtn.classList.add('active');
-    companyBtn.classList.remove('active');
-    });
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
 </body>
 </html>

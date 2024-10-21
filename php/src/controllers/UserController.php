@@ -37,10 +37,14 @@ class UserController {
 
             if ($this->user->authenticate($email, $password)) {
                 $_SESSION['user_id'] = $this->user->id;
-                $_SESSION['username'] = $this->user->username;
+                $_SESSION['name'] = $this->user->name;
                 $_SESSION['role'] = $this->user->role;
                 $_SESSION['email'] = $this->user->email;
-                header("Location: /dashboard");
+                if ($_SESSION['role'] === 'jobseeker') {
+                    header("Location: /dashboard");
+                } else if ($_SESSION['role'] === 'company') {
+                    header("Location: /dashboard");
+                }
                 exit;
             } else {
                 $error = "Invalid credentials";
@@ -62,22 +66,27 @@ class UserController {
             header("Location: /dashboard");
             exit;
         }
-
+    
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $role = $_POST['role'];
-
-            if ($this->user->register($username, $email, $password, $role)) {
+            $name = htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8');
+            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+            $password = $_POST['password'];
+            $role = htmlspecialchars(trim($_POST['role']), ENT_QUOTES, 'UTF-8');
+    
+            if ($this->user->register($name, $email, $password, $role)) {
                 $_SESSION['user_id'] = $this->user->id;
-                $_SESSION['username'] = $this->user->username;
+                $_SESSION['name'] = $this->user->name;
                 $_SESSION['role'] = $this->user->role;
                 $_SESSION['email'] = $this->user->email;
-                header("Location: /dashboard");
+    
+                if ($role === 'jobseeker') {
+                    header("Location: /login");
+                } else if ($role === 'company') {
+                    header("Location: /dashboard");
+                }
                 exit;
             } else {
-                $error = "Invalid credentials";
+                $error = "Registration failed. Please try again.";
                 include __DIR__ . '/../views/Register.php';
             }
         } else {

@@ -94,27 +94,6 @@ label{
     transition:0.3s ease all;
 }
 
-.forget{
-    text-align: left;
-    font-size:1rem;
-    margin-bottom: 1rem;
-}
-
-.forget a{
-    text-decoration: none;
-    color:#0a66c2;
-    font-weight: 500
-}
-
-.forget a:hover{
-    background-color: #bcdbff;
-    padding: 5px;
-    border-radius: 20px;
-    color:#0a66c2;
-    text-decoration: underline;
-    font-weight: 500;
-}
-
 .btn{
     font-size:1.1rem;
     padding:8px 0;

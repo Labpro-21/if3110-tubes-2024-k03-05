@@ -1,4 +1,5 @@
 <?php
+session_start();
 spl_autoload_register(function ($class_name) {
     $file = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
     if (file_exists($file)) {
@@ -7,6 +8,9 @@ spl_autoload_register(function ($class_name) {
 });
 
 include 'Router.php';
+
+use controllers\JobController;
+use controllers\SiteController;
 use controllers\UserController;
 
 $router = new Router();
@@ -32,6 +36,10 @@ $router->add('GET', '/logout', [UserController::class, 'logout']);
 
 $router->add('GET', '/register', [UserController::class, 'register']);
 $router->add('POST', '/register', [UserController::class, 'register']);
+
+$router->add('GET', '/dashboard', [SiteController::class, 'dashboard']);
+$router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
+
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

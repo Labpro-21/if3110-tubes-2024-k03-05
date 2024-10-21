@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../CSS/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
-          rel="stylesheet">
+    <link rel="stylesheet" href="../public/CSS/login.css">
 </head>
 <body>
 <div class="container" id="signin">
@@ -20,18 +18,14 @@
 
         <form action="/login" method="post">
             <div class="input-group">
-                <input type="text" name="Email" id="email" placeholder="Email" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
                 <label for="email">Email</label>
             </div>
             <div class="input-group">
-                <input type="text" name="Password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
                 <label for="password">Password</label>
+                <span id="togglePassword" onclick="togglePassword('password', 'togglePassword')">`</span>
             </div>
-            <p class="forget">
-                <a href="">
-                    Forgot Password?
-                </a>
-            </p>
             <input type="submit" class="btn" value="Sign in" name="Sign In">
         </form>
     </div>
@@ -39,8 +33,9 @@
 <div class="register">
     <div class="links">
         New to LinkInPurry?
-        <a href="">Join Now</a>
+        <a href="/register">Join Now</a>
     </div>
 </div>
+
 </body>
 </html>

@@ -43,7 +43,8 @@ class UserController {
                 if ($_SESSION['role'] === 'jobseeker') {
                     header("Location: /dashboard");
                 } else if ($_SESSION['role'] === 'company') {
-                    header("Location: /dashboard");
+                    header('Location: /dashboard');
+                    exit();
                 }
                 exit;
             } else {
@@ -74,6 +75,7 @@ class UserController {
             $role = htmlspecialchars(trim($_POST['role']), ENT_QUOTES, 'UTF-8');
     
             if ($this->user->register($name, $email, $password, $role)) {
+                session_start();
                 $_SESSION['user_id'] = $this->user->id;
                 $_SESSION['name'] = $this->user->name;
                 $_SESSION['role'] = $this->user->role;
@@ -82,7 +84,7 @@ class UserController {
                 if ($role === 'jobseeker') {
                     header("Location: /login");
                 } else if ($role === 'company') {
-                    header("Location: /dashboard");
+                    header("Location: /login");
                 }
                 exit;
             } else {

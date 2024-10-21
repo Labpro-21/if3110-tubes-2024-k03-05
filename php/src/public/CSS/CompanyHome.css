@@ -1,0 +1,269 @@
+/* Sidebar Styling */
+.sidebar {
+    height: fit-content;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Removed width: 50%; to allow content-driven width */
+}
+
+.profile-card {
+    text-align: center;
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.avatar {
+    position: relative;
+    height: 0;
+
+}
+
+.avatar > * {
+    position: absolute;
+    top: 0;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user-name {
+    margin-top: 60px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.user-desc {
+    margin: 5px 0;
+}
+
+.info-section{
+    padding: 0 20px 20px 20px;
+}
+
+.user-location{
+    margin-top: 15px;
+    color: grey;
+}
+
+
+/* FIND JOB BUTTON SECTION */
+
+.job-box {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-box p {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.sortby-btn {
+    margin: 10px 5px;
+    font-weight: 500;
+    color: rgb(78, 78, 78);
+    background-color: white;
+    border: 1px solid rgb(187, 187, 187);
+    padding: 5px 13px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.sortby-btn.active {
+    background-color: #01754f;
+    color: white;
+    border: none;
+}
+
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Default dropdown button styling */
+.dropdown-btn {
+    margin: 10px 5px;
+    font-weight: 500;
+    color: rgb(78, 78, 78);
+    background-color: white;
+    border: 1px solid rgb(187, 187, 187);
+    padding: 5px 13px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Green background when button is active */
+.dropdown-btn.active {
+    background-color: #01754f;
+    color: white;
+    border: none;
+}
+
+
+/* Hidden Dropdown Content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 0.5px solid rgb(187, 187, 187);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Dropdown Content Links */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+/* Hover Effect */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show Dropdown on Button Click */
+.dropdown.show .dropdown-content {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*FEED POST SECTION */
+
+.feed-post{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: white;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* JOB VACANCY SECTION */
+.jobvacancy-container p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.jobvacancy-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.jobvacancy-card:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+.jobvacancy-card img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.jobvacancy-info {
+    flex-grow: 1;
+}
+
+.job-name-date{
+    display: flex;
+    justify-content: space-between;
+}
+
+.job-name-date span{
+    color: grey;
+    font-size: 13px;
+}
+
+.jobvacancy-info a {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+.jobvacancy-info p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: black;
+    font-weight: 400;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.pagination button {
+    margin: 0 4px;
+    padding: 8px 12px;
+    font-weight: bold;
+    border: 1px solid #e3e3e3;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #8a8a8a;
+}
+
+.pagination button:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination button.active {
+    background-color: #0a66c2;
+    font-weight: bold;
+    border: none;
+    color: white;
+}
+
+.pagination button.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    border-color: #e3e3e3;
+}

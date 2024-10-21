@@ -62,6 +62,11 @@ input{
     color: black;
 }
 
+.input-group p{
+    color:#757575;
+    font-size:16px;
+}
+
 input:focus{
     background-color: white;
     outline: none;
@@ -94,25 +99,10 @@ label{
     transition:0.3s ease all;
 }
 
-.forget{
-    text-align: left;
-    font-size:1rem;
-    margin-bottom: 1rem;
-}
-
-.forget a{
-    text-decoration: none;
-    color:#0a66c2;
-    font-weight: 500
-}
-
-.forget a:hover{
-    background-color: #bcdbff;
-    padding: 5px;
-    border-radius: 20px;
-    color:#0a66c2;
-    text-decoration: underline;
-    font-weight: 500;
+.ql-editor {
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 100px;
 }
 
 .role{
@@ -126,53 +116,31 @@ label{
     display: flex;
     justify-content: space-between;
     gap: 1rem; 
-    margin-bottom: 2rem;
+    margin-bottom: 5px;
 }
 
-.role-btn a {
+.role-btn button {
     flex: 1;
-    justify-content: center;
-    display: flex;
-    text-decoration: none;
-}
-
-.role-btn a button,
-.role-btn .role1
-{
-    flex: 1; 
-    font-size: 1.1rem;
     padding: 10px 0;
+    font-size: 1.1rem;
     border-radius: 60px;
-    border: none;
     background-color: #ffffff;
     color: black;
     font-weight: 500;
     cursor: pointer;
+    outline: 1px solid #004182;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    outline: 2px solid #004182;
-    height: 100%;
+    margin-bottom: 10px;
 }
 
-.role-btn .role2{
-    flex: 1; 
-    font-size: 1.1rem;
-    padding: 10px 0;
-    border-radius: 60px;
-    border: none;
+.role-btn button.active {
     background-color: #daebff;
-    color: black;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    outline: 2px solid #004182;
 }
 
-
-.role-btn .role1:hover {
+.role-btn button:hover {
     background-color: #87b3e0;
     transform: scale(1.05);
 }
-
 
 .btn{
     font-size:1.1rem;
@@ -190,6 +158,11 @@ label{
 
 .btn:hover{
     background:#004182;
+}
+
+#editor {
+  height: 130px;
+  width:100%;
 }
 
 .links{

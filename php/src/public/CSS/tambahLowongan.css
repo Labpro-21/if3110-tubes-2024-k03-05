@@ -15,9 +15,7 @@ body{
     padding: 1.5rem;
     margin:50px auto;
     border-radius:10px;
-    /* box-shadow: 0 5px 10px rgba(210, 210, 213, 0.614); */
     border: 0.1px solid rgba(198, 197, 197, 0.681); 
-
 }
 
 .box header{
@@ -58,13 +56,6 @@ input{
     margin-bottom: 20px;
 }
 
-.input-group p{
-    display: block;
-    font-size: 14px;
-    color: #000;
-    margin-bottom: 10px;
-}
-
 input:focus{
     background-color: white;
     outline: none;
@@ -89,6 +80,13 @@ input:focus~label,input:not(:placeholder-shown)~label{
 }
 
 .input-group label {
+    display: block;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.input-group p{
     display: block;
     font-size: 14px;
     color: #000;

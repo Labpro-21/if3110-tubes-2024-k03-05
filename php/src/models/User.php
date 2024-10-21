@@ -2,6 +2,7 @@
 
 namespace models;
 
+use Exception;
 use PDO;
 
 class User {
@@ -51,22 +52,13 @@ class User {
         return null;
     }
 
-    public function register($name, $email, $password, $role) {
+    /**
+     * @throws Exception
+     */
+    public function register($name, $email, $password, $role): bool
+    {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    
         try {
-            $sqlCheckEmail = "SELECT COUNT(*) FROM `user` WHERE email = :email";
-            $stmtCheck = $this->conn->prepare($sqlCheckEmail);
-            $stmtCheck->bindParam(':email', $email);
-            $stmtCheck->execute();
-            $emailCount = $stmtCheck->fetchColumn();
-    
-            if ($emailCount > 0) {
-                throw new \Exception("Email already exists.");
-            }
-    
-            $this->conn->beginTransaction();
-    
             $sql = "INSERT INTO `user` (email, password, role, nama) 
                     VALUES (:email, :password, :role, :nama)";
             $stmt = $this->conn->prepare($sql);

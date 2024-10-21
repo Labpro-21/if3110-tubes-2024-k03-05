@@ -1,3 +1,29 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f3f2ef;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Container Grid */
+.container {
+    display: grid;
+    grid-template-columns: 300px auto; 
+    gap: 40px;
+    width: 80%;
+    margin-top: 20px;
+}
+
+
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
@@ -24,10 +50,11 @@
     height: 0;
 
 }
-
+  
 .avatar > * {
     position: absolute;
     top: 0;
+    left: 0;
     width: 90px;
     height: 90px;
     margin-bottom: 20px;
@@ -49,7 +76,7 @@
 }
 
 .info-section{
-    padding: 0 20px 20px 20px;
+    padding: 0px 20px 20px 20px;
 }
 
 .user-location{
@@ -184,63 +211,63 @@
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
-}
-
-.jobvacancy-card {
+  }
+  
+  .jobvacancy-card {
     display: flex;
     align-items: flex-start;
     padding: 15px;
-}
-
-.jobvacancy-card:not(:last-child) {
+  }
+  
+  .jobvacancy-card:not(:last-child) {
     border-bottom: 1px solid #ddd;
-}
-
-.jobvacancy-card img {
+  }
+  
+  .jobvacancy-card img {
     width: 50px;
     height: 50px;
     margin-right: 15px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-.jobvacancy-info {
+  }
+  
+  .jobvacancy-info {
     flex-grow: 1;
-}
+  }
 
-.job-name-date{
+  .job-name-date{
     display: flex;
     justify-content: space-between;
-}
+  }
 
-.job-name-date span{
+  .job-name-date span{
     color: grey;
     font-size: 13px;
-}
-
-.jobvacancy-info a {
+  }
+  
+  .jobvacancy-info a {
     margin: 0;
     font-size: 18px;
     font-weight: 500;
     color: black;
     text-decoration: none;
-}
-
-.jobvacancy-info p {
+  }
+  
+  .jobvacancy-info p {
     margin: 5px 0;
     font-size: 15px;
     color: black;
     font-weight: 400;
-}
-
-/* Pagination Styles */
-.pagination {
+  }
+  
+  /* Pagination Styles */
+  .pagination {
     display: flex;
     justify-content: center;
     margin-top: 16px;
-}
-
-.pagination button {
+  }
+  
+  .pagination button {
     margin: 0 4px;
     padding: 8px 12px;
     font-weight: bold;
@@ -249,21 +276,22 @@
     border-radius: 10px;
     cursor: pointer;
     color: #8a8a8a;
-}
-
-.pagination button:hover {
+  }
+  
+  .pagination button:hover {
     background-color: #f0f0f0;
-}
-
-.pagination button.active {
+  }
+  
+  .pagination button.active {
     background-color: #0a66c2;
     font-weight: bold;
-    border: none;
+    border-color: none;
     color: white;
-}
-
-.pagination button.disabled {
+  }
+  
+  .pagination button.disabled {
     color: #ccc;
     cursor: not-allowed;
     border-color: #e3e3e3;
-}
+  }
+  

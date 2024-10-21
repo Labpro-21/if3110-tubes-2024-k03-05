@@ -100,5 +100,34 @@ class Job
         return $stmt->execute();
     }
 
+    public function getJobsByUserId($userId, $status = 'all') {
+        if ($status === 'all') {
+            $query = "SELECT l.lowongan_id, p.posisi, l.created_at, u.nama, c.lokasi, l.status
+                      FROM lamaran l
+                      JOIN lowongan p ON l.lowongan_id = p.lowongan_id
+                      JOIN company_detail c ON p.company_id = c.user_id
+                      JOIN user u ON c.user_id = u.user_id
+                      WHERE l.user_id = ?
+                      ORDER BY l.created_at DESC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $userId, PDO::PARAM_INT);
+        } else {
+            $query = "SELECT l.lowongan_id, p.posisi, l.created_at, u.nama, c.lokasi, l.status
+                      FROM lamaran l
+                      JOIN lowongan p ON l.lowongan_id = p.lowongan_id
+                      JOIN company_detail c ON p.company_id = c.user_id
+                      JOIN user u ON c.user_id = u.user_id
+                      WHERE l.user_id = ? AND l.status = ?
+                      ORDER BY l.created_at DESC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $userId, PDO::PARAM_INT);
+            $stmt->bindParam(2, $status, PDO::PARAM_STR);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
 
 }

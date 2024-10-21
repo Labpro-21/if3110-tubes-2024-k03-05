@@ -43,7 +43,7 @@ class UserController {
                 if ($_SESSION['role'] === 'jobseeker') {
                     header("Location: /dashboard");
                 } else if ($_SESSION['role'] === 'company') {
-                    header('Location: /tambahLowongan');
+                    header('Location: /dashboard');
                     exit();
                 }
                 exit;

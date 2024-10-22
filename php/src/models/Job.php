@@ -4,16 +4,24 @@ namespace models;
 
 use PDO;
 
-class Job {
+class Job
+{
     private $conn;
     private $table_name = "jobs";
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function getJobs($limit, $offset) {
-        $query = "SELECT lowongan_id, posisi, company_id FROM lowongan  LIMIT :limit OFFSET :offset";
+    public function getJobs($limit, $offset)
+    {
+        $query = "SELECT lowongan.lowongan_id, posisi, company_id, is_open, COUNT(lamaran.lamaran_id) as applicants
+        FROM lowongan 
+        LEFT JOIN lamaran ON lowongan.lowongan_id = lamaran.lowongan_id
+        GROUP BY lowongan.lowongan_id, posisi, company_id, is_open
+        LIMIT :limit 
+        OFFSET :offset";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -22,9 +30,36 @@ class Job {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTotalJobs() {
+
+    public function getTotalJobs()
+    {
         $query = "SELECT COUNT(*) as total FROM lowongan";
         $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['total'];
+    }
+
+    public function getTotalJobsCompany(int $id)
+    {
+        $query = "SELECT COUNT(*) as total 
+            FROM lowongan 
+            WHERE company_id = :id
+        ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['total'];
+    }
+
+    public function getTotalApplicants($id)
+    {
+        $query = "SELECT COUNT(*) as total FROM lamaran WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -44,8 +79,34 @@ class Job {
         return $stmt->execute();
     }
 
+
+    public function getLowonganByCompanyId(int $user_id, string $category)
+    {
+        if ($category === "all") {
+            $query = "
+            SELECT *
+            FROM lowongan
+            WHERE company_id = :user_id
+        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        } else {
+            $query = "
+            SELECT *
+            FROM lowongan
+            WHERE company_id = :user_id AND jenis_pekerjaan = :category
+        ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':category', $category, PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function getLowonganById($lowonganId) {
-        $query = "SELECT posisi, deskripsi, jenis_pekerjaan, jenis_lokasi FROM lowongan WHERE lowongan_id = ?";
+        $query = "SELECT * FROM lowongan WHERE lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
         $stmt->execute();

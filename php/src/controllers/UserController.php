@@ -62,7 +62,11 @@ class UserController {
         exit;
     }
 
-    public function register() {
+    /**
+     * @throws \Exception
+     */
+    public function register(): void
+    {
         if (isset($_SESSION['user_id'])) {
             header("Location: /dashboard");
             exit;
@@ -95,4 +99,6 @@ class UserController {
             include __DIR__ . '/../views/Register.php';
         }
     }
+
+
 }

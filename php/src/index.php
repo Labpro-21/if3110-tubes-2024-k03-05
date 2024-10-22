@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+$sessionTimeout = 1800;
+
+// Check if the session is set and if it has expired
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $sessionTimeout)) {
+    session_unset();
+    session_destroy();
+    header("Location: /login");
+    exit;
+}
+
+// Update last activity time stamp
+$_SESSION['LAST_ACTIVITY'] = time();
+
 spl_autoload_register(function ($class_name) {
     $file = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
     if (file_exists($file)) {
@@ -10,6 +24,7 @@ spl_autoload_register(function ($class_name) {
 include 'Router.php';
 
 use controllers\JobController;
+use controllers\JobseekerController;
 use controllers\SiteController;
 use controllers\UserController;
 use controllers\CompanyController;
@@ -44,6 +59,9 @@ $router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
 $router->add('GET', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
 $router->add('POST', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
 
+$router->add('GET', '/getAllJobs', [JobController::class, 'getAllJobs']);
+$router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
+
 $router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
 $router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
 
@@ -52,6 +70,7 @@ $router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
 $router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
 $router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
 
+$router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

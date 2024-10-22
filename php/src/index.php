@@ -84,5 +84,9 @@ $router->add('GET', '/deleteLowonganCompany', [JobController::class, 'deleteLowo
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
 
+$router->add('GET', '/detaillamaran', [CompanyController::class, 'detailLamaran']);
+
+$router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
+
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

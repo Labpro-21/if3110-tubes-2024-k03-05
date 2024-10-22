@@ -17,21 +17,37 @@ function handleSubmit(event) {
     return;
   }
 
-  showResponse('Form submitted successfully!', 'success');
+  const formData = new FormData(this);
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        console.log('Response:', this.responseText);
+        alert('Application submitted successfully!');
+      } else {
+        console.error('Error:', this.statusText);
+        alert('Failed to submit application.');
+      }
+    }
+  };
+
+  xhttp.open("POST", "/submitApplication", true); // Adjust the endpoint URL as needed
+  xhttp.send(formData);
 }
 
 // Display selected file names
 document.getElementById('cv').addEventListener('change', function (e) {
-  const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose a file...';
-  document.getElementById('cv-filename').textContent = fileName;
+  document.getElementById('cv-filename').textContent = e.target.files[0] ? e.target.files[0].name : 'Choose a file...';
 });
 
 document.getElementById('video').addEventListener('change', function (e) {
-  const fileName = e.target.files[0] ? e.target.files[0].name : 'Choose a file...';
-  document.getElementById('video-filename').textContent = fileName;
+  document.getElementById('video-filename').textContent = e.target.files[0] ? e.target.files[0].name : 'Choose a file...';
 });
 
 function showResponse(message, type) {
   const responseDiv = document.getElementById('response');
   responseDiv.textContent = message;
 }
+
+

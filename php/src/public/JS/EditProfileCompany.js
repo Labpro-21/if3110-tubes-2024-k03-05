@@ -10,21 +10,21 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'snow',
     });
 
-    const descriptionInput = document.getElementById('descriptionInput');
+    const aboutInput = document.getElementById('aboutInput');
     const form = document.querySelector('form');
 
-    quill.root.innerHTML = descriptionInput.value; 
+    quill.root.innerHTML = aboutInput.value; 
 
     form.addEventListener('submit', function(event) {
-        descriptionInput.value = quill.root.innerHTML; 
+        aboutInput.value = quill.root.innerHTML; 
 
-        if (!descriptionInput.value.trim()) {
-            alert('Empty description!');
-            event.preventDefault();
+        if (!aboutInput.value.trim()) {
+            alert('Empty About!');
+            event.preventDefault(); 
         }
     });
 
     quill.on('text-change', function() {
-        descriptionInput.value = quill.root.innerHTML; 
+        aboutInput.value = quill.root.innerHTML; 
     });
 });

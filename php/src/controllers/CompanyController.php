@@ -62,8 +62,8 @@ class CompanyController {
             exit();
         }
     
-        if (isset($_GET['lowonganId'])) {
-            $lowonganId = (int)$_GET['lowonganId']; 
+        if (isset($_GET['lowongan_id'])) {
+            $lowonganId = (int)$_GET['lowongan_id']; 
         } else {
             header("Location: /dashboard");
             exit();

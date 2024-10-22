@@ -5,6 +5,8 @@ namespace controllers;
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Job.php';
 
+use DateTime;
+
 use config\Database;
 use models\Job;
 
@@ -51,6 +53,61 @@ class JobController {
         $totalApplicants = $this->job->getTotalApplicants($id);
 
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';
+    }
+
+    public function detailLowonganCompany(): void
+    {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+    
+        if (isset($_GET['lowonganId'])) {
+            $lowonganId = (int)$_GET['lowonganId']; 
+        } else {
+            header("Location: /dashboard");
+            exit();
+        }
+
+        $jobData = $this->job->getDetailLowonganById($lowonganId);
+
+        
+        if (!$jobData) {
+            header("Location: /dashboard");
+            exit();
+        }
+        $daysAgo = (new DateTime())->diff(new DateTime($jobData['created_at']))->days;
+        $totalApplicants = $this->job->getTotalApplicants($lowonganId);
+        $applicants = $this->job->getApplicantsByLowonganId($lowonganId);
+    
+        include __DIR__ . '/../views/DetailLowonganCompany.php';
+    }
+
+    public function closeLowonganCompany(): void
+    {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+        
+        $userId = (int)$_SESSION['user_id'];
+
+        if (isset($_GET['lowonganId'])) {
+            $lowonganId = (int)$_GET['lowonganId']; 
+        } else {
+            header("Location: /dashboard");
+            exit();
+        }
+
+        $berhasil = $this->job->closeLowonganCompany($lowonganId);
+
+        if ($berhasil) {
+            header("Location: /profileCompany?user_id=$userId");
+            exit();
+        } else {
+            header("Location: /dashboard?error=failed_to_close");
+            exit();
+        }
     }
 
 }

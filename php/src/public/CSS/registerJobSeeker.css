@@ -11,7 +11,7 @@ body{
 
 .container{
     background-color: white;
-    width: 352px;
+    width: 450px;
     padding: 1.5rem;
     margin:50px auto;
     border-radius:10px;
@@ -44,7 +44,7 @@ input{
     width:100%;
     background-color: white;
     border:1px solid #757575;
-    border-radius: 4px;
+    border-radius: 10px;
     padding :12px;
     font-size:16px;
     box-sizing:border-box;
@@ -113,6 +113,64 @@ label{
     color:#0a66c2;
     text-decoration: underline;
     font-weight: 500;
+}
+
+.role{
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.role-btn {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem; 
+    margin-bottom: 2rem;
+}
+
+.role-btn a {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+    text-decoration: none;
+}
+
+.role-btn a button,
+.role-btn .role2
+{
+    flex: 1; 
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-radius: 60px;
+    border: none;
+    background-color: #ffffff;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    outline: 2px solid #004182;
+    height: 100%;
+}
+
+.role-btn .role1{
+    flex: 1; 
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-radius: 60px;
+    border: none;
+    background-color: #daebff;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    outline: 2px solid #004182;
+}
+
+
+.role-btn .role2:hover {
+    background-color: #87b3e0;
+    transform: scale(1.05);
 }
 
 .btn{

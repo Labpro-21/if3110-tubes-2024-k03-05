@@ -79,7 +79,8 @@ input[type="email"] {
 
 
 
-button {
+
+/* button {
     width: 100%;
     padding: 10px;
     background-color: #0a66c2;
@@ -92,6 +93,28 @@ button {
 }
 
 button:hover {
+    background-color: #bdd5ee;
+    color: #0a66c2;
+    font-weight: 500;
+} */
+
+.add-button {
+    margin-bottom: 10px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0a66c2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.btn:hover {
     background-color: #bdd5ee;
     color: #0a66c2;
     font-weight: 500;

@@ -8,15 +8,18 @@ include __DIR__ . '/../models/Job.php';
 
 use config\Database;
 use models\Job;
+use models\Company;
 
 class CompanyController {
     private $conn;
     private $job;
+    private $company;
 
     public function __construct() {
         $database = new Database();
-        $this->conn = $database->getConnection();
-        $this->job = new Job($this->conn);
+        $this->conn = $database->getConnection(); 
+        $this->job = new Job($this->conn); 
+        $this->company = new Company($this->conn); 
     }
 
     public function getCompanyDetails($companyId) {
@@ -83,7 +86,7 @@ class CompanyController {
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $position = $_POST['Position'];
-            $description = htmlspecialchars(trim($_POST['description']), ENT_QUOTES, 'UTF-8');
+            $description = $_POST['description'];
             $type = $_POST['Type'];
             $workLocation = $_POST['Work'];
             $isOpen = 1; 
@@ -101,6 +104,53 @@ class CompanyController {
         include __DIR__ . '/../views/editLowongan.php';
     }
 
+    public function ambilProfile(): void {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+    
+        if (isset($_SESSION['user_id'])) {
+            $userId = (int)$_SESSION['user_id']; 
+        } else {
+            echo'masuk';
+            header("Location: /dashboard");
+            exit();
+        }
+
+        $companyData = $this->company->getProfileById($userId);
+        
+        if (!$companyData) {
+            header("Location: /dashboard");
+            exit();
+        }
+    
+        include __DIR__ ."/../views/EditProfileCompany.php";
+    }
+
+    public function editProfile(): void {
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $about = $_POST['about'];
+            $email = $_POST['email'];
+            $location = $_POST['location'];
+    
+            if (!empty($name) && !empty($about) && !empty($email) && !empty($location)) {
+                $userId = (int)$_SESSION['user_id']; 
+                $this->company->editProfile($userId, $name, $about, $email, $location);
+                header('Location: /profileCompany');
+                exit();
+            } else {
+                $error = "All fields are required.";
+            }
+        }
+    
+        include __DIR__ . '/../views/EditProfileCompany.php';
+    }
+
+    
+}
 
     public function dashboard(): void
     {

@@ -67,6 +67,9 @@ $router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']
 
 $router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
 
+$router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
+$router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
+
 $router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
 
 $path = $_SERVER['REQUEST_URI'];

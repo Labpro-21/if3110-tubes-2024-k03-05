@@ -6,7 +6,8 @@ class Router {
 
     private array $routes = [];
 
-    public function add(string $method, string $path, array $controller) {
+    public function add(string $method, string $path, array $controller): void
+    {
         $path = $this->normalizePath($path);
         $this->routes[] = [
             'path' => $path,
@@ -23,8 +24,10 @@ class Router {
 
     public function dispatch(string $path): void
     {
-        $path = $this->normalizePath($path);
+        $parsedUrl = parse_url($path);
+        $path = $this->normalizePath($parsedUrl['path']);
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
+
         foreach ($this->routes as $route) {
             if (
                 !preg_match("#^{$route['path']}$#", $path) ||

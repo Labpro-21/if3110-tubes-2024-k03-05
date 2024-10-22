@@ -1,17 +1,4 @@
-const dropdownBtn = document.querySelector('.dropdown-btn');
-
-dropdownBtn.addEventListener('click', function () {
-  const dropdown = this.parentElement;
-  dropdown.classList.toggle('show');
-  this.classList.toggle('active'); // Toggle green background
-});
-
-window.addEventListener('click', function (e) {
-  if (!e.target.matches('.dropdown-btn')) {
-    document.querySelectorAll('.dropdown').forEach(dropdown => dropdown.classList.remove('show'));
-    dropdownBtn.classList.remove('active'); // Remove background when clicking outside
-  }
-});
+const dropdownBtn = document.querySelector('.dropdown-btn');;
 
 const linksEL = document.querySelectorAll('.dropdown-content a');
 
@@ -21,8 +8,8 @@ linksEL.forEach(link => {
 
     // Filter job vacancies by category
     filteredData = category === 'All'
-      ? jobvacancyData // Show all if 'All' is selected
-      : jobvacancyData.filter(data => data.jenisJob.toLowerCase() === category);
+      ? requestAllJobs()
+      :
 
     currentPage = 1; // Reset to the first page
 
@@ -30,3 +17,29 @@ linksEL.forEach(link => {
     generatePagination(filteredData);
   });
 });
+
+function requestAllJobs(){
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      return this.responseText;
+    }
+  };
+
+  xhttp.open("GET", "/getAllJobs", true);
+  xhttp.send();
+}
+
+function requestCategoryJobs(category){
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      return this.responseText;
+    }
+  };
+
+  xhttp.open("GET", `/getCategoryJobs?category=${category}`, true);
+  xhttp.send();
+}

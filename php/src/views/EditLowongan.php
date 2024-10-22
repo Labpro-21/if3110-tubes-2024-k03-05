@@ -7,8 +7,6 @@
     <title>Edit Lowongan</title>
     <link rel="stylesheet" href="../public/CSS/editLowongan.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="../public/JS/EditLowongan.js"></script>
 </head>
 
 <body>
@@ -54,6 +52,8 @@
         </div>
     </div>
 
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="../public/JS/EditLowongan.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
 </body>

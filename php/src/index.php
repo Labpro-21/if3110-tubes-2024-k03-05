@@ -28,6 +28,7 @@ use controllers\JobseekerController;
 use controllers\SiteController;
 use controllers\UserController;
 use controllers\CompanyController;
+use controllers\LamaranController;
 
 $router = new Router();
 
@@ -65,11 +66,21 @@ $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs'
 $router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
 $router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
 
+$router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
+
+$router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
+$router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
+
 $router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
+
 
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
 $router->add('GET', '/closeLowonganCompany', [JobController::class, 'closeLowonganCompany']);
 $router->add('GET', '/deleteLowonganCompany', [JobController::class, 'deleteLowonganCompany']);
+
+$router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
+$router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
+
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

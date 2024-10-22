@@ -24,4 +24,9 @@ class Database
         }
         return $this->conn;
     }
+
+    public function prepare(string $query)
+    {
+        return $this->conn->prepare($query);
+    }
 }

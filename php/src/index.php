@@ -28,6 +28,7 @@ use controllers\JobseekerController;
 use controllers\SiteController;
 use controllers\UserController;
 use controllers\CompanyController;
+use controllers\LamaranController;
 
 $router = new Router();
 
@@ -71,6 +72,9 @@ $router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProf
 $router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
 
 $router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
+
+$router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
+$router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

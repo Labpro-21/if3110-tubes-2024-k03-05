@@ -149,8 +149,6 @@ class CompanyController {
         include __DIR__ . '/../views/EditProfileCompany.php';
     }
 
-    
-}
 
     public function dashboard(): void
     {
@@ -182,5 +180,19 @@ class CompanyController {
         ];
 
         include __DIR__ . '/../views/CompanyHome.php';
+    }
+
+
+    public function profile(): void
+    {
+        $companyData = $this->company->getProfileById($_SESSION['user_id']);
+
+        if (!$companyData) {
+            echo "Company not found";
+        }
+
+        $companyJobs = $this->job->getLowonganByCompanyId($_SESSION['user_id'], 'all');
+
+        include __DIR__ . "/../views/ProfileCompany.php";
     }
 }

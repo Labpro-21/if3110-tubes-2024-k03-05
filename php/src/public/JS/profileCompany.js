@@ -2,8 +2,8 @@
 
 // Dummy data
 const dummyData = {
-    bannerSrc: "../images/linkedinbanner.jpg",
-    photoSrc: "../images/paper.id.png",
+    bannerSrc: "../public/images/linkedinbanner.jpg",
+    photoSrc: "../public/images/paper.id.png",
     name: "Paper.id",
     tagline: "Streamline Your Business Invoicing and Payments Effortlessly with Paper.id and #SwipeUpYourLife!",
     location: "New York, USA",

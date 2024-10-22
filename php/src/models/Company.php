@@ -4,7 +4,8 @@ namespace models;
 
 use PDO;
 
-class Company {
+class Company
+{
     private $conn;
 
     public $id;
@@ -12,12 +13,16 @@ class Company {
     public $email;
     public $role;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function getProfileById($userId) {
-        $query = "SELECT nama, about, lokasi, email FROM user NATURAL JOIN company_detail WHERE user_id = ?";
+    public function getProfileById($userId)
+    {
+        $query = "SELECT *
+                  FROM company_detail
+                WHERE user_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $userId, PDO::PARAM_INT);
         $stmt->execute();
@@ -25,38 +30,37 @@ class Company {
     }
 
     public function editProfile($userId, $name, $about, $email, $location)
-{
-    try {
-        $this->conn->beginTransaction();
+    {
+        try {
+            $this->conn->beginTransaction();
 
-        $queryUser = "UPDATE user 
+            $queryUser = "UPDATE user 
                       SET nama = ?, email = ?
                       WHERE user_id = ?";
-        $stmtUser = $this->conn->prepare($queryUser);
-        $stmtUser->bindParam(1, $name, PDO::PARAM_STR);
-        $stmtUser->bindParam(2, $email, PDO::PARAM_STR);
-        $stmtUser->bindParam(3, $userId, PDO::PARAM_INT);
-        $stmtUser->execute();
+            $stmtUser = $this->conn->prepare($queryUser);
+            $stmtUser->bindParam(1, $name, PDO::PARAM_STR);
+            $stmtUser->bindParam(2, $email, PDO::PARAM_STR);
+            $stmtUser->bindParam(3, $userId, PDO::PARAM_INT);
+            $stmtUser->execute();
 
-        // Query untuk mengupdate data company_detail
-        $queryCompanyDetail = "UPDATE company_detail 
+            // Query untuk mengupdate data company_detail
+            $queryCompanyDetail = "UPDATE company_detail 
                                SET about = ?, lokasi = ?
                                WHERE user_id = ?";
-        $stmtCompanyDetail = $this->conn->prepare($queryCompanyDetail);
-        $stmtCompanyDetail->bindParam(1, $about, PDO::PARAM_STR);
-        $stmtCompanyDetail->bindParam(2, $location, PDO::PARAM_STR);
-        $stmtCompanyDetail->bindParam(3, $userId, PDO::PARAM_INT);
-        $stmtCompanyDetail->execute();
+            $stmtCompanyDetail = $this->conn->prepare($queryCompanyDetail);
+            $stmtCompanyDetail->bindParam(1, $about, PDO::PARAM_STR);
+            $stmtCompanyDetail->bindParam(2, $location, PDO::PARAM_STR);
+            $stmtCompanyDetail->bindParam(3, $userId, PDO::PARAM_INT);
+            $stmtCompanyDetail->execute();
 
-        $this->conn->commit();
-        return true;
-    } catch (Exception $e) {
-        $this->conn->rollBack();
-        echo "Failed: " . $e->getMessage();
-        return false;
+            $this->conn->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            echo "Failed: " . $e->getMessage();
+            return false;
+        }
     }
-}
 
-    
-    
+
 }

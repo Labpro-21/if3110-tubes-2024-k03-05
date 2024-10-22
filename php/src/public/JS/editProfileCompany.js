@@ -1,16 +1,30 @@
-// Initialize Quill editor
-const quill = new Quill('#editor', {
-    modules: {
-        toolbar: [
-            ['bold', 'italic'],
-            ['link', 'blockquote', 'code-block'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
-        ],
-    },
-    theme: 'snow',
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const quill = new Quill('#editor', {
+        modules: {
+            toolbar: [
+                ['bold', 'italic'],
+                ['link', 'blockquote', 'code-block'],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+            ],
+        },
+        theme: 'snow',
+    });
 
-companyForm.addEventListener('submit', function(event) {
     const aboutInput = document.getElementById('aboutInput');
-    aboutInput.value = quill.root.innerHTML; 
+    const form = document.querySelector('form');
+
+    quill.root.innerHTML = aboutInput.value; 
+
+    form.addEventListener('submit', function(event) {
+        aboutInput.value = quill.root.innerHTML; 
+
+        if (!aboutInput.value.trim()) {
+            alert('Empty About!');
+            event.preventDefault(); 
+        }
+    });
+
+    quill.on('text-change', function() {
+        aboutInput.value = quill.root.innerHTML; 
+    });
 });

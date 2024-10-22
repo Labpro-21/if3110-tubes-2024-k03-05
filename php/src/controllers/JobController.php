@@ -92,8 +92,8 @@ class JobController {
         
         $userId = (int)$_SESSION['user_id'];
 
-        if (isset($_GET['lowonganId'])) {
-            $lowonganId = (int)$_GET['lowonganId']; 
+        if (isset($_GET['lowongan_id'])) {
+            $lowonganId = (int)$_GET['lowongan_id']; 
         } else {
             header("Location: /dashboard");
             exit();
@@ -106,6 +106,33 @@ class JobController {
             exit();
         } else {
             header("Location: /dashboard?error=failed_to_close");
+            exit();
+        }
+    }
+    
+    public function deleteLowonganCompany(): void
+    {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+        
+        $userId = (int)$_SESSION['user_id'];
+
+        if (isset($_GET['lowongan_id'])) {
+            $lowonganId = (int)$_GET['lowongan_id']; 
+        } else {
+            header("Location: /dashboard");
+            exit();
+        }
+
+        $berhasil = $this->job->deleteLowonganCompany($lowonganId);
+
+        if ($berhasil) {
+            header("Location: /profileCompany?user_id=$userId>");
+            exit();
+        } else {
+            header("Location: /dashboard?error=failed_to_delete");
             exit();
         }
     }

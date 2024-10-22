@@ -69,6 +69,7 @@ $router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJob
 
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
 $router->add('GET', '/closeLowonganCompany', [JobController::class, 'closeLowonganCompany']);
+$router->add('GET', '/deleteLowonganCompany', [JobController::class, 'deleteLowonganCompany']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

@@ -135,5 +135,19 @@ class Job
         }
     }
 
+    public function deleteLowonganCompany(int $lowonganId): bool
+    {
+        try {
+            $query = "DELETE FROM lowongan WHERE lowongan_id = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Failed to delete lowongan: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
 
 }

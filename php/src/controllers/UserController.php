@@ -21,7 +21,7 @@ class UserController {
 
     public function home(): void
     {
-        echo "Welcome to Landing Page";
+        include __DIR__ . '/../views/LandingPage.php';
     }
 
     public function login(): void

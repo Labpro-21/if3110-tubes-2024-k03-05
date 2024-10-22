@@ -3,6 +3,7 @@
 namespace models;
 
 use PDO;
+use PDOException;
 
 class Job
 {
@@ -129,6 +130,56 @@ class Job
         return $stmt->execute();
     }
 
+
+    public function getDetailLowonganById($lowonganId) {
+        $query = "SELECT l.posisi as posisi, l.deskripsi as deskripsi, l.jenis_pekerjaan as jenis_pekerjaan, l.jenis_lokasi as jenis_lokasi, l.created_at as created_at, u.user_id as user_id, c.lokasi as lokasi, u.nama as nama
+        FROM lowongan l
+        JOIN company_detail c ON c.user_id = l.company_id
+        JOIN user u ON u.user_id = c.user_id
+        WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getApplicantsByLowonganId($lowonganId) {
+        $query = "SELECT l.lamaran_id, u.nama, l.status FROM lamaran l
+                  JOIN user u ON l.user_id = u.user_id
+                  WHERE l.lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function closeLowonganCompany(int $lowonganId): bool
+    {
+        try {
+            $query = "UPDATE lowongan SET is_open = 0 WHERE lowongan_id = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function deleteLowonganCompany(int $lowonganId): bool
+    {
+        try {
+            $query = "DELETE FROM lowongan WHERE lowongan_id = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Failed to delete lowongan: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+
     public function getJobsByUserId($userId, $status = 'all') {
         if ($status === 'all') {
             $query = "SELECT l.lowongan_id, p.posisi, l.created_at, u.nama, c.lokasi, l.status
@@ -157,6 +208,6 @@ class Job
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    
+   
 
 }

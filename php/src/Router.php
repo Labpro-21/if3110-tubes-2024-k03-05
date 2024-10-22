@@ -24,8 +24,10 @@ class Router {
 
     public function dispatch(string $path): void
     {
-        $path = $this->normalizePath($path);
+        $parsedUrl = parse_url($path);
+        $path = $this->normalizePath($parsedUrl['path']);
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
+
         foreach ($this->routes as $route) {
             if (
                 !preg_match("#^{$route['path']}$#", $path) ||

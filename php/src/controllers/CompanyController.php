@@ -41,5 +41,14 @@ class CompanyController {
         }
         include __DIR__ . '/../views/TambahLowongan.php';
     }
+
+    public function dashboard(): void {
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+
+        echo "Welcome to Company Dashboard";
+    }
 }
 

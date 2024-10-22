@@ -18,7 +18,8 @@ class JobController {
         $this->job = new Job($this->db);
     }
 
-    public function getJobs() {
+    public function getJobs(): void
+    {
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
@@ -28,4 +29,21 @@ class JobController {
         header('Content-Type: application/json');
         echo json_encode($jobs);
     }
+
+    public function getCategoryJobs(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $category = isset($_GET['limit']) ? $_GET['Category'] : "ALL";
+
+            $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $offset = ($page - 1) * $limit;
+            $jobs = $this->job->getJobsByCategory($category);
+
+            header('Content-Type: application/json');
+            echo json_encode($jobs);
+        }
+    }
+
+    
 }

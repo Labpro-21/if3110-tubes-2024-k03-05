@@ -1,12 +1,11 @@
 const cardsPerPage = 5;
-let currentPage = 1;
+let currentPage = 1; // Track the current page
 
 function generatePagination(data) {
     const pagination = document.getElementById('pagination');
-    pagination.innerHTML = '';
+    pagination.innerHTML = ''; // Clear previous pagination buttons
 
-    const totalPages = Math.ceil(data.length / cardsPerPage);
-    const maxVisiblePages = 5;
+    const totalPages = Math.ceil(data.length / cardsPerPage); // Calculate pages from filtered data
 
     const createButton = (text, disabled = false, active = false) => {
         const button = document.createElement('button');
@@ -22,42 +21,39 @@ function generatePagination(data) {
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            generateJobVacancyCards(filteredData);
-            generatePagination(filteredData);
+            updatePageInUrl(currentPage);
         }
     });
     pagination.appendChild(prevButton);
 
-
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, currentPage + 2);
-
-    if (startPage > 1) pagination.appendChild(createButton('1'));
-    if (startPage > 2) pagination.appendChild(createButton('...'));
-
-    for (let i = startPage; i <= endPage; i++) {
+    // Page Numbers
+    for (let i = 1; i <= totalPages; i++) {
         const pageButton = createButton(i, false, i === currentPage);
         pageButton.addEventListener('click', () => {
             currentPage = i;
-            generateJobVacancyCards(filteredData);
-            generatePagination(filteredData);
+            updatePageInUrl(currentPage);
         });
         pagination.appendChild(pageButton);
     }
 
-    if (endPage < totalPages - 1) pagination.appendChild(createButton('...'));
-    if (endPage < totalPages) pagination.appendChild(createButton(totalPages));
-
+    // Next Button
     const nextButton = createButton('>', currentPage === totalPages);
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;
-            generateJobVacancyCards(filteredData);
-            generatePagination(filteredData);
+            updatePageInUrl(currentPage);
         }
     });
     pagination.appendChild(nextButton);
 }
+
+function updatePageInUrl(page) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page);
+    window.location.href = url.toString();
+}
+
+
 
 
   

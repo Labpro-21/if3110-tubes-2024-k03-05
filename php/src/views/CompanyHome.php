@@ -45,6 +45,7 @@
                         <a href="#" data-id="Internship">Internship</a>
                     </div>
                 </div>
+
                 <button class="sortby-btn">Sort by Date</button>
             </div>
         </section>
@@ -53,7 +54,7 @@
             <div class="jobvacancy-container">
                 <p>All posted Job</p>
                 <div id="jobvacancy-cards">
-                    <?php foreach ($jobs as $item): ?>
+                    <?php foreach ($parsedJobs as $item): ?>
                         <div class="job-card">
 <!--                            <img src="--><?php //= htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8') ?><!--" alt="--><?php //= htmlspecialchars($item['posisi'], ENT_QUOTES, 'UTF-8') ?><!--">-->
                             <div class="jobvacancy-info">
@@ -67,7 +68,10 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <div class="pagination" id="pagination">
+                <div class="pagination">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <button onclick="updatePageInUrl(<?= $i; ?>)" class="<?= $i === $page ? 'active' : ''; ?>"><?= $i; ?></button>
+                    <?php endfor; ?>
                 </div>
             </div>
         </section>
@@ -77,8 +81,6 @@
 
 <script src="../public/JS/filterBtnHomepage.js"></script>
 <script src="../public/JS/sortbyBtnHomepage.js"></script>
-<script src="../public/JS/jobVacancyPagination.js">
-    generatePagination(<?= $jobs ?>);
-</script>
+<script src="../public/JS/pagination.js"></script>
 </body>
 </html>

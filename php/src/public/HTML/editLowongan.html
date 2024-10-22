@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Lowongan</title>
+    <link rel="stylesheet" href="../CSS/editLowongan.css">
+</head>
+<body>
+    <div class="container" id="signin">
+        <div class="box form-box">
+            <header>Edit Job Vacancy</header>
+            <div class="divider"></div>
+            <form action="" method="post">
+                <div class="input-group">
+                    <label for="position">Position</label>
+                    <input type="text" name="Position" id="position" placeholder="Enter Position" required>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <input type="text" name="Description" id="description" placeholder="Enter Description" required>
+                </div>
+                <div class="input-group">
+                    <label for="type">Type</label>
+                    <select name="Type" id="type" required>
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="internship">Internship</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="full-time">Full-time</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="work">Work Location</label>
+                    <select name="Work" id="work" required>
+                        <option value="" disabled selected>Select Work Location</option>
+                        <option value="on-site">On-Site</option>
+                        <option value="remote">Remote</option>
+                        <option value="hybrid">Hybrid</option>
+                    </select>
+                </div>
+                
+                <div class="add-button">
+                    <input type="submit" class="btn" value="Save" name="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

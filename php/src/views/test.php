@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Homepage</title>
-
-    <link rel="stylesheet" type="text/css" href="../public/CSS/CompanyHome.css">
-    <link rel="stylesheet" type="text/css" href="../public/CSS/companyHomepageNavbar.css">
+    <title>Jobs Homepage</title>
+    <link rel="stylesheet" href="../public/CSS/jobsHomepage.css">
+    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
+
 <body>
-    <?php include 'companyHomepageNavbar.php'; ?>
+    <?php include 'jobsHomepageNavbar.php'; ?>
     <div class="container">
-        <!-- Sidebar Profile -->
         <div class="sidebar">
             <div class="profile-card">
-                <img src="../public/images/linkedinbanner.jpg" class="banner" alt="Banner">
+                <img src="/public/images/linkedinbanner.jpg" class="banner" alt="Banner">
                 <div class="avatar">
-                    <img src="../public/images/profile-img.jpg" alt="Profile Picture">
+                    <img src="/public/images/profile-img.jpg" alt="Profile Picture">
                 </div>
                 <div class="info-section">
                     <p class="user-name"><?= $details['name']?></p>
-                    <p class="user-desc"><?= $details['about']?></p>
-                    <p class="user-location"><?= $details['location']?></p>
+                    <p class="user-desc"><?= $details['email']?></p>
+                    <p class="user-location"><?= ucfirst($details['role'])?></p>
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
         <main class="job">
             <section class="job-box">
                 <p>Find Job</p>
                 <div class="job-options">
                     <div class="dropdown">
                         <button class="dropdown-btn">
-                            Filter by
+                            Filter Job Type
                             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                                style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="m7 10l5 5l5-5z"/>
-                            </svg>
+                             style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m7 10l5 5l5-5z"/>
+                        </svg>
                         </button>
                         <div class="dropdown-content">
                             <a href="#" data-id="All">All</a>
@@ -79,7 +78,7 @@
 
             <section class="feed-post">
                 <div class="jobvacancy-container">
-                    <p>All posted Job</p>
+                    <p>Available Job Vacancies</p>
                     <div id="jobvacancy-cards">
                         <?php foreach ($parsedJobs as $item): ?>
                             <div class="job-card">
@@ -87,10 +86,14 @@
                                 <div class="jobvacancy-info">
                                     <div class="job-name-date">
                                         <a href="/detailLowongan<?= $item['lowongan_id']?>"><?= htmlspecialchars($item['posisi'], ENT_QUOTES, 'UTF-8') ?></a>
-                                        <span><?= date('F j, Y', strtotime($item['created_at'])) ?></span>
+                                        <span>Posted on <?= date('F j, Y', strtotime($item['created_at'])) ?></span>
                                     </div>
-                                    <p><?= htmlspecialchars($item['deskripsi'], ENT_QUOTES, 'UTF-8') ?></p>
-                                    <p><?= htmlspecialchars($item['jenis_pekerjaan'], ENT_QUOTES, 'UTF-8') ?> <span>•</span> <?= htmlspecialchars($item['jenis_lokasi'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <div class="comp">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.6 8.4v4.5a2.7 2.7 0 1 0 5.4 0V12a9 9 0 1 0-3.6 7.2M15.6 12a3.6 3.6 0 1 1-7.2 0a3.6 3.6 0 0 1 7.2 0" color="currentColor"/></svg>
+                                        <p class="comp-name"><?= htmlspecialchars($item['nama'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    </div>
+                                    <p class="job-desc"><?= htmlspecialchars($item['deskripsi'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <p class="job-loc"><?= ucfirst(htmlspecialchars($item['jenis_pekerjaan'], ENT_QUOTES, 'UTF-8')) ?> <span>•</span> <?= ucfirst(htmlspecialchars($item['jenis_lokasi'], ENT_QUOTES, 'UTF-8')) ?></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -148,8 +151,7 @@
             </section>
         </main>
     </div>
-
-
+    <script src="../public/JS/jobVacancyPagination.js"></script>
     <script src="../public/JS/filterBtnHomepage.js"></script>
     <script src="../public/JS/sortbyBtnHomepage.js"></script>
     <script src="../public/JS/pagination.js"></script>

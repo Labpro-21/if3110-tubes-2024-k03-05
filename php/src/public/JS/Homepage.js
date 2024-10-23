@@ -125,6 +125,7 @@ function updatePagination(totalPages, currentPage) {
 document.getElementById('searchInput').addEventListener('input', debounce(() => {
     const searchTerm = document.getElementById('searchInput').value;
     params.set('search', searchTerm);
+    params.set('page', '1');
     fetchJobs(params);
 }, 500));
 
@@ -138,6 +139,7 @@ linksEL.forEach(link => {
         e.preventDefault();
         const category = e.target.dataset.id.toLowerCase();
         params.set('category', category);
+        params.set('page', '1');
         fetchJobs(params);
     });
 });
@@ -151,6 +153,7 @@ linksLocEL.forEach(link => {
         e.preventDefault();
         const category = e.target.dataset.id.toLowerCase();
         params.set('categoryLoc', category);
+        params.set('page', '1');
         fetchJobs(params);
     });
 });
@@ -163,6 +166,7 @@ linkSortEL.forEach(link => {
         e.preventDefault();
         const category = e.target.dataset.id.toLowerCase();
         params.set('categorySort', category);
+        params.set('page', '1');
         fetchJobs(params);
     });
 });

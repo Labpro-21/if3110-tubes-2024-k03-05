@@ -86,7 +86,10 @@ function updatePagination(totalPages, currentPage) {
 
     for (let i = startPage; i <= endPage; i++) {
         const pageButton = createButton(i, i === currentPage);
-        pageButton.onclick = () => fetchJobs({page: i});
+        pageButton.onclick = () => {
+            params.set('page', i.toString());
+            fetchJobs(params);
+        };
         pagination.appendChild(pageButton);
     }
 

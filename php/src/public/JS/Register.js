@@ -140,7 +140,7 @@ function onsubmit() {
             if (this.status === 201) {
                 showToast("Registration successful", "success");
                 setTimeout(() => {
-                    window.location.href = "http://localhost:80/dashboard";
+                    window.location.href = "http://localhost:80/login";
                 }, 2000);
             } else if (this.status === 400) {
                 showToast("Email already exists", "error");

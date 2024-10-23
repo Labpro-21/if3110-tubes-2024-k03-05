@@ -1,0 +1,97 @@
+/* Navbar Styling */
+nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 200px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul{
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-links li {
+    color: rgb(102, 101, 101);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Ensure the pseudo-element is positioned relative to the li */
+}
+
+.nav-links li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2.5px; /* Adjust as needed */
+    bottom: 0;
+    left: 0;
+    background-color: black; /* Adjust as needed */
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links li:hover {
+    color: black;
+}
+
+.nav-links li:hover::after {
+    width: 100%;
+}
+
+
+.nav-links li a{
+    text-decoration: none;
+    color: rgb(102, 101, 101);
+    font-size: 12px;
+    font-weight: 450;
+    margin-bottom: 5px;
+}
+
+
+.nav-links li a{
+  color: black;
+}
+
+.logo-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-search img {
+    width: 38px;
+    height: 38px;
+    border-radius: 3px;
+}
+
+.search-bar{
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input{
+  border: none;
+  padding: 12px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  color: black;
+  font-weight: 450;
+  width: 300px;
+}
+
+.search-bar button{
+  padding: 11px;
+  background-color: rgb(246, 246, 246);
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}

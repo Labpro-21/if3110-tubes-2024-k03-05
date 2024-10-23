@@ -235,4 +235,31 @@ class CompanyController
         }
         return json_encode(['message' => 'Method not allowed']);
     }
+
+
+    public function getFilteredJobsComp(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
+        $category = $_GET['category'] ?? 'all';
+        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
+        $categorySort = $_GET['categorySort'] ?? '';
+        $searchTerm = $_GET['search'] ?? '';
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 5;
+        $offset = ($page - 1) * $limit;
+
+        $jobs = $this->job->getJobsByCategoryId($_SESSION['user_id'], $category, $categoryLoc, $categorySort, $searchTerm);
+        $totalJobs = count($jobs);
+        $totalPages = ceil($totalJobs / $limit);
+
+        $jobs = array_slice($jobs, $offset, $limit);
+
+        header('Content-Type: application/json');
+        echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
+    }
 }

@@ -16,7 +16,7 @@
 
         <p>Stay updated on your professional world.</p>
 
-        <form action="/login" method="post">
+        <form >
             <div class="input-group">
                 <input type="email" name="email" id="email" placeholder="Email" required>
                 <label for="email">Email</label>
@@ -29,6 +29,7 @@
             <input type="submit" class="btn" value="Sign in" name="Sign In">
         </form>
     </div>
+    <div id="toast" class="toast"></div>
 </div>
 <div class="register">
     <div class="links">
@@ -36,6 +37,6 @@
         <a href="/register">Join Now</a>
     </div>
 </div>
-
+<script src="../public/JS/Login.js"></script>
 </body>
 </html>

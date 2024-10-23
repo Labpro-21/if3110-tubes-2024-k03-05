@@ -71,4 +71,9 @@ class JobseekerController
         // Include the view
         include __DIR__ . '/../views/jobsHomepage.php';
     }
+
+    public function lamaran()
+    {
+        include __DIR__ . '/../views/LamaranJobseeker.php';
+    }
 }

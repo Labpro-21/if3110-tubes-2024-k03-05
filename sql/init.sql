@@ -48,6 +48,9 @@ CREATE TABLE `attachment_lowongan`
     `file_path`     varchar(255) NOT NULL,
     PRIMARY KEY (`attachment_id`),
     CONSTRAINT fk_attachment_lowongan_lowongan FOREIGN KEY (`lowongan_id`) REFERENCES `lowongan`(`lowongan_id`)
+        REFERENCES lowongan(lowongan_id) 
+        ON DELETE CASCADE 
+        ON UPDATE RESTRICT
 );
 
 CREATE TABLE `lamaran`
@@ -56,13 +59,16 @@ CREATE TABLE `lamaran`
     `user_id`       INT NOT NULL,
     `lowongan_id`   INT NOT NULL,
     `cv_path`       varchar(255) NOT NULL,
-    `video_path`    varchar(255) NOT NULL,
+    `video_path`    varchar(255),
     `status`        enum('accepted', 'rejected', 'waiting') NOT NULL,
     `status_reason` text NOT NULL,
     `created_at`    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`lamaran_id`),
     CONSTRAINT fk_lamaran_user FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`),
     CONSTRAINT fk_lamaran_lowongan FOREIGN KEY (`lowongan_id`) REFERENCES `lowongan`(`lowongan_id`)
+        REFERENCES lowongan(lowongan_id) 
+        ON DELETE CASCADE 
+        ON UPDATE RESTRICT
 );
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

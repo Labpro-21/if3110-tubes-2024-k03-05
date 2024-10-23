@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     companyForm.addEventListener('submit', function(event) {
         const descriptionInput = document.getElementById('descriptionInput');
-        descriptionInput.value = quill.root.innerHTML; // Mengambil konten dari Quill
+        descriptionInput.value = quill.root.innerHTML;
 
         if (!descriptionInput.value) {
             alert('Deskripsi tidak boleh kosong!');

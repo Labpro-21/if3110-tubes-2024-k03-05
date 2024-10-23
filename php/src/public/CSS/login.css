@@ -84,6 +84,37 @@ input:focus~label,input:not(:placeholder-shown)~label{
     color:black;
     font-size:12px;
 }
+/* Toast Notification Styles */
+.toast {
+    visibility: hidden;
+    max-width: 300px;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(0);
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #28a745; /* Green */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Red */
+}
 
 label{
     color: transparent;
@@ -92,6 +123,27 @@ label{
     top:-2.4em;
     cursor:auto;
     transition:0.3s ease all;
+}
+
+.forget{
+    text-align: left;
+    font-size:1rem;
+    margin-bottom: 1rem;
+}
+
+.forget a{
+    text-decoration: none;
+    color:#0a66c2;
+    font-weight: 500
+}
+
+.forget a:hover{
+    background-color: #bcdbff;
+    padding: 5px;
+    border-radius: 20px;
+    color:#0a66c2;
+    text-decoration: underline;
+    font-weight: 500;
 }
 
 .btn{

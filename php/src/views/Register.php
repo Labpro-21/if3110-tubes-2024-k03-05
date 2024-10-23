@@ -7,8 +7,6 @@
     <title>Register</title>
     <link rel="stylesheet" href="../public/CSS/register.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="../public/JS/Register.js"></script>
 </head>
 <body>
 
@@ -18,10 +16,10 @@
         <p>Stay updated on your professional world.</p>
 
         <!-- Job Seeker Form -->
-        <form id="jobseekerForm" action="/register" method="POST" class="active-form">
+        <form id="jobseekerForm" class="active-form">
             <input type="hidden" name="role" value="jobseeker">
             <div class="input-group">
-                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="name" placeholder="Name" required id="nameJobSeeker">
                 <label for="name">Name</label>
             </div>
             <div class="input-group">
@@ -49,10 +47,10 @@
         </form>
 
         <!-- Company Form -->
-        <form id="companyForm" action="/register" method="POST" style="display: none;">
+        <form id="companyForm" style="display: none;">
             <input type="hidden" name="role" value="company">
             <div class="input-group">
-                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="name" placeholder="Name" required id="nameCompany">
                 <label for="name">Name</label>
             </div>
             <div class="input-group">
@@ -92,9 +90,11 @@
         Already on LinkInPurry?
         <a href="/login">Sign in</a>
     </div>
+    <div id="toast" class="toast"></div>
 </div>
 
-
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="../public/JS/Register.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
 </body>

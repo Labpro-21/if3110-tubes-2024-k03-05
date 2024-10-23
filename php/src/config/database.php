@@ -13,7 +13,7 @@ class Database
     private $password = 'secret';
     public $conn;
 
-    public function getConnection()
+    public function getConnection(): ?PDO
     {
         $this->conn = null;
         try {
@@ -23,5 +23,10 @@ class Database
             echo "Connection error: " . $e->getMessage();
         }
         return $this->conn;
+    }
+
+    public function prepare(string $query)
+    {
+        return $this->conn->prepare($query);
     }
 }

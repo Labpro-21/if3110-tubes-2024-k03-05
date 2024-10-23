@@ -28,4 +28,20 @@ class SiteController
             echo "Invalid role";
         }
     }
+
+    public function profile(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /login");
+            exit();
+        }
+
+        if ($_SESSION['role'] === 'jobseeker') {
+            $this->jobsekerController->profile();
+        } else if ($_SESSION['role'] === 'company') {
+            $this->companyController->profile();
+        } else {
+            echo "Invalid role";
+        }
+    }
 }

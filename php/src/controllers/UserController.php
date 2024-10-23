@@ -8,6 +8,7 @@ include __DIR__ . '/../middleware.php';
 include __DIR__ . '/../models/Job.php';
 
 use config\Database;
+use Exception;
 use models\User;
 use models\Job;
 
@@ -26,37 +27,50 @@ class UserController {
 
     public function home(): void
     {
-        echo "Welcome to Landing Page";
+        include __DIR__ . '/../views/LandingPage.php';
     }
 
     public function login(): void
     {
-        if (isset($_SESSION['user_id'])) {
-            header("Location: /dashboard");
-            exit;
-        }
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            // Read the raw POST data
+            $json = file_get_contents('php://input');
+
+            // Decode the JSON data into a PHP array
+            $data = json_decode($json, true);
+
+            // Check if the data was decoded successfully
+            if ($data === null) {
+                // Handle JSON decode error
+                http_response_code(400);
+                echo json_encode(['message' => 'Invalid JSON']);
+                exit;
+            }
+
+            $email = $data['email'];
+            $password = $data['password'];
 
             if ($this->user->authenticate($email, $password)) {
+
                 $_SESSION['user_id'] = $this->user->id;
                 $_SESSION['name'] = $this->user->name;
-                $_SESSION['role'] = $this->user->role;
                 $_SESSION['email'] = $this->user->email;
-                if ($_SESSION['role'] === 'jobseeker') {
-                    header("Location: /dashboard");
-                } else if ($_SESSION['role'] === 'company') {
-                    header('Location: /dashboard');
-                    exit();
-                }
-                exit;
+                $_SESSION['role'] = $this->user->role;
+
+                http_response_code(200);
+                echo json_encode(['message' => 'Login successful']);
             } else {
-                $error = "Invalid credentials";
-                include __DIR__ . '/../views/Login.php';
+                http_response_code(401);
+                echo json_encode(['message' => 'Credential incorrect']);
             }
+            exit;
         } else {
+            // Redirect to dashboard if user is already logged in
+            if (isset($_SESSION['user_id'])) {
+                header("Location: /dashboard");
+                exit;
+            }
+
             include __DIR__ . '/../views/Login.php';
         }
     }
@@ -67,36 +81,58 @@ class UserController {
         exit;
     }
 
-    public function register() {
-        if (isset($_SESSION['user_id'])) {
-            header("Location: /dashboard");
-            exit;
-        }
-    
+    /**
+     * @throws Exception
+     */
+    public function register(): void
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $name = htmlspecialchars(trim($_POST['name']), ENT_QUOTES, 'UTF-8');
-            $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
-            $password = $_POST['password'];
-            $role = htmlspecialchars(trim($_POST['role']), ENT_QUOTES, 'UTF-8');
-    
-            if ($this->user->register($name, $email, $password, $role)) {
-                session_start();
-                $_SESSION['user_id'] = $this->user->id;
-                $_SESSION['name'] = $this->user->name;
-                $_SESSION['role'] = $this->user->role;
-                $_SESSION['email'] = $this->user->email;
-    
-                if ($role === 'jobseeker') {
-                    header("Location: /login");
-                } else if ($role === 'company') {
-                    header("Location: /login");
-                }
+            // Read the raw POST data
+            $json = file_get_contents('php://input');
+
+            // Decode the JSON data into a PHP array
+            $data = json_decode($json, true);
+
+            // Check if the data was decoded successfully
+            if ($data === null) {
+                // Handle JSON decode error
+                http_response_code(400);
+                echo json_encode(['message' => 'Invalid JSON']);
                 exit;
-            } else {
-                $error = "Registration failed. Please try again.";
-                include __DIR__ . '/../views/Register.php';
             }
+
+            $name = $data['name'];
+            $email = $data['email'];
+            $password = $data['password'];
+            $role = $data['type'];
+
+            if ($role !== 'jobseeker' && $role !== 'company') {
+                http_response_code(400);
+                echo json_encode(['message' => 'Invalid role']);
+                exit;
+            }
+
+            if ($this->user->isEmailExists($email)) {
+                http_response_code(400);
+                echo json_encode(['message' => 'Email already exists']);
+                exit;
+            }
+
+            if ($this->user->register($name, $email, $password, $role)) {
+                http_response_code(201);
+                echo json_encode(['message' => 'User registered successfully']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['message' => 'Failed to register user']);
+            }
+            exit;
         } else {
+            // Redirect to dashboard if user is already logged in
+            if (isset($_SESSION['user_id'])) {
+                header("Location: /dashboard");
+                exit;
+            }
+
             include __DIR__ . '/../views/Register.php';
         }
     }
@@ -138,3 +174,4 @@ class UserController {
   
     }
 }
+

@@ -68,7 +68,7 @@
                 <span id="toggleConfirmPasswordCompany" onclick="togglePassword('confirmPasswordCompany', 'toggleConfirmPasswordCompany')"></span>
             </div>
             <div class="input-group">
-                <input type="text" name="location" placeholder="Location" required>
+                <input type="text" name="location" placeholder="Location" required id="location">
                 <label for="location">Location</label>
             </div>
             <div class="input-group">

@@ -42,12 +42,26 @@
                             style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
                             <path fill="currentColor" d="m7 10l5 5l5-5z"/>
                         </svg>
-                    </button>
-                    <div class="dropdown-content">
-                        <a href="#" data-id="All">All</a>
-                        <a href="#" data-id="Full-time">Full-time</a>
-                        <a href="#" data-id="Part-time">Part-time</a>
-                        <a href="#" data-id="Internship">Internship</a>
+                        </button>
+                        <div class="dropdownLoc-content">
+                            <a href="#" data-id="All">All</a>
+                            <a href="#" data-id="On-site">On-site</a>
+                            <a href="#" data-id="Remote">Remote</a>
+                            <a href="#" data-id="Hybrid">Hybrid</a>
+                        </div>
+                    </div>
+                    <div class="sortBy">
+                        <button class="sortBy-btn">
+                            Sort by Date
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="m7 10l5 5l5-5z"/>
+                            </svg>
+                        </button>
+                        <div class="sortBy-content">
+                            <a href="#" data-id="Ascending">Ascending</a>
+                            <a href="#" data-id="Descending">Descending</a>
+                        </div>
                     </div>
                 </div>
                 <div class="dropdownLoc">

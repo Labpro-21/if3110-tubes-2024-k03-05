@@ -77,6 +77,58 @@ input::placeholder{
     color:#757575;
 }
 
+input:invalid:not(:placeholder-shown) {
+    border-color: red;
+}
+input:valid:not(:placeholder-shown) {
+    border-color: green;
+}
+input:invalid:not(:placeholder-shown),
+input:valid:not(:placeholder-shown) {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px);
+}
+input:invalid:not(:placeholder-shown) + p {
+    color: #a20e0e;
+}
+input:invalid ~ button[type="submit"] {
+    opacity: .6;
+    pointer-events: none;
+}
+
+/* Toast Notification Styles */
+.toast {
+    visibility: hidden;
+    max-width: 300px;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(0);
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #28a745; /* Green */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Red */
+}
+
 input:focus::placeholder,
 input:not(:placeholder-shown)::placeholder {
     opacity: 0;

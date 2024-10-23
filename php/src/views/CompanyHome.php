@@ -52,7 +52,13 @@
 
         <section class="feed-post">
             <div class="jobvacancy-container">
-                <p>All posted Job</p>
+                <div class="wrapper">
+                    <p class="all">All posted Job</p>
+                    <a href="/tambahLowongan">
+                        Add job
+                    </a>
+                </div>
+                
                 <div id="jobvacancy-cards">
                     <?php foreach ($parsedJobs as $item): ?>
                         <div class="job-card">

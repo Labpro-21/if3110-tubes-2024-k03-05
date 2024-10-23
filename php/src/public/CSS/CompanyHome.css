@@ -180,10 +180,33 @@
 
 
 /* JOB VACANCY SECTION */
-.jobvacancy-container p {
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper p {
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+}
+
+.wrapper a {
+    font-size: 14px;
+    padding: 3px 16px; 
+    border-radius: 20px;
+    background: #0a66c2;
+    cursor: pointer;
+    transition: 0.3s;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 0; 
+}
+
+.wrapper a:hover{
+    background: #004182;
 }
 
 .jobvacancy-card {

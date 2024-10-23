@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Homepage</title>
-    <link rel="stylesheet" type="text/css" href="../public/CSS/global.css">
-    <link rel="stylesheet" type="text/css" href="../public/CSS/CompanyHome.css">
+    <link rel="stylesheet" href="../public/CSS/CompanyHome.css">
+    <link rel="stylesheet" href="../public/CSS/companyHomepageNavbar.css">
 </head>
+
 <body>
+<?php include 'companyHomepageNavbar.php'; ?>
 <div class="container">
     <!-- Sidebar Profile -->
     <div class="sidebar">
@@ -19,7 +22,9 @@
             <div class="info-section">
                 <p class="user-name"><?= $details['name']?></p>
                 <p class="user-desc"><?= $details['about']?></p>
-                <p class="user-location"><?= $details['location']?></p>
+                <p class="user-location"><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="currentColor" d="M19 9A7 7 0 1 0 5 9c0 1.387.409 2.677 1.105 3.765h-.008L12 22l5.903-9.235h-.007A6.97 6.97 0 0 0 19 9m-7 3a3 3 0 1 1 0-6a3 3 0 0 1 0 6"/></svg>
+                    <?= ucfirst($details['location'])?>
+                </p>
             </div>
         </div>
 
@@ -32,9 +37,9 @@
             <div class="job-options">
                 <div class="dropdown">
                     <button class="dropdown-btn">
-                        Filter by
+                        Filter Job Type
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                             style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
+                            style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
                             <path fill="currentColor" d="m7 10l5 5l5-5z"/>
                         </svg>
                     </button>
@@ -45,48 +50,57 @@
                         <a href="#" data-id="Internship">Internship</a>
                     </div>
                 </div>
-
-                <button class="sortby-btn">Sort by Date</button>
+                <div class="dropdownLoc">
+                    <button class="dropdownLoc-btn">
+                        Filter Location Type
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                            style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m7 10l5 5l5-5z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdownLoc-content">
+                            <a href="#" data-id="All">All</a>
+                            <a href="#" data-id="On-site">On-site</a>
+                            <a href="#" data-id="Remote">Remote</a>
+                            <a href="#" data-id="Hybrid">Hybrid</a>
+                    </div>
+                </div>
+                <div class="sortBy">
+                    <button class="sortBy-btn">
+                        Sort by Date
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                            style="transform: translate(3px, 3px);" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m7 10l5 5l5-5z"/>
+                        </svg>
+                    </button>
+                    <div class="sortBy-content">
+                        <a href="#" data-id="Ascending">Ascending</a>
+                        <a href="#" data-id="Descending">Descending</a>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section class="feed-post">
-            <div class="jobvacancy-container">
-                <div class="wrapper">
-                    <p class="all">All posted Job</p>
-                    <a href="/tambahLowongan">
-                        Add job
-                    </a>
+                <div class="jobvacancy-container">
+                    <p>Available Job Vacancies</p>
+                    <div id="jobvacancy-cards">
+                    </div>
+
+                    <div class="pagination">
+
+                    </div>
                 </div>
-                
-                <div id="jobvacancy-cards">
-                    <?php foreach ($parsedJobs as $item): ?>
-                        <div class="job-card">
-<!--                            <img src="--><?php //= htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8') ?><!--" alt="--><?php //= htmlspecialchars($item['posisi'], ENT_QUOTES, 'UTF-8') ?><!--">-->
-                            <div class="jobvacancy-info">
-                                <div class="job-name-date">
-                                    <a href="/detailLowonganCompany?lowonganId=<?= $item['lowongan_id']?>"><?= $item['posisi'] ?></a>
-                                    <span><?= date('F j, Y', strtotime($item['created_at'])) ?></span>
-                                </div>
-                                <p><?= htmlspecialchars_decode($item['deskripsi']) ?></p>
-                                <p><?=$item['jenis_pekerjaan'] ?> <span>•</span> <?= $item['jenis_lokasi'] ?></p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <div class="pagination">
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <button onclick="updatePageInUrl(<?= $i; ?>)" class="<?= $i === $page ? 'active' : ''; ?>"><?= $i; ?></button>
-                    <?php endfor; ?>
-                </div>
-            </div>
         </section>
     </main>
 </div>
 
 
-<script src="../public/JS/filterBtnHomepage.js"></script>
+<script src="../public/JS/HomepageComp.js"></script>
 <script src="../public/JS/sortbyBtnHomepage.js"></script>
-<script src="../public/JS/pagination.js"></script>
+<script src="../public/JS/filterBtnHomepage.js"></script>
+<script>
+        fetchJobs(new URLSearchParams());
+</script>
 </body>
 </html>

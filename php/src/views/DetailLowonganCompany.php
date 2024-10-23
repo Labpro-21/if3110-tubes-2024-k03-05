@@ -13,7 +13,7 @@
             <!-- Name Card -->
             <div class="name-card box">
                 <header>
-                    <a href="/profileCompany?user_id=<?= $jobData['user_id'] ?>"><?= $jobData['nama'] ?></a>
+                    <a href="/Companyprofile?user_id=<?= $jobData['user_id'] ?>"><?= $jobData['nama'] ?></a>
                 </header>
                 <h1><?= $jobData['posisi']?></h1>
                 <div class="detail">

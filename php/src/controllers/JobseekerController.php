@@ -17,6 +17,16 @@ class JobseekerController
         $this->job = new Job($this->conn);
     }
 
+    public function getUserDetails($userId) {
+        $query = "SELECT * FROM user WHERE user_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+
     public function dashboard(): void
     {
         // Check if the user is logged in and has the 'jobseeker' role
@@ -29,13 +39,16 @@ class JobseekerController
         $category = $_GET['category'] ?? 'all';
         $categoryLoc = $_GET['categoryLoc'] ?? 'all';
         $categorySort = $_GET['categorySort'] ?? '';
+        $searchTerm = $_GET['search'] ?? '';
+        $userId = $_SESSION['user_id'];
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = 5; // Number of jobs per page
     
         // Calculate the offset for the database query
         $offset = ($page - 1) * $limit;
 
-        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort);
+        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm);
+        $userDetails = $this->getUserDetails($userId);
 
         // Fetch jobs by category with pagination
         $totalJob = count($jobs);
@@ -47,6 +60,12 @@ class JobseekerController
         $parsedJobs = array_slice($jobs, $offset, 5);
 
         // Prepare details for the view
+
+        $details = [
+            'name' => $_SESSION['name'],
+            'email' => $userDetails['email'],
+            'role' => $userDetails['role'],
+        ];
         
     
         // Include the view

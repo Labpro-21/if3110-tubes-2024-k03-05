@@ -36,11 +36,18 @@ class Job {
     }
 
 
+
+
+
+
     
-    public function getJobsByCategory($category, $categoryLoc, $categorySort) {
+    public function getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm) {
         // Base query
-        $query = "SELECT * FROM lowongan WHERE is_open = 1";
-    
+        $query = "SELECT * FROM lowongan l JOIN user u ON l.company_id  = u.user_id WHERE is_open = 1";
+
+        if (!empty($searchTerm)) {
+            $query .= " AND posisi LIKE :searchTerm";
+        }
         // Add conditions based on category and location
         if ($category !== 'all') {
             $query .= " AND jenis_pekerjaan = :category";
@@ -59,6 +66,11 @@ class Job {
         $stmt = $this->conn->prepare($query);
     
         // Bind parameters if necessary
+        if (!empty($searchTerm)) {
+            // The % wildcard is added here for substring matching
+            $searchTerm = "%" . $searchTerm . "%";
+            $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        }
         if ($category !== 'all') {
             $stmt->bindParam(':category', $category);
         }

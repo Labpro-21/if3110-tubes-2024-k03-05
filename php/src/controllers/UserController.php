@@ -7,6 +7,7 @@ include __DIR__ . '/../models/User.php';
 include __DIR__ . '/../middleware.php';
 
 use config\Database;
+use Exception;
 use models\User;
 
 class UserController {
@@ -26,32 +27,45 @@ class UserController {
 
     public function login(): void
     {
-        if (isset($_SESSION['user_id'])) {
-            header("Location: /dashboard");
-            exit;
-        }
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            // Read the raw POST data
+            $json = file_get_contents('php://input');
+
+            // Decode the JSON data into a PHP array
+            $data = json_decode($json, true);
+
+            // Check if the data was decoded successfully
+            if ($data === null) {
+                // Handle JSON decode error
+                http_response_code(400);
+                echo json_encode(['message' => 'Invalid JSON']);
+                exit;
+            }
+
+            $email = $data['email'];
+            $password = $data['password'];
 
             if ($this->user->authenticate($email, $password)) {
+
                 $_SESSION['user_id'] = $this->user->id;
                 $_SESSION['name'] = $this->user->name;
-                $_SESSION['role'] = $this->user->role;
                 $_SESSION['email'] = $this->user->email;
-                if ($_SESSION['role'] === 'jobseeker') {
-                    header("Location: /dashboard");
-                } else if ($_SESSION['role'] === 'company') {
-                    header('Location: /dashboard');
-                    exit();
-                }
-                exit;
+                $_SESSION['role'] = $this->user->role;
+
+                http_response_code(200);
+                echo json_encode(['message' => 'Login successful']);
             } else {
-                $error = "Invalid credentials";
-                include __DIR__ . '/../views/Login.php';
+                http_response_code(401);
+                echo json_encode(['message' => 'Credential incorrect']);
             }
+            exit;
         } else {
+            // Redirect to dashboard if user is already logged in
+            if (isset($_SESSION['user_id'])) {
+                header("Location: /dashboard");
+                exit;
+            }
+
             include __DIR__ . '/../views/Login.php';
         }
     }
@@ -63,15 +77,10 @@ class UserController {
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function register(): void
     {
-        if (isset($_SESSION['user_id'])) {
-            header("Location: /dashboard");
-            exit;
-        }
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Read the raw POST data
             $json = file_get_contents('php://input');
@@ -113,6 +122,12 @@ class UserController {
             }
             exit;
         } else {
+            // Redirect to dashboard if user is already logged in
+            if (isset($_SESSION['user_id'])) {
+                header("Location: /dashboard");
+                exit;
+            }
+
             include __DIR__ . '/../views/Register.php';
         }
     }

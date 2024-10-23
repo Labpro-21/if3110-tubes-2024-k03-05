@@ -34,33 +34,10 @@ class JobseekerController
             header("Location: /login");
             exit();
         }
-    
-        // Get the category and page from the query parameters
-        $category = $_GET['category'] ?? 'all';
-        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
-        $categorySort = $_GET['categorySort'] ?? '';
-        $searchTerm = $_GET['search'] ?? '';
+
         $userId = $_SESSION['user_id'];
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = 5; // Number of jobs per page
-    
-        // Calculate the offset for the database query
-        $offset = ($page - 1) * $limit;
 
-        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm);
         $userDetails = $this->getUserDetails($userId);
-
-        // Fetch jobs by category with pagination
-        $totalJob = count($jobs);
-        $totalPages = intval($totalJob / 5);
-        if ($totalJob % 5 > 0) {
-            $totalPages++;
-        }
-
-        $parsedJobs = array_slice($jobs, $offset, 5);
-
-        // Prepare details for the view
-
         $details = [
             'name' => $_SESSION['name'],
             'email' => $userDetails['email'],
@@ -71,6 +48,8 @@ class JobseekerController
         // Include the view
         include __DIR__ . '/../views/jobsHomepage.php';
     }
+
+
 
     public function lamaran()
     {

@@ -64,18 +64,6 @@ class CompanyController
         }
         include __DIR__ . '/../views/TambahLowongan.php';
     }
-
-    public function dashboard(): void {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-            header("Location: /login");
-            exit();
-        }
-
-        echo "Welcome to Company Dashboard";
-    }
-
-
-
     public function ambilLowongan(): void
     {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
@@ -102,7 +90,6 @@ class CompanyController
 
     public function editLowongan(): void
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $position = $_POST['Position'];
             $description = $_POST['description'];

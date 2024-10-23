@@ -92,5 +92,7 @@ $router->add('GET', '/detaillamaran', [CompanyController::class, 'detailLamaran'
 
 $router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
 
+$router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
+
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

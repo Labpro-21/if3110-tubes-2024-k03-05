@@ -100,9 +100,9 @@ class JobController {
             exit;
         }
 
-        $id = $_GET['id'];
+        $id = $_GET['lowonganId'];
 
-        $job = $this->job->getLowonganById($id);
+        $job = $this->job->getLowonganJobSeekerById($id);
 
         if (!$job) {
             http_response_code(404);
@@ -113,6 +113,29 @@ class JobController {
         $totalApplicants = $this->job->getTotalApplicants($id);
 
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';
+    }
+
+    public function detailLowonganGuest(): void
+    {
+        // if (!isset($_GET['id'])) {
+        //     http_response_code(400);
+        //     echo json_encode(['message' => 'Missing id parameter']);
+        //     exit;
+        // }
+
+        $id = $_GET['lowonganId'];
+
+        $job = $this->job->getLowonganJobSeekerById($id);
+
+        if (!$job) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Job not found']);
+            exit;
+        }
+
+        $totalApplicants = $this->job->getTotalApplicants($id);
+
+        include __DIR__ . '/../views/DetailLowonganGuest.php';
     }
 
     public function detailLowonganCompany(): void
@@ -195,6 +218,51 @@ class JobController {
             header("Location: /dashboard?error=failed_to_delete");
             exit();
         }
+    }
+
+    public function guestDashboard(): void
+    {
+        // Check if the user is logged in and has the 'jobseeker' role
+        if (isset($_SESSION['user_id']) && $_SESSION['role'] !== 'jobseeker') {
+            header("Location: /login");
+            exit();
+        }
+    
+        // Get the category and page from the query parameters
+        $category = $_GET['category'] ?? 'all';
+        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
+        $categorySort = $_GET['categorySort'] ?? '';
+        $searchTerm = $_GET['search'] ?? '';
+        // $userId = $_SESSION['user_id'];
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 5; // Number of jobs per page
+    
+        // Calculate the offset for the database query
+        $offset = ($page - 1) * $limit;
+
+        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm);
+        // $userDetails = $this->getUserDetails($userId);
+
+        // Fetch jobs by category with pagination
+        $totalJob = count($jobs);
+        $totalPages = intval($totalJob / 5);
+        if ($totalJob % 5 > 0) {
+            $totalPages++;
+        }
+
+        $parsedJobs = array_slice($jobs, $offset, 5);
+
+        // Prepare details for the view
+
+        // $details = [
+        //     'name' => $_SESSION['name'],
+        //     'email' => $userDetails['email'],
+        //     'role' => $userDetails['role'],
+        // ];
+        
+    
+        // Include the view
+        include __DIR__ . '/../views/GuestHomepage.php';
     }
 
 }

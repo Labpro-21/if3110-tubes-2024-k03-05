@@ -17,20 +17,6 @@ class User {
         $this->conn = $db;
     }
 
-    public function create($nama, $email, $password) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO user (nama, email, password) VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $nama);
-        $stmt->bindParam(2, $email);
-        $stmt->bindParam(3, $hashed_password);
-
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
-    }
-
     public function authenticate($email, $password): null|static
     {   
         // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -55,7 +41,7 @@ class User {
     /**
      * @throws Exception
      */
-    public function register($name, $email, $password, $role): bool
+    public function register($name, $email, $password, $role, $location, $about): bool
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         try {
@@ -73,9 +59,6 @@ class User {
             $userId = $this->conn->lastInsertId();
 
             if ($role == 'company') {
-                $location = htmlspecialchars(trim($_POST['location']), ENT_QUOTES, 'UTF-8');
-                $about = htmlspecialchars(trim($_POST['about']), ENT_QUOTES, 'UTF-8');
-
                 $sqlCompanyDetail = "INSERT INTO `company_detail` (user_id, lokasi, about) 
                                  VALUES (:user_id, :lokasi, :about)";
                 $stmtCompany = $this->conn->prepare($sqlCompanyDetail);
@@ -87,6 +70,7 @@ class User {
 
             $this->conn->commit(); // Commit the transaction
             return true;
+
         } catch (Exception $e) {
             $this->conn->rollBack(); // Rollback the transaction on error
             error_log("Error registering user: " . $e->getMessage());

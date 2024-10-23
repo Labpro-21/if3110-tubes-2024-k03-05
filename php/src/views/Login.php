@@ -29,7 +29,7 @@
             <input type="submit" class="btn" value="Sign in" name="Sign In">
         </form>
     </div>
-    <div id="toast" class="toast"></div>
+
 </div>
 <div class="register">
     <div class="links">
@@ -37,6 +37,7 @@
         <a href="/register">Join Now</a>
     </div>
 </div>
+<div id="toast" class="toast"></div>
 <script src="../public/JS/Login.js"></script>
 </body>
 </html>

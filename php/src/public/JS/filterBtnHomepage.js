@@ -31,3 +31,21 @@ window.addEventListener('click', function (e) {
     dropdownBtnLoc.classList.remove('active');
   }
 });
+
+
+
+
+/*  FILTER BY CATEGORY */
+
+const linksLocEL = document.querySelectorAll('.dropdownLoc-content a');
+
+linksLocEL.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const category = e.target.dataset.id.toLowerCase();
+    const url = new URL(window.location.href);
+    url.searchParams.set('categoryLoc', category);
+    url.searchParams.set('page', 1);
+    window.location.href = url.toString();
+  });
+});

@@ -147,7 +147,7 @@ class CompanyController
             if (!empty($name) && !empty($about) && !empty($email) && !empty($location)) {
                 $userId = (int)$_SESSION['user_id'];
                 $this->company->editProfile($userId, $name, $about, $email, $location);
-                header('Location: /profileCompany');
+                header('Location: /Companyprofile');
                 exit();
             } else {
                 $error = "All fields are required.";

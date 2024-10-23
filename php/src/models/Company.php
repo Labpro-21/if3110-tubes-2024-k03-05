@@ -20,9 +20,7 @@ class Company
 
     public function getProfileById($userId)
     {
-        $query = "SELECT *
-                  FROM company_detail
-                WHERE user_id = ?";
+        $query = "SELECT nama, about, lokasi, email FROM user NATURAL JOIN company_detail WHERE user_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $userId, PDO::PARAM_INT);
         $stmt->execute();

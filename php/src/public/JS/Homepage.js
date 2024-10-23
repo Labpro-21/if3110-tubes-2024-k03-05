@@ -67,7 +67,10 @@ function updatePagination(totalPages, currentPage) {
     // Previous Button
     if (currentPage > 1) {
         const prevButton = createButton('<');
-        prevButton.onclick = () => fetchJobs({page: currentPage - 1});
+        prevButton.onclick = () => {
+            params.set('page', (currentPage - 1).toString());
+            fetchJobs(params);
+        }
         pagination.appendChild(prevButton);
     }
 
@@ -80,7 +83,12 @@ function updatePagination(totalPages, currentPage) {
     }
 
     if (startPage > 1) {
-        pagination.appendChild(createButton(1));
+        const firstButton = createButton(1);
+        firstButton.onclick = () => {
+            params.set('page', '1');
+            fetchJobs(params);
+        }
+        pagination.appendChild(firstButton);
         if (startPage > 2) addEllipsis();
     }
 
@@ -95,13 +103,21 @@ function updatePagination(totalPages, currentPage) {
 
     if (endPage < totalPages) {
         if (endPage < totalPages - 1) addEllipsis();
-        pagination.appendChild(createButton(totalPages));
+        const lastButton = createButton(totalPages);
+        lastButton.onclick = () => {
+            params.set('page', totalPages.toString());
+            fetchJobs(params);
+        }
+        pagination.appendChild(lastButton);
     }
 
     // Next Button
     if (currentPage < totalPages) {
         const nextButton = createButton('>');
-        nextButton.onclick = () => fetchJobs({page: currentPage + 1});
+        nextButton.onclick = () => {
+            params.set('page', (currentPage + 1).toString());
+            fetchJobs(params);
+        };
         pagination.appendChild(nextButton);
     }
 }

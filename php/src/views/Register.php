@@ -74,7 +74,7 @@
             <div class="input-group">
                 <p>About The Company</p>
                 <div id="editor"></div>
-                <input type="hidden" name="about" id="aboutInput" required>
+                <input type="hidden" name="about" id="aboutInput" required minlength="1">
             </div>
             <div class="role">
                 Join as?

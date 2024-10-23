@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Company</title>
     <link rel="stylesheet" type="text/css" href="../public/CSS/profileCompany.css">
+    <link rel="stylesheet" type="text/css" href="../public/CSS/companyHomepageNavbar.css">
 </head>
 <body>
+<?php include 'companyNavbar.php'; ?>
 <main>
     <section class="profile-company">
         <div class="profile-container">

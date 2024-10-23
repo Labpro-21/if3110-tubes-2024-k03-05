@@ -7,9 +7,11 @@
     <title>Edit Lowongan</title>
     <link rel="stylesheet" href="../public/CSS/editLowongan.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/CSS/companyHomepageNavbar.css">
 </head>
 
 <body>
+    <?php include 'companyNavbar.php'; ?>
     <div class="container" id="signin">
         <div class="box form-box">
             <header>Edit Job Vacancy</header>

@@ -10,7 +10,7 @@
 </head>
 <body>
     <?php include 'companyHomepageNavbar.php'; ?>
-    <div class="container">
+    <main class="container">
         <!-- Sidebar Profile -->
         <div class="sidebar">
             <div class="profile-card">
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Main Content -->
-        <main class="job">
+        <div class="job">
             <section class="job-box">
                 <p>Find Job</p>
                 <div class="job-options">
@@ -146,8 +146,8 @@
                     </div>
                 </div>
             </section>
-        </main>
-    </div>
+        </>
+    </>
 
 
     <script src="../public/JS/filterBtnHomepage.js"></script>

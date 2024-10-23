@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         if (!validateEmail(emailInputJobSeeker.value)) {
             alert('Please enter a valid email address.');
+            return;
         }
         onsubmit()
     });
@@ -95,6 +96,11 @@ document.addEventListener('DOMContentLoaded', function() {
         description.value = quill.root.innerHTML;
         if (!validateEmail(emailInputCompany.value)) {
             alert('Please enter a valid email address.');
+            return;
+        }
+        if(quill.getText().trim().length === 0){
+            alert('Please enter about.');
+            return;
         }
         onsubmit()
     });

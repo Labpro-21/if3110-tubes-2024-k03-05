@@ -65,11 +65,11 @@
 <!--                            <img src="--><?php //= htmlspecialchars($item['image'], ENT_QUOTES, 'UTF-8') ?><!--" alt="--><?php //= htmlspecialchars($item['posisi'], ENT_QUOTES, 'UTF-8') ?><!--">-->
                             <div class="jobvacancy-info">
                                 <div class="job-name-date">
-                                    <a href="/detailLowongan<?= $item['lowongan_id']?>"><?= htmlspecialchars($item['posisi'], ENT_QUOTES, 'UTF-8') ?></a>
+                                    <a href="/detailLowonganCompany?lowonganId=<?= $item['lowongan_id']?>"><?= $item['posisi'] ?></a>
                                     <span><?= date('F j, Y', strtotime($item['created_at'])) ?></span>
                                 </div>
-                                <p><?= htmlspecialchars($item['deskripsi'], ENT_QUOTES, 'UTF-8') ?></p>
-                                <p><?= htmlspecialchars($item['jenis_pekerjaan'], ENT_QUOTES, 'UTF-8') ?> <span>•</span> <?= htmlspecialchars($item['jenis_lokasi'], ENT_QUOTES, 'UTF-8') ?></p>
+                                <p><?= htmlspecialchars_decode($item['deskripsi']) ?></p>
+                                <p><?=$item['jenis_pekerjaan'] ?> <span>•</span> <?= $item['jenis_lokasi'] ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>

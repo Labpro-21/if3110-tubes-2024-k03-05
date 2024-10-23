@@ -43,6 +43,8 @@ $router = new Router();
 //$router->add([method], '[path]', [[Controller]::class, '[function]']);
 // Eg: $router->add('GET', '/', [UserController::class, 'home']);
 
+
+
 $router->add('GET', '/', [UserController::class, 'home']);
 $router->add('GET', '', [UserController::class, 'home']);
 

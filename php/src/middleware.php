@@ -1,7 +1,8 @@
 <?php
-function checkAuth() {
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: /login");
+function checkAuth(): void
+{
+    if (isset($_SESSION['user_id'])) {
+        header("Location: /");
         exit;
     }
 }

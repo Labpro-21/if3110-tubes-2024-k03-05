@@ -17,16 +17,11 @@ const linksEL = document.querySelectorAll('.dropdown-content a');
 
 linksEL.forEach(link => {
   link.addEventListener('click', (e) => {
+    e.preventDefault();
     const category = e.target.dataset.id.toLowerCase();
-
-    // Filter job vacancies by category
-    filteredData = category === 'All'
-      ? jobvacancyData // Show all if 'All' is selected
-      : jobvacancyData.filter(data => data.jenisJob.toLowerCase() === category);
-
-    currentPage = 1; // Reset to the first page
-
-    generateJobVacancyCards(filteredData);
-    generatePagination(filteredData);
+    const url = new URL(window.location.href);
+    url.searchParams.set('category', category);
+    url.searchParams.set('page', 1);
+    window.location.href = url.toString();
   });
 });

@@ -10,7 +10,7 @@ sortbyBtn.addEventListener('click', function (e) {
 function sortJobVacanciesByDate(data) {
     // Sort the jobvacancyData array by dateCreated in descending order
     data.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
-    
+
     // Re-render the job vacancy cards and pagination
     generateJobVacancyCards(filteredData);
     generatePagination(filteredData);

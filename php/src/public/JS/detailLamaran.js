@@ -1,31 +1,37 @@
-const dummyData = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  cv: "dummy-cv.pdf",
-  video: "dummy-video.mp4",
-  status: "waiting"
-};
-
-// Populate HTML with dummy data
-document.querySelector('.pelamar-name').textContent = dummyData.name;
-document.querySelector('.pelamar-email').textContent = dummyData.email;
-document.querySelector('.cv-viewer').src = dummyData.cv;
-document.querySelector('.video-viewer').querySelector('source').src = dummyData.video;
-document.querySelector('#statusText').textContent = dummyData.status.charAt(0).toUpperCase() + dummyData.status.slice(1);
-document.getElementById('statusText').className = 'status ' + dummyData.status;
-
-// Conditionally display buttons based on status
-if (dummyData.status === 'approved' || dummyData.status === 'rejected') {
-  document.querySelector('.btn-group').style.display = 'none';
-}
-
 function updateStatus(status) {
+  console.log(status)
+
   const statusText = document.getElementById('statusText');
   const followUpReason = document.getElementById('followUpReason');
   const reasonText = document.getElementById('reasonText');
   const reasonInput = document.getElementById('reasonInput').value;
 
-  if (status === 'approved') {
+  // AJAX request to update status on the server
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/updateLamaranStatus', true);
+  xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log('Status updated successfully:', xhr.responseText);
+      } else {
+        console.error('Error updating status:', xhr.statusText);
+      }
+    }
+  };
+
+  const url = new URL(window.location.href);
+  const lamaranid = url.searchParams.get('id');
+  // Send the request with the status and reason
+
+  xhr.send(JSON.stringify({
+    lamaranId: lamaranid,
+    status: status,
+    reason: reasonInput
+  }));
+
+
+  if (status === 'accepted') {
     statusText.textContent = 'Approved';
     statusText.className = 'status approved';
     followUpReason.style.display = 'block';

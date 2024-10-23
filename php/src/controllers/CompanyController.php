@@ -64,8 +64,6 @@ class CompanyController
         }
         include __DIR__ . '/../views/TambahLowongan.php';
     }
-
-
     public function ambilLowongan(): void
     {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
@@ -92,7 +90,6 @@ class CompanyController
 
     public function editLowongan(): void
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $position = $_POST['Position'];
             $description = $_POST['description'];
@@ -150,7 +147,7 @@ class CompanyController
             if (!empty($name) && !empty($about) && !empty($email) && !empty($location)) {
                 $userId = (int)$_SESSION['user_id'];
                 $this->company->editProfile($userId, $name, $about, $email, $location);
-                header('Location: /profileCompany');
+                header('Location: /Companyprofile');
                 exit();
             } else {
                 $error = "All fields are required.";
@@ -237,5 +234,32 @@ class CompanyController
             return json_encode(['message' => 'Status updated']);
         }
         return json_encode(['message' => 'Method not allowed']);
+    }
+
+
+    public function getFilteredJobsComp(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
+        $category = $_GET['category'] ?? 'all';
+        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
+        $categorySort = $_GET['categorySort'] ?? '';
+        $searchTerm = $_GET['search'] ?? '';
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 5;
+        $offset = ($page - 1) * $limit;
+
+        $jobs = $this->job->getJobsByCategoryId($_SESSION['user_id'], $category, $categoryLoc, $categorySort, $searchTerm);
+        $totalJobs = count($jobs);
+        $totalPages = ceil($totalJobs / $limit);
+
+        $jobs = array_slice($jobs, $offset, $limit);
+
+        header('Content-Type: application/json');
+        echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
     }
 }

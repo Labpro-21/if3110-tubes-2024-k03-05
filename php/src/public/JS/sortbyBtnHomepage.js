@@ -1,17 +1,15 @@
 // SORT BY
+const sortbyBtn = document.querySelector('.sortBy-btn');
 
-const sortbyBtn = document.querySelector('.sortby-btn');
-
-sortbyBtn.addEventListener('click', function (e) {
-    this.classList.toggle('active');
-    sortJobVacanciesByDate(filteredData);
+sortbyBtn.addEventListener('click', function () {
+  const dropdown = this.parentElement;
+  dropdown.classList.toggle('show');
+  this.classList.toggle('active');
 });
 
-function sortJobVacanciesByDate(data) {
-    // Sort the jobvacancyData array by dateCreated in descending order
-    data.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
-
-    // Re-render the job vacancy cards and pagination
-    generateJobVacancyCards(filteredData);
-    generatePagination(filteredData);
-}
+window.addEventListener('click', function (e) {
+  if (!e.target.matches('.sortBy-btn')) {
+    document.querySelectorAll('.sortBy').forEach(dropdown => dropdown.classList.remove('show'));
+    sortbyBtn.classList.remove('active');
+  }
+});

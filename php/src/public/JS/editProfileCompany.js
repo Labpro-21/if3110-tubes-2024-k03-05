@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         aboutInput.value = quill.root.innerHTML; 
 
-        if (!aboutInput.value.trim()) {
-            alert('Empty About!');
-            event.preventDefault(); 
+        if(quill.getText().trim().length === 0){
+            alert('Please enter about.');
+            return;
         }
     });
 

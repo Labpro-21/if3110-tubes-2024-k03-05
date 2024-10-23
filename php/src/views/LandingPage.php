@@ -50,7 +50,7 @@
                 </div>
                 <div class="last-column">
                     <h4>Browse LinkInPurry</h4>
-                    <a href="">Jobs</a>
+                    <a href="/guestHomePage">Jobs</a>
                 </div>
             </div>
     </div>

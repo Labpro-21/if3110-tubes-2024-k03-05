@@ -48,7 +48,6 @@ CREATE TABLE `attachment_lowongan`
     `file_path`     varchar(255) NOT NULL,
     PRIMARY KEY (`attachment_id`),
     CONSTRAINT fk_attachment_lowongan_lowongan FOREIGN KEY (`lowongan_id`) REFERENCES `lowongan`(`lowongan_id`)
-        REFERENCES lowongan(lowongan_id) 
         ON DELETE CASCADE 
         ON UPDATE RESTRICT
 );
@@ -66,7 +65,6 @@ CREATE TABLE `lamaran`
     PRIMARY KEY (`lamaran_id`),
     CONSTRAINT fk_lamaran_user FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`),
     CONSTRAINT fk_lamaran_lowongan FOREIGN KEY (`lowongan_id`) REFERENCES `lowongan`(`lowongan_id`)
-        REFERENCES lowongan(lowongan_id) 
         ON DELETE CASCADE 
         ON UPDATE RESTRICT
 );

@@ -27,13 +27,10 @@ body {
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
-    width: 500px;
+    width: 300px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
 }
 
 .profile-card {
@@ -75,7 +72,7 @@ body {
 }
 
 .user-desc {
-    margin: 20px 0 20px 0;
+    margin: 5px 0;
 }
 
 .info-section{
@@ -83,18 +80,12 @@ body {
 }
 
 .user-location{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-top: 15px;
     color: grey;
 }
 
 
 /* FIND JOB BUTTON SECTION */
-.job{
-    width: 1500px;
-}
 
 .job-box {
     display: flex;
@@ -104,9 +95,6 @@ body {
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
 }
 
 .job-box p {
@@ -356,9 +344,6 @@ body {
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
 }
 
 
@@ -411,18 +396,19 @@ body {
 }
 
 .jobvacancy-info .comp{
-    margin: 5px 0 15px 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    margin: 5px 0 10px 0;
 }
 
 .jobvacancy-info .comp-name{
-    display: flex;
-    align-items: center;
-    gap: 3px;
     font-size: 16px;
     color: black;
     font-weight: 500;
     margin-bottom: auto;
 }
+
   
 .jobvacancy-info .job-desc {
     margin: 5px 0;
@@ -437,6 +423,11 @@ body {
     color: grey;
     font-weight: 400;
 }
+
+
+
+
+
 
 
   

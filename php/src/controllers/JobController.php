@@ -32,13 +32,30 @@ class JobController {
         echo json_encode($jobs);
     }
 
+    public function getCategoryJobs(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $category = isset($_GET['limit']) ? $_GET['Category'] : "ALL";
+
+            $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $offset = ($page - 1) * $limit;
+            $jobs = $this->job->getJobsByCategory($category);
+
+            header('Content-Type: application/json');
+            echo json_encode($jobs);
+        }
+    }
+
+    
+
     public function seeLamaran(): void {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] === 'company') {
             header("Location: /login");
             exit();
         }
 
-        $status = isset($_GET['status']) ? $_GET['status'] : 'all';
+        $status = $_GET['status'] ?? 'all';
 
         $jobs = $this->job->getJobsByUserId($_SESSION['user_id'], $status);
 
@@ -47,6 +64,32 @@ class JobController {
         } else {
             include __DIR__ . '/../views/RiwayatEmpty.php';
         }
+    }
+
+    public function getFilteredJobs(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
+        $category = $_GET['category'] ?? 'all';
+        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
+        $categorySort = $_GET['categorySort'] ?? '';
+        $searchTerm = $_GET['search'] ?? '';
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 5;
+        $offset = ($page - 1) * $limit;
+
+        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm);
+        $totalJobs = count($jobs);
+        $totalPages = ceil($totalJobs / $limit);
+
+        $jobs = array_slice($jobs, $offset, $limit);
+
+        header('Content-Type: application/json');
+        echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
     }
     
     public function detailLowonganJobseeker(): void

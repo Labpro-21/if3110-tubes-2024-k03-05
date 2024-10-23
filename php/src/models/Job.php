@@ -31,6 +31,62 @@ class Job
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllJobs(int $limit, int $offset) {
+        $query = "SELECT posisi, company_id, deskripsi, jenis_pekerjaan, jenis_lokasi, is_open, created_at 
+        FROM lowongan 
+        LIMIT :limit 
+        OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    
+    public function getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm) {
+        // Base query
+        $query = "SELECT * FROM lowongan l JOIN user u ON l.company_id  = u.user_id WHERE is_open = 1";
+
+        if (!empty($searchTerm)) {
+            $query .= " AND posisi LIKE :searchTerm";
+        }
+        // Add conditions based on category and location
+        if ($category !== 'all') {
+            $query .= " AND jenis_pekerjaan = :category";
+        }
+        if ($categoryLoc !== 'all') {
+            $query .= " AND jenis_lokasi = :categoryLoc";
+        }
+    
+        // Add sorting based on categorySort
+        if ($categorySort === 'ascending') {
+            $query .= " ORDER BY created_at ASC";
+        } else if ($categorySort === 'descending') {
+            $query .= " ORDER BY created_at DESC";
+        }
+    
+        $stmt = $this->conn->prepare($query);
+    
+        // Bind parameters if necessary
+        if (!empty($searchTerm)) {
+            // The % wildcard is added here for substring matching
+            $searchTerm = "%" . $searchTerm . "%";
+            $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        }
+        if ($category !== 'all') {
+            $stmt->bindParam(':category', $category);
+        }
+        if ($categoryLoc !== 'all') {
+            $stmt->bindParam(':categoryLoc', $categoryLoc);
+        }
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     public function getTotalJobs()
     {

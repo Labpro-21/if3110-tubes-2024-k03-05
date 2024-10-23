@@ -65,6 +65,8 @@ $router->add('POST', '/tambahLowongan', [CompanyController::class, 'tambahLowong
 $router->add('GET', '/getAllJobs', [JobController::class, 'getAllJobs']);
 $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
 
+
+
 $router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
 $router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
 
@@ -92,6 +94,7 @@ $router->add('GET', '/detaillamaran', [CompanyController::class, 'detailLamaran'
 
 $router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
 
+$router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
 $router->add('GET', '/guestHomePage', [JobController::class, 'guestDashboard']);
 
 $path = $_SERVER['REQUEST_URI'];

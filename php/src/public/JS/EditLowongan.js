@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         descriptionInput.value = quill.root.innerHTML; 
 
-        if (!descriptionInput.value.trim()) {
-            alert('Empty description!');
-            event.preventDefault();
+        if(quill.getText().trim().length === 0){
+            alert('Please enter description.');
+            return;
         }
     });
 

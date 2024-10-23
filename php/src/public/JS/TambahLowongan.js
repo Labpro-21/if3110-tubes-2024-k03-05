@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const descriptionInput = document.getElementById('descriptionInput');
         descriptionInput.value = quill.root.innerHTML;
 
-        if (!descriptionInput.value) {
-            alert('Deskripsi tidak boleh kosong!');
-            event.preventDefault(); 
+        if(quill.getText().trim().length === 0){
+            alert('Please enter description.');
+            return;
         }
     });
 });

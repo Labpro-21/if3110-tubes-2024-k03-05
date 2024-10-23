@@ -59,37 +59,49 @@ class User {
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         try {
+            $this->conn->beginTransaction();
+
             $sql = "INSERT INTO `user` (email, password, role, nama) 
-                    VALUES (:email, :password, :role, :nama)";
+                VALUES (:email, :password, :role, :nama)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':nama', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $hashed_password);
             $stmt->bindParam(':role', $role);
             $stmt->execute();
-    
+
             $userId = $this->conn->lastInsertId();
-    
+
             if ($role == 'company') {
                 $location = htmlspecialchars(trim($_POST['location']), ENT_QUOTES, 'UTF-8');
                 $about = htmlspecialchars(trim($_POST['about']), ENT_QUOTES, 'UTF-8');
-    
+
                 $sqlCompanyDetail = "INSERT INTO `company_detail` (user_id, lokasi, about) 
-                                     VALUES (:user_id, :lokasi, :about)";
+                                 VALUES (:user_id, :lokasi, :about)";
                 $stmtCompany = $this->conn->prepare($sqlCompanyDetail);
                 $stmtCompany->bindParam(':user_id', $userId);
                 $stmtCompany->bindParam(':lokasi', $location);
                 $stmtCompany->bindParam(':about', $about);
                 $stmtCompany->execute();
             }
-    
-            $this->conn->commit();
+
+            $this->conn->commit(); // Commit the transaction
             return true;
         } catch (Exception $e) {
-            $this->conn->rollBack();
+            $this->conn->rollBack(); // Rollback the transaction on error
             error_log("Error registering user: " . $e->getMessage());
             return false;
         }
+    }
+
+    public function isEmailExists($email): bool
+    {
+        $query = "SELECT user_id FROM user WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $email);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
     }
     
 }

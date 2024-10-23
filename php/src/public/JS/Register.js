@@ -1,3 +1,5 @@
+let type;
+
 document.addEventListener('DOMContentLoaded', function() {
     const jobseekerBtn = document.getElementById('jobseekerBtn');
     const companyBtn = document.getElementById('companyBtn');
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         companyForm.style.display = 'none';
         jobseekerBtn.classList.add('active');
         companyBtn.classList.remove('active');
+        type = "jobseeker";
     });
 
     companyBtn.addEventListener('click', () => {
@@ -31,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         companyForm.style.display = 'block';
         companyBtn.classList.add('active');
         jobseekerBtn.classList.remove('active');
+        type = "company";
     });
 
     document.getElementById('jobseekerBtnCompany').addEventListener('click', () => {
@@ -57,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePasswordJobSeeker() {
         if (passwordJobSeeker.value !== confirmPasswordJobSeeker.value) {
             confirmPasswordJobSeeker.setCustomValidity('Passwords do not match');
-            confirmPasswordJobSeeker.reportValidity(); 
+            confirmPasswordJobSeeker.reportValidity();
         } else {
             confirmPasswordJobSeeker.setCustomValidity('');
         }
@@ -66,11 +70,32 @@ document.addEventListener('DOMContentLoaded', function() {
     function validatePasswordCompany() {
         if (passwordCompany.value !== confirmPasswordCompany.value) {
             confirmPasswordCompany.setCustomValidity('Passwords do not match');
-            confirmPasswordCompany.reportValidity(); 
+            confirmPasswordCompany.reportValidity();
         } else {
             confirmPasswordCompany.setCustomValidity('');
         }
     }
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    jobseekerForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (!validateEmail(emailInputJobSeeker.value)) {
+            alert('Please enter a valid email address.');
+        }
+        onsubmit()
+    });
+
+    companyForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (!validateEmail(emailInputCompany.value)) {
+            alert('Please enter a valid email address.');
+        }
+        onsubmit()
+    });
 
     const quill = new Quill('#editor', {
         modules: {
@@ -84,16 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     companyForm.addEventListener('submit', function(event) {
-        const aboutInput = document.getElementById('aboutInput');
-        aboutInput.value = quill.root.innerHTML; 
+        event.preventDefault();
+        const description = document.querySelector('input[name="description"]');
+        description.value = quill.root.innerHTML;
     });
 });
-
 
 function togglePassword(id, toggleBtn) {
     const passwordField = document.getElementById(id);
     const toggleButton = document.getElementById(toggleBtn);
-    
+
     if (passwordField.type === "password") {
         passwordField.type = "text";
         toggleButton.textContent = "Hide";
@@ -103,11 +128,63 @@ function togglePassword(id, toggleBtn) {
     }
 }
 
-document.getElementById('emailJobSeeker').addEventListener('input', function (e) {
-    const email = e.target.value;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address");
+
+function onsubmit() {
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "http://localhost:80/register", true);
+
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 201) {
+                showToast("Registration successful", "success");
+                setTimeout(() => {
+                    window.location.href = "http://localhost:80/dashboard";
+                }, 2000);
+            } else if (this.status === 400) {
+                showToast("Email already exists", "error");
+            } else if (this.status === 500) {
+                showToast("Server error", "error");
+            }
+        }
+    };
+
+    if (type === "company") {
+        const name = document.getElementById('nameCompany').value;
+        const email = document.getElementById('emailCompany').value;
+        const password = document.getElementById('passwordCompany').value;
+        const location = document.getElementById('location').value;
+        const description = document.getElementById('description').value;
+
+        xmlhttp.send(JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            type: 'company',
+            location: location,
+            description: description
+        }));
+
+    } else {
+        const name = document.getElementById('nameJobSeeker').value;
+        const email = document.getElementById('emailJobSeeker').value;
+        const password = document.getElementById('passwordJobSeeker').value;
+        xmlhttp.send(JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            type: 'jobseeker'
+        }));
     }
-});
+}
+
+function showToast(message, type) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+    setTimeout(() => {
+        toast.className = toast.className.replace('show', '');
+    }, 3000);
+}
 

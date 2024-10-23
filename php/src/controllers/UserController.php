@@ -100,6 +100,8 @@ class UserController {
             $email = $data['email'];
             $password = $data['password'];
             $role = $data['type'];
+            $location = $data['location']?? '';
+            $about = $data['about']?? '';
 
             if ($role !== 'jobseeker' && $role !== 'company') {
                 http_response_code(400);
@@ -113,7 +115,7 @@ class UserController {
                 exit;
             }
 
-            if ($this->user->register($name, $email, $password, $role)) {
+            if ($this->user->register($name, $email, $password, $role, $location, $about)) {
                 http_response_code(201);
                 echo json_encode(['message' => 'User registered successfully']);
             } else {

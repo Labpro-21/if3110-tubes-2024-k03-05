@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     companyForm.addEventListener('submit', function(event) {
         event.preventDefault();
+        const description = document.querySelector('input[name="about"]');
+        description.value = quill.root.innerHTML;
         if (!validateEmail(emailInputCompany.value)) {
             alert('Please enter a valid email address.');
         }
@@ -108,11 +110,55 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'snow',
     });
 
-    companyForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const description = document.querySelector('input[name="description"]');
-        description.value = quill.root.innerHTML;
-    });
+    function onsubmit() {
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "http://localhost:80/register", true);
+
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 201) {
+                    showToast("Registration successful", "success");
+                    setTimeout(() => {
+                        window.location.href = "http://localhost:80/login";
+                    }, 2000);
+                } else if (this.status === 400) {
+                    showToast("Email already exists", "error");
+                } else if (this.status === 500) {
+                    showToast("Server error", "error");
+                }
+            }
+        };
+
+        if (type === "company") {
+            const name = document.getElementById('nameCompany').value;
+            const email = document.getElementById('emailCompany').value;
+            const password = document.getElementById('passwordCompany').value;
+            const location = document.getElementById('location').value;
+
+
+            xmlhttp.send(JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                type: 'company',
+                location: location,
+                description: quill.root.innerHTML
+            }));
+
+        } else {
+            const name = document.getElementById('nameJobSeeker').value;
+            const email = document.getElementById('emailJobSeeker').value;
+            const password = document.getElementById('passwordJobSeeker').value;
+            xmlhttp.send(JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                type: 'jobseeker'
+            }));
+        }
+    }
 });
 
 function togglePassword(id, toggleBtn) {
@@ -129,55 +175,6 @@ function togglePassword(id, toggleBtn) {
 }
 
 
-function onsubmit() {
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "http://localhost:80/register", true);
-
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4) {
-            if (this.status === 201) {
-                showToast("Registration successful", "success");
-                setTimeout(() => {
-                    window.location.href = "http://localhost:80/login";
-                }, 2000);
-            } else if (this.status === 400) {
-                showToast("Email already exists", "error");
-            } else if (this.status === 500) {
-                showToast("Server error", "error");
-            }
-        }
-    };
-
-    if (type === "company") {
-        const name = document.getElementById('nameCompany').value;
-        const email = document.getElementById('emailCompany').value;
-        const password = document.getElementById('passwordCompany').value;
-        const location = document.getElementById('location').value;
-        const description = document.getElementById('description').value;
-
-        xmlhttp.send(JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
-            type: 'company',
-            location: location,
-            description: description
-        }));
-
-    } else {
-        const name = document.getElementById('nameJobSeeker').value;
-        const email = document.getElementById('emailJobSeeker').value;
-        const password = document.getElementById('passwordJobSeeker').value;
-        xmlhttp.send(JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
-            type: 'jobseeker'
-        }));
-    }
-}
 
 function showToast(message, type) {
     const toast = document.getElementById('toast');

@@ -69,6 +69,21 @@
                             ' . $job['status'] . '
                         </p>
                     </div>
+                    <div class="resume-video">
+                        <section>
+                            <p>Applicant\'s Resume</p>
+                            <iframe src="/serveFile?file=<?php echo urlencode($job['cv_path']); ?>" width="100%" height="600px"></iframe>
+                        </section>
+
+                        <section>
+                            <p>Applicant\'s Video</p>
+                            <video width="100%" height="400" controls>
+                                <source src="/serveFile?file=<?php echo urlencode($job['video_path']); ?>" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </section>
+                    </div>
+
                 ';
             }
             

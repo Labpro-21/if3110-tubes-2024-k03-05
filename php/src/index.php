@@ -76,7 +76,7 @@ $router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProf
 $router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
 
 $router->add('GET', '/detaillowongan', [JobController::class, 'detailLowonganJobseeker']);
-$router->add('GET', '//detailLowonganGuest', [JobController::class, 'detailLowonganGuest']);
+$router->add('GET', '/detailLowonganGuest', [JobController::class, 'detailLowonganGuest']);
 
 
 

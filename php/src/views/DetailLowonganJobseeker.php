@@ -72,26 +72,26 @@ include 'jobsNavbar.php'; ?>
                 echo '
             <div class="description box">
                 <h2>Status</h2>
-                <p>
-                    ' . $lamaranData['status'] . '
-                </p>
-                <p>
-                    ' . $lamaranData['status_reason'] . '
-                </p>
-                <div class="resume-video">
-                    <section>
-                        <p>Applicant\'s Resume</p>
-                        <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
-                    </section>
-                    <section>
-                        <p>Applicant\'s Video</p>
-                        <video width="100%" height="400" controls>
-                            <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </section>
-                </div>
-            </div>
+                
+                <div class="description box">
+                        <h2>Status</h2>
+                        <p>
+                            ' . $lamaranData['status'] . '
+                        </p>
+                        <p>
+                            ' . $lamaranData['status_reason'] . '
+                        </p>
+                    </div>
+                    <div class="resume-video">
+                        <section class="resume">
+                            <p>Applicant\'s Resume</p>
+                            <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">CV</a>
+                        </section>
+                        <section class="resume">
+                            <p>Applicant\'s Video</p>
+                            <a href="/serveFile?file=' . urlencode($lamaranData['video_path']) . '">VIDEO</a>
+                        </section>
+                    </div>
             ';
             } else {
                 echo '

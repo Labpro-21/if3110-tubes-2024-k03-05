@@ -15,7 +15,7 @@
         <!-- Name Card -->
         <div class="name-card box">
             <header>
-                <p><?=job['nama']?></p>
+                <p><?=$job['nama']?></p>
             </header>
             <h1><?= $job['posisi']?></h1>
             <div class="detail">

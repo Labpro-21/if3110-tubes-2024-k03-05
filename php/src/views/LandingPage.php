@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkInPurry</title>
     <link rel="stylesheet" href="../public/CSS/landingPage.css">
+    <link rel="stylesheet" href="../public/CSS/guestHomepageNavbar.css">
 </head>
 <body>
+<?php include 'guestHomepageNavbar.php'; ?>
     <main>
         <section id="loginRegister">
             <div class="content-wrapper">

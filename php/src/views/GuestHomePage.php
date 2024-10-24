@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<?php include 'jobsHomepageNavbar.php'; ?>
+<?php include 'guestHomepageNavbar.php'; ?>
 <div class="container">
     <div class="sidebar">
         <div class="profile-card">
@@ -89,7 +89,7 @@
         </section>
     </main>
 </div>
-<script src="../public/JS/Homepage.js"></script>
+<script src="../public/JS/GuestHomepage.js"></script>
 <script src="../public/JS/sortbyBtnHomepage.js"></script>
 <script src="../public/JS/filterBtnHomepage.js"></script>
 <script>

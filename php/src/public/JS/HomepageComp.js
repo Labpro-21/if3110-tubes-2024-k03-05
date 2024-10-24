@@ -48,7 +48,6 @@ function updateJobList(jobs) {
         jobContainer.appendChild(jobCard);
     });
 }
-
 function updatePagination(totalPages, currentPage) {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';

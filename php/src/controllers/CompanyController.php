@@ -268,6 +268,13 @@ class CompanyController
 
         $jobs = array_slice($jobs, $offset, $limit);
 
+        // Jobs.description is stored as HTML entities in the database
+        // Decode the HTML entities to display the description properly
+        // Trim <p> tags from the description
+        foreach ($jobs as $key => $job) {
+            $jobs[$key]['deskripsi'] = preg_replace('/<\/?p>/', '', html_entity_decode($job['deskripsi']));
+        }
+
         header('Content-Type: application/json');
         echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
     }

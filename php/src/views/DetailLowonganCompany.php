@@ -37,11 +37,11 @@
                         </svg>
                         
                     </a>
-                    <a href="/deleteLowonganCompany?lowongan_id=<?= $lowonganId ?>" class="button-wrapper delete">
+                    <button class="button-wrapper delete" id="deleteButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"/>
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -63,9 +63,14 @@
             </div>
 
             <div class="end">
-                <a href="/closeLowonganCompany?lowongan_id=<?= $lowonganId ?>" class="close">Close Recruitment</a>
+                <?php
+                    if ($jobData['is_open'] == 1) {
+                        echo '<Button class="close" id="closeButton">Close Recruitment</Button>';
+                    }
+                ?>
             </div>
         </div>
     </main>
+    <script src="../public/JS/DetailLowonganCompany.js"></script>
 </body>
 </html>

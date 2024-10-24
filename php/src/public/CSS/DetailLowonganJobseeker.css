@@ -168,6 +168,12 @@ button.close:hover{
     background-color: red;
 }
 
+button.accept {
+    background-color: #0a66c2;
+    color: white;
+    font-weight: bold;
+}
+
 
 @media only screen and (max-width: 950px) {
     .name-card {

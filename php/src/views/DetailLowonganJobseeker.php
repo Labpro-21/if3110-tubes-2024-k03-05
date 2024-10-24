@@ -41,12 +41,19 @@
             </p>
         </div>
 
-
+        <?php
+        if (!$isAlreadyApply){
+            echo '
         <div class="end">
-            <button class="close">Apply</button>
+            <button class="close" id="applyButton">Apply</button>
         </div>
+        ';
+        }
+        ?>
+
     </div>
 </main>
+<script src="../public/JS/DetailLowonganJobseeker.js"></script>
 </body>
 </html>
 <?php

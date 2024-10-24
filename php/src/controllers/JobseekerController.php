@@ -51,7 +51,7 @@ class JobseekerController
 
 
 
-    public function lamaran()
+    public function lamaran(): void
     {
         include __DIR__ . '/../views/LamaranJobseeker.php';
     }

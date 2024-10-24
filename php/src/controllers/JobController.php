@@ -100,24 +100,26 @@ class JobController {
     
     public function detailLowonganJobseeker(): void
     {
-        if (!isset($_GET['id'])) {
-            http_response_code(400);
-            echo json_encode(['message' => 'Missing id parameter']);
-            exit;
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'jobseeker') {
+            header("Location: /login");
+            exit();
+        }
+
+        if (!isset($_GET['lowonganId'])) {
+            include __DIR__ . '/../views/404.php';
+            exit();
         }
 
         $id = $_GET['lowonganId'];
-
         $job = $this->job->getLowonganJobSeekerById($id);
+        $isAlreadyApply = $this->job->isAlreadyApply($id, $_SESSION['user_id']);
 
         if (!$job) {
-            http_response_code(404);
-            echo json_encode(['message' => 'Job not found']);
-            exit;
+            include __DIR__ . '/../views/404.php';
+            exit();
         }
 
         $totalApplicants = $this->job->getTotalApplicants($id);
-
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';
     }
 

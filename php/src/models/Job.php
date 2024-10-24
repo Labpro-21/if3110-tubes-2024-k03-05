@@ -316,7 +316,16 @@ class Job
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-   
+
+    public function isAlreadyApply(mixed $id, mixed $user_id)
+    {
+        $query = "SELECT * FROM lamaran WHERE lowongan_id = ? AND user_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }

@@ -257,8 +257,13 @@ class CompanyController
         $totalJobs = count($jobs);
         $totalPages = ceil($totalJobs / $limit);
 
+        
         $jobs = array_slice($jobs, $offset, $limit);
-
+        
+        foreach ($jobs as $key => $job) {
+            $jobs[$key]['deskripsi'] = preg_replace('/<\/?p>/', '', html_entity_decode($job['deskripsi']));
+        }
+        
         header('Content-Type: application/json');
         echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
     }

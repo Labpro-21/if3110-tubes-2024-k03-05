@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../public/CSS/guestHomepageNavbar.css">
 </head>
 <body>
-<?php include 'guestHomepageNavbar.php'; ?>
+<?php include 'guestNavbar.php'; ?>
     <main>
         <section id="loginRegister">
             <div class="content-wrapper">

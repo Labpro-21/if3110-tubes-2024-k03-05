@@ -44,7 +44,6 @@
                 </div>
                 <p class="status"><?= $job['status'] ?></p>
             </div>
-
             <?php endforeach; ?>
         </div>
     </main>

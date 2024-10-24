@@ -13,13 +13,23 @@
 <main>
         <div class="container">
             <h1>My Jobs</h1>
-            <ul class="filter-buttons">
-                <li><button class="active" onclick="setActiveButton('all')">All</button></li>
-                <li><button onclick="setActiveButton('waiting')">Waiting</button></li>
-                <li><button onclick="setActiveButton('accept')">Accept</button></li>
-                <li><button onclick="setActiveButton('reject')">Reject</button></li>
-            </ul>
+            <form method="GET" action="">
+                <ul class="filter-buttons">
+                    <li>
+                        <button type="submit" name="status" value="all" class="<?= (!isset($_GET['status']) || $_GET['status'] === 'all') ? 'active' : '' ?>">All</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="status" value="waiting" class="<?= (isset($_GET['status']) && $_GET['status'] === 'waiting') ? 'active' : '' ?>">Waiting</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="status" value="accepted" class="<?= (isset($_GET['status']) && $_GET['status'] === 'accepted') ? 'active' : '' ?>">Accepted</button>
+                    </li>
+                    <li>
+                        <button type="submit" name="status" value="rejected" class="<?= (isset($_GET['status']) && $_GET['status'] === 'rejected') ? 'active' : '' ?>">Rejected</button>
+                    </li>
+                </ul>
             <hr>
+            </form>
             <div class="no-jobs">
                 <img src="../public/images/image.png" alt="No Jobs Image">
                 <h2>No recent job activity</h2>

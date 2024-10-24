@@ -15,8 +15,8 @@ body {
     margin: 50px auto;
     background-color: white;
     border-radius: 8px;
-    outline-style: solid; 
-    outline-width: 0.5px;   
+    outline-style: solid;
+    outline-width: 0.5px;
     outline-color: #ddd;
     padding-top: 10px;
 }
@@ -24,7 +24,7 @@ body {
 .container h1 {
     font-size: 24px;
     font-weight: normal;
-    margin-top: 10px; 
+    margin-top: 10px;
     margin-left: 25px;
     margin-bottom: 8px;
 }
@@ -64,9 +64,9 @@ body {
 }
 
 .filter-buttons button:hover {
-    outline-style: solid; 
-    outline-width: 1px;   
-    outline-color: #333; 
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: #333;
     background-color: #f3f3f3;
     color: #333;
 }
@@ -104,7 +104,7 @@ hr {
     background-color: white;
     border: none;
     border-radius: 25px;
-    outline-style: solid; 
+    outline-style: solid;
     outline-width: 1px;
     color: #0a66c2;
     font-size: 12px;

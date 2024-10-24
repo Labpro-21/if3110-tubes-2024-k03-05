@@ -60,5 +60,15 @@ class Company
         }
     }
 
+    public function isEmailExists(mixed $email, int $userId)
+    {
+        $query = "SELECT email FROM user WHERE email = ? AND user_id != ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->bindParam(2, $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }

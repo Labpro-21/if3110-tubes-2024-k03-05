@@ -122,20 +122,16 @@ class JobController {
 
     public function detailLowonganGuest(): void
     {
-        // if (!isset($_GET['id'])) {
-        //     http_response_code(400);
-        //     echo json_encode(['message' => 'Missing id parameter']);
-        //     exit;
-        // }
+         if (!isset($_GET['lowonganId'])) {
+             include __DIR__ . '/../views/404.php';
+         }
 
         $id = $_GET['lowonganId'];
 
-        $job = $this->job->getLowonganJobSeekerById($id);
+        $job = $this->job->getLowonganGuestById($id);
 
         if (!$job) {
-            http_response_code(404);
-            echo json_encode(['message' => 'Job not found']);
-            exit;
+            include __DIR__ . '/../views/404.php';
         }
 
         $totalApplicants = $this->job->getTotalApplicants($id);

@@ -42,4 +42,16 @@ class Lamaran
         }
     }
 
+    public function getLamaranbyUserIdAndJobId(mixed $user_id, mixed $id)
+    {
+        $query = "SELECT * 
+            FROM lamaran r JOIN lowongan l ON r.lowongan_id = l.lowongan_id
+            WHERE user_id = :user_id AND l.lowongan_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
 }

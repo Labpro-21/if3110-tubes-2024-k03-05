@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
 <body>
-<?php include 'jobsNavbar.php'; ?>
+<?php use config\Database;
+use models\Lamaran;
+
+include 'jobsNavbar.php'; ?>
 <main>
     <div class="container">
         <!-- Name Card -->
@@ -61,26 +64,32 @@
             </div>
         ';
         } else {
-            if ($job['status'] === 'accepted' || $job['status'] === 'rejected') {
+            $id = $_GET['lowonganId'];
+            $db = new Database();
+            $conn = $db->getConnection();
+            $lamaran = new Lamaran($conn);
+            $lamaranData = $lamaran->getLamaranbyUserIdAndJobId($_SESSION['user_id'], $id);
+
+            if ($lamaranData['status'] === 'accepted' || $lamaranData['status'] === 'rejected') {
                 echo '
             <div class="description box">
                 <h2>Status</h2>
                 <p>
-                    ' . $job['status'] . '
+                    ' . $lamaranData['status'] . '
                 </p>
                 <p>
-                    ' . $job['status_reason'] . '
+                    ' . $lamaranData['status_reason'] . '
                 </p>
                 <div class="resume-video">
                     <section>
                         <p>Applicant\'s Resume</p>
-                        <iframe src="/serveFile?file=' . urlencode($job['cv_path']) . '" width="100%" height="600px"></iframe>
+                        <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
                     </section>
 
                     <section>
                         <p>Applicant\'s Video</p>
                         <video width="100%" height="400" controls>
-                            <source src="/serveFile?file=' . urlencode($job['video_path']) . '" type="video/mp4">
+                            <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </section>
@@ -92,19 +101,19 @@
                     <div class="description box">
                         <h2>Status</h2>
                         <p>
-                            ' . $job['status'] . '
+                            ' . $lamaranData['status'] . '
                         </p>
                     </div>
                     <div class="resume-video">
                     <section>
                         <p>Applicant\'s Resume</p>
-                        <iframe src="/serveFile?file=' . urlencode($job['cv_path']) . '" width="100%" height="600px"></iframe>
+                        <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
                     </section>
 
                     <section>
                         <p>Applicant\'s Video</p>
                         <video width="100%" height="400" controls>
-                            <source src="/serveFile?file=' . urlencode($job['video_path']) . '" type="video/mp4">
+                            <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </section>

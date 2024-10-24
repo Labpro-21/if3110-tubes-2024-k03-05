@@ -23,7 +23,7 @@ body {
 /* Cover Photo */
 .cover-photo {
     height: 200px;
-    background: url('cover-photo.jpg') center/cover no-repeat;
+    background: url('cover-photo.webp') center/cover no-repeat;
 }
 
 /* Profile Content */

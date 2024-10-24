@@ -2,8 +2,8 @@
 
 // Dummy data
 const dummyData = {
-    bannerSrc: "../public/images/linkedinbanner.jpg",
-    photoSrc: "../public/images/paper.id.png",
+    bannerSrc: "../public/images/linkedinbanner.webp",
+    photoSrc: "../public/images/paper.id.webp",
     name: "Paper.id",
     tagline: "Streamline Your Business Invoicing and Payments Effortlessly with Paper.id and #SwipeUpYourLife!",
     location: "New York, USA",
@@ -32,28 +32,28 @@ const jobvacancyData = [
         deskripsi: "Responsible for analyzing and interpreting complex data sets to help companies make informed business decisions.",
         jenisJob: "Internship",
         jenisLokasi: "On-site",
-        image: "../images/paper.id.png"
+        image: "../images/paper.id.webp"
     },
     {
         posisi: "Content Creator",
         deskripsi: "Creates engaging and relevant content for various platforms, including social media, blogs, and websites.",
         jenisJob: "Part-time",
         jenisLokasi: "Hybrid",
-        image: "../images/paper.id.png"
+        image: "../images/paper.id.webp"
     },
     {
         posisi: "Backend Developer",
         deskripsi: "Develops and maintains the server-side logic, databases, and APIs for web applications.",
         jenisJob: "Full-time",
         jenisLokasi: "Remote",
-        image: "../images/paper.id.png"
+        image: "../images/paper.id.webp"
     },
     {
         posisi: "Full-stack Mobile Developer",
         deskripsi: "Works on both the front-end and back-end of mobile applications, ensuring seamless user experiences.",
         jenisJob: "Internship",
         jenisLokasi: "On-site",
-        image: "../images/paper.id.png"
+        image: "../images/paper.id.webp"
     }
 ];
 

@@ -417,6 +417,10 @@ body {
     margin-bottom: 10px;
 }
 
+.jobvacancy-info a:hover {
+    text-decoration: underline;
+}
+
 .jobvacancy-info .comp{
     margin: 5px 0 15px 0;
 }

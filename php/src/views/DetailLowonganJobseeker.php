@@ -44,10 +44,34 @@
         <?php
         if (!$isAlreadyApply){
             echo '
-        <div class="end">
-            <button class="close" id="applyButton">Apply</button>
-        </div>
+            <div class="end">
+                <button class="close" id="applyButton">Apply</button>
+            </div>
         ';
+        } else{
+            if($job['status']==='accepted' || $job['status']==='rejected'){
+                echo '
+            <div class="description box">
+                <h2>Status</h2>
+                <p>
+                    ' . $job['status'] . '
+                </p>
+                <p>
+                    ' . $job['status_reason'] . '
+                </p>
+            </div>
+            ';
+            } else{
+                echo '
+                    <div class="description box">
+                        <h2>Status</h2>
+                        <p>
+                            ' . $job['status'] . '
+                        </p>
+                    </div>
+                ';
+            }
+            
         }
         ?>
 

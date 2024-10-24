@@ -60,13 +60,13 @@ $router->add('GET', '/Companyprofile', [CompanyController::class, 'profile']);
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('GET', '/detailLamaran', [CompanyController::class, 'detailLamaran']);
-$router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
-$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
 
 // API -----------------------
 $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
 $router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
 $router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
+$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
+$router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
 
 
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);

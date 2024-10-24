@@ -15,7 +15,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
             </a>
         </div>
-        <form action="/editProfileCompany?userId=<?= $userId ?>" id="applicantForm" method="post">
+        <form id="applicantForm">
             <div class="input-group">
                 <label for="name">Company Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter new company name" value="<?= $companyData['nama'] ?>" required>
@@ -43,11 +43,11 @@
             </div>
         </form>
         <div id="response"></div>
+        <div id="toast" class="toast"></div>
     </main>
     
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <script src="../public/JS/EditProfileCompany.js"></script>
-  
+    <script src="../public/JS/editProfileCompany.js"></script>
 </body>
 </html>

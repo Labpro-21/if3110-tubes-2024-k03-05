@@ -137,23 +137,32 @@ class CompanyController
 
     public function editProfile(): void
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $about = $_POST['about'];
-            $email = $_POST['email'];
-            $location = $_POST['location'];
+            $data = json_decode(file_get_contents('php://input'), true);
+            $name = $data['name'];
+            $about = $data['about'];
+            $email = $data['email'];
+            $location = $data['location'];
 
             if (!empty($name) && !empty($about) && !empty($email) && !empty($location)) {
                 $userId = (int)$_SESSION['user_id'];
-                $this->company->editProfile($userId, $name, $about, $email, $location);
-                header('Location: /Companyprofile');
-                exit();
-            } else {
-                $error = "All fields are required.";
-            }
-        }
 
+                // Check if the email already exists for another user
+                if ($this->company->isEmailExists($email, $userId)) {
+                    http_response_code(400);
+                    echo json_encode(['message' => 'Email already exists']);
+                    exit();
+                }
+
+                $this->company->editProfile($userId, $name, $about, $email, $location);
+                http_response_code(200);
+                echo json_encode(['message' => 'Profile updated successfully']);
+            } else {
+                http_response_code(400);
+                echo json_encode(['message' => 'All fields are required']);
+            }
+            exit();
+        }
         include __DIR__ . '/../views/EditProfileCompany.php';
     }
 

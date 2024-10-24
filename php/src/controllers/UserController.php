@@ -106,7 +106,7 @@ class UserController {
             $password = $data['password'];
             $role = $data['type'];
             $location = $data['location']?? '';
-            $about = $data['about']?? '';
+            $about = $data['description']?? '';
 
             if ($role !== 'jobseeker' && $role !== 'company') {
                 http_response_code(400);

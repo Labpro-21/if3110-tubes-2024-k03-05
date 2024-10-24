@@ -8,7 +8,6 @@
 
 body {
   background-color: #f3f2ef;
-  display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
@@ -20,14 +19,45 @@ body {
   grid-template-columns: 300px auto; 
   gap: 40px;
   width: 80%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px auto 20px;
 }
 
 .detail-status {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+/* Toast Notification Styles */
+.toast {
+  visibility: hidden;
+  max-width: 300px;
+  margin: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  right: 30px;
+  bottom: 30px;
+  font-size: 17px;
+  transform: translateX(0);
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.toast.success {
+  background-color: #28a745; /* Green */
+}
+
+.toast.error {
+  background-color: #dc3545; /* Red */
 }
 
 

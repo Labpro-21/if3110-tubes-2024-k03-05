@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Lamaran</title>
     <link rel="stylesheet" type="text/css" href="../public/CSS/detailLamaran.css">
+    <link rel="stylesheet" type="text/css" href="../public/CSS/companyNavbar.css">
 </head>
 <body>
+<?php
+include __DIR__ . '/../views/companyNavbar.php';
+?>
 <div class="container">
     <!-- Sidebar Profile -->
     <div class="detail-status">
@@ -21,18 +25,28 @@
                 <p class="status waiting" id="statusText"><?= $lamaran['status'] ?></p>
                 <div id="followUpReason" style="display:none;">
                     <p id="reasonText">
-                        <?= $lamaran['status-reason'] ?>
+                        <?= $lamaran['status_reason'] ?>
                     </p>
                 </div>
             </div>
-            <div class="btn-group">
-                <button class="btn-approve" onclick="updateStatus('accepted')">Approve</button>
-                <button class="btn-reject" onclick="toggleReasonInput()">Reject</button>
-                <div class="form-group" id="reasonForm" style="display:none;">
-                    <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
-                    <button onclick="updateStatus('rejected')">Submit</button>
+            <?php
+            if ($lamaran['status'] === 'waiting') {
+                ?>
+                <div class="btn-group">
+                    <button class="btn-approve" onclick="toggleReasonInput()">Approve</button>
+                    <button class="btn-reject" onclick="toggleReasonInput()">Reject</button>
+                    <div class="form-group" id="reasonForm" style="display:none;">
+                        <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
+                        <button onclick={submitReason('accepted')}>Submit</button>
+                    </div>
+                    <div class="form-group" id="reasonForm" style="display:none;">
+                        <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
+                        <button onclick={submitReason('rejected')}>Submit</button>
+                    </div>
                 </div>
-            </div>
+            <?php
+            }
+            ?>
         </section>
     </div>
 
@@ -40,18 +54,19 @@
     <div class="resume-video">
         <section>
             <p>Applicant's Resume</p>
-            <iframe src="<?= htmlspecialchars($lamaran['cv_path'], ENT_QUOTES, 'UTF-8'); ?>" width="100%" height="600px"></iframe
+            <iframe src="/serveFile?file=<?= urlencode($lamaran['cv_path']); ?>" width="100%" height="600px"></iframe>
         </section>
 
         <section>
             <p>Applicant's Video</p>
             <video width="100%" height="400" controls>
-                <source src="<?= htmlspecialchars($lamaran['video_path'], ENT_QUOTES, 'UTF-8'); ?>" type="video/mp4">
+                <source src="/serveFile?file=<?= urlencode($lamaran['video_path']); ?>" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </section>
     </div>
 </div>
+<div id="toast" class="toast"></div>
 
 
 <script src="../public/JS/detailLamaran.js"></script>

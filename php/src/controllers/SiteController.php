@@ -44,4 +44,33 @@ class SiteController
             echo "Invalid role";
         }
     }
+
+    public function getFiles(): void
+    {
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(403);
+            exit('Forbidden');
+        }
+
+        $filePath = $_GET['file'];
+
+        $baseDir = __DIR__ . '/../uploads/';
+        $realBase = realpath($baseDir);
+        $realUserPath = realpath($baseDir . $filePath);
+
+        if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {
+            http_response_code(404);
+            exit('File not found');
+        }
+
+        if (file_exists($realUserPath)) {
+            header('Content-Type: ' . mime_content_type($realUserPath));
+            header('Content-Length: ' . filesize($realUserPath));
+            readfile($realUserPath);
+            exit;
+        } else {
+            http_response_code(404);
+            exit('File not found');
+        }
+    }
 }

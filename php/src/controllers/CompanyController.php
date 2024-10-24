@@ -210,17 +210,19 @@ class CompanyController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-            if (!isset($_GET['id'])) {
+            if (!isset($_GET['lamaran_id'])) {
                 header('/dashboard');
                 exit;
             }
 
-            $id = $_GET['id'];
+            $id = $_GET['lamaran_id'];
 
             $lamaran = $this->lamaran->getLamaranById($id);
+            $status = $lamaran['status'];
 
             include __DIR__ . "/../views/DetailLamaran.php";
         }
+        http_response_code(405);
         return json_encode(['message' => 'Method not allowed']);
     }
 
@@ -232,9 +234,16 @@ class CompanyController
             $status = $data['status'];
             $reason = $data['reason'];
 
-            $this->lamaran->updateStatus($id, $status, $reason);
-            return json_encode(['message' => 'Status updated']);
+            if ($this->lamaran->updateStatus($id, $status, $reason)){
+                http_response_code(200);
+                return json_encode(['message' => 'Status updated']);
+            } else {
+                http_response_code(400);
+                return json_encode(['message' => 'Failed to update status']);
+            }
+
         }
+        http_response_code(405);
         return json_encode(['message' => 'Method not allowed']);
     }
 
@@ -259,7 +268,7 @@ class CompanyController
         $totalJobs = count($jobs);
         $totalPages = ceil($totalJobs / $limit);
 
-        
+
         $jobs = array_slice($jobs, $offset, $limit);
 
         // Jobs.description is stored as HTML entities in the database

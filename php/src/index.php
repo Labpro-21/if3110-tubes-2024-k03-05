@@ -70,11 +70,12 @@ $router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany'])
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
-$router->add('GET', '/detaillamaran', [CompanyController::class, 'detailLamaran']);
+$router->add('GET', '/detailLamaran', [CompanyController::class, 'detailLamaran']);
 $router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
 $router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
 $router->add('GET', '/guestHomePage', [JobController::class, 'guestDashboard']);
 $router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
+$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
 
 $path = $_SERVER['REQUEST_URI'];
 $router->dispatch($path);

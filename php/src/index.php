@@ -84,8 +84,8 @@ $router->add('GET', '/Companyprofile', [CompanyController::class, 'profile']);
 
 
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
-$router->add('GET', '/closeLowonganCompany', [JobController::class, 'closeLowonganCompany']);
-$router->add('GET', '/deleteLowonganCompany', [JobController::class, 'deleteLowonganCompany']);
+$router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany']);
+$router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
 
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);

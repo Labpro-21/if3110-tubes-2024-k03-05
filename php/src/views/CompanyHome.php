@@ -44,10 +44,10 @@
                         </svg>
                     </button>
                     <div class="dropdown-content">
-                            <a href="#" data-id="All">All</a>
-                            <a href="#" data-id="Full-time">Full-time</a>
-                            <a href="#" data-id="Part-time">Part-time</a>
-                            <a href="#" data-id="Internship">Internship</a>
+                        <a href="#" data-id="All">All</a>
+                        <a href="#" data-id="Full-time">Full-time</a>
+                        <a href="#" data-id="Part-time">Part-time</a>
+                        <a href="#" data-id="Internship">Internship</a>
                     </div>
                 </div>
                 <div class="dropdownLoc">
@@ -83,12 +83,16 @@
 
         <section class="feed-post">
             <div class="jobvacancy-container">
-                <p>Available Job Vacancies</p>
+                <div class="wrapper">
+                    <p>Available Job Vacancies</p>
+                    <a href="/tambahLowongan">
+                        Add job
+                    </a>
+                </div>
                 <div id="jobvacancy-cards">
                 </div>
 
                 <div class="pagination">
-
                 </div>
             </div>
         </section>

@@ -77,6 +77,38 @@ input[type="email"] {
     width:100%;
 }
 
+/* Toast Notification Styles */
+.toast {
+    visibility: hidden;
+    max-width: 300px;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(0);
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #28a745; /* Green */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Red */
+}
+
 
 
 

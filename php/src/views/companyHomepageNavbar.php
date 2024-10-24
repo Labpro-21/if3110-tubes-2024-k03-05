@@ -2,7 +2,7 @@
 <header>
     <nav>
         <div class="logo-search">
-            <a href="homepage.html"><img src="../public/images/logo.jpg" alt="Logo"></a>
+            <a href="dashboard"><img src="../public/images/logo.jpg" alt="Logo"></a>
             <div class="search-bar">
                 <input type="search" name="search" placeholder="Search jobs" class="form-control" autocomplete="off"
                        value="<?= htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES, 'UTF-8') ?>"

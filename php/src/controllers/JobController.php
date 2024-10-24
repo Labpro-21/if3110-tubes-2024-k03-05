@@ -174,55 +174,83 @@ class JobController {
 
     public function closeLowonganCompany(): void
     {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-            header("Location: /login");
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
         }
-        
+
         $userId = (int)$_SESSION['user_id'];
 
-        if (isset($_GET['lowongan_id'])) {
-            $lowonganId = (int)$_GET['lowongan_id']; 
-        } else {
-            header("Location: /dashboard");
-            exit();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['lowongan_id'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Missing lowongan_id parameter']);
+            exit;
+        }
+
+        $lowonganId = (int)$data['lowongan_id'];
+
+        // Check if the user is the owner of the job
+
+        $jobData = $this->job->getDetailLowonganById($lowonganId);
+
+        if ($jobData['user_id'] !== $userId) {
+            http_response_code(403);
+            echo json_encode(['message' => 'Forbidden']);
+            exit;
         }
 
         $berhasil = $this->job->closeLowonganCompany($lowonganId);
 
         if ($berhasil) {
-            header("Location: /profileCompany?user_id=$userId");
-            exit();
+            http_response_code(200);
+            echo json_encode(['message' => 'Lowongan closed']);
         } else {
-            header("Location: /dashboard?error=failed_to_close");
-            exit();
+            http_response_code(500);
+            echo json_encode(['message' => 'Failed to close lowongan']);
         }
     }
     
     public function deleteLowonganCompany(): void
     {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-            header("Location: /login");
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
         }
         
         $userId = (int)$_SESSION['user_id'];
 
-        if (isset($_GET['lowongan_id'])) {
-            $lowonganId = (int)$_GET['lowongan_id']; 
-        } else {
-            header("Location: /dashboard");
-            exit();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($data['lowongan_id'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'Missing lowongan_id parameter']);
+            exit;
+        }
+
+        $lowonganId = (int)$data['lowongan_id'];
+
+        // Check if the user is the owner of the job
+
+        $jobData = $this->job->getDetailLowonganById($lowonganId);
+
+        if ($jobData['user_id'] !== $userId) {
+            http_response_code(403);
+            echo json_encode(['message' => 'Forbidden']);
+            exit;
         }
 
         $berhasil = $this->job->deleteLowonganCompany($lowonganId);
 
         if ($berhasil) {
-            header("Location: /profileCompany?user_id=$userId>");
-            exit();
+            http_response_code(200);
+            echo json_encode(['message' => 'Lowongan deleted']);
         } else {
-            header("Location: /dashboard?error=failed_to_delete");
-            exit();
+            http_response_code(500);
+            echo json_encode(['message' => 'Failed to delete lowongan']);
         }
     }
 

@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Lowongan</title>
     <link rel="stylesheet" href="../public/CSS/DetailLowonganJobseeker.css">
+    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
 <body>
+<?php include 'jobsNavbar.php'; ?>
 <main>
     <div class="container">
         <!-- Name Card -->

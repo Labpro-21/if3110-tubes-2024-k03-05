@@ -92,6 +92,8 @@ class JobController {
         echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
     }
     
+
+    
     public function detailLowonganJobseeker(): void
     {
         if (!isset($_GET['id'])) {

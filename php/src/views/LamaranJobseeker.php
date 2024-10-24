@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Applicant Form</title>
     <link rel="stylesheet" href="../public/CSS/jobsLamaran.css">
+    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
 <body>
+<?php include 'jobsNavbar.php'; ?>
 <main class="form-container">
     <h1>Application Form</h1>
     <form id="applicantForm" onsubmit="handleSubmit(event)">

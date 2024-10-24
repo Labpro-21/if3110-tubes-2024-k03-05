@@ -1,10 +1,39 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f3f2ef;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Container Grid */
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: auto; 
+    gap: 40px;
+    width: 1000px;
+    margin-top: 20px;
+}
+
+
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
+    width: 500px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Removed width: 50%; to allow content-driven width */
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: rgb(218, 218, 218);
 }
 
 .profile-card {
@@ -24,10 +53,11 @@
     height: 0;
 
 }
-
+  
 .avatar > * {
     position: absolute;
     top: 0;
+    left: 0;
     width: 90px;
     height: 90px;
     margin-bottom: 20px;
@@ -45,20 +75,26 @@
 }
 
 .user-desc {
-    margin: 5px 0;
+    margin: 20px 0 20px 0;
 }
 
 .info-section{
-    padding: 0 20px 20px 20px;
+    padding: 0px 20px 20px 20px;
 }
 
 .user-location{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 15px;
     color: grey;
 }
 
 
 /* FIND JOB BUTTON SECTION */
+.job{
+    width: 1500px;
+}
 
 .job-box {
     display: flex;
@@ -68,6 +104,9 @@
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: rgb(218, 218, 218);
 }
 
 .job-box p {
@@ -96,7 +135,8 @@
 }
 
 
-/* Dropdown Container */
+/* DROPDOWN JOB */
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -104,6 +144,8 @@
 
 /* Default dropdown button styling */
 .dropdown-btn {
+    display: flex;
+    align-items: center;
     margin: 10px 5px;
     font-weight: 500;
     color: rgb(78, 78, 78);
@@ -162,6 +204,144 @@
 
 
 
+/* DROPDOWN LOCATION */
+
+
+/* Dropdown Container */
+.dropdownLoc {
+    position: relative;
+    display: inline-block;
+}
+
+/* Default dropdown button styling */
+.dropdownLoc-btn {
+    display: flex;
+    align-items: center;
+    margin: 10px 5px;
+    font-weight: 500;
+    color: rgb(78, 78, 78);
+    background-color: white;
+    border: 1px solid rgb(187, 187, 187);
+    padding: 5px 13px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Green background when button is active */
+.dropdownLoc-btn.active {
+    background-color: #01754f;
+    color: white;
+    border: none;
+}
+
+/* Hidden Dropdown Content */
+.dropdownLoc-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 0.5px solid rgb(187, 187, 187);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Dropdown Content Links */
+.dropdownLoc-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+/* Hover Effect */
+.dropdownLoc-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show Dropdown on Button Click */
+.dropdownLoc.show .dropdownLoc-content {
+    display: block;
+}
+
+
+
+
+
+
+
+
+
+
+/* DROPDOWN SORT */
+
+
+/* Dropdown Container */
+.sortBy {
+    position: relative;
+    display: inline-block;
+}
+
+/* Default dropdown button styling */
+.sortBy-btn {
+    display: flex;
+    align-items: center;
+    margin: 10px 5px;
+    font-weight: 500;
+    color: rgb(78, 78, 78);
+    background-color: white;
+    border: 1px solid rgb(187, 187, 187);
+    padding: 5px 13px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Green background when button is active */
+.sortBy-btn.active {
+    background-color: #01754f;
+    color: white;
+    border: none;
+}
+
+/* Hidden Dropdown Content */
+.sortBy-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 0.5px solid rgb(187, 187, 187);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Dropdown Content Links */
+.sortBy-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+/* Hover Effect */
+.sortBy-content a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Show Dropdown on Button Click */
+.sortBy.show .sortBy-content {
+    display: block;
+}
+
+
 
 
 
@@ -176,50 +356,30 @@
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: rgb(218, 218, 218);
 }
 
 
 /* JOB VACANCY SECTION */
-.wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.wrapper p {
+.jobvacancy-container p {
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }
-
-.wrapper a {
-    font-size: 14px;
-    padding: 3px 16px; 
-    border-radius: 20px;
-    background: #0a66c2;
-    cursor: pointer;
-    transition: 0.3s;
-    color: white;
-    font-weight: 500;
-    text-align: center;
-    margin-bottom: 0; 
-}
-
-.wrapper a:hover{
-    background: #004182;
-}
-
-.jobvacancy-card {
+  
+.job-card {
     display: flex;
     align-items: flex-start;
     padding: 15px;
 }
 
-.jobvacancy-card:not(:last-child) {
+.job-card:not(:last-child) {
     border-bottom: 1px solid #ddd;
 }
 
-.jobvacancy-card img {
+.job-card img {
     width: 50px;
     height: 50px;
     margin-right: 15px;
@@ -247,15 +407,39 @@
     font-weight: 500;
     color: black;
     text-decoration: none;
+    margin-bottom: 10px;
 }
 
-.jobvacancy-info p {
+.jobvacancy-info .comp{
+    margin: 5px 0 15px 0;
+}
+
+.jobvacancy-info .comp-name{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
+    margin-bottom: auto;
+}
+  
+.jobvacancy-info .job-desc {
     margin: 5px 0;
     font-size: 15px;
     color: black;
     font-weight: 400;
 }
+    
+.jobvacancy-info .job-loc{
+    margin: 5px 0;
+    font-size: 15px;
+    color: grey;
+    font-weight: 400;
+}
 
+
+  
 /* Pagination Styles */
 .pagination {
     display: flex;
@@ -281,7 +465,7 @@
 .pagination button.active {
     background-color: #0a66c2;
     font-weight: bold;
-    border: none;
+    border-color: none;
     color: white;
 }
 
@@ -290,3 +474,4 @@
     cursor: not-allowed;
     border-color: #e3e3e3;
 }
+  

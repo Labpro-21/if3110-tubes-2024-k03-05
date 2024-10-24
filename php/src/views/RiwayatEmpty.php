@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Lamaran Kosong</title>
     <link rel="stylesheet" href="../public/CSS/riwayatEmpty.css">
+    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
 <body>
+<?php include 'jobsNavbar.php'; ?>
 <main>
         <div class="container">
             <h1>My Jobs</h1>

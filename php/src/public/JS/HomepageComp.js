@@ -1,7 +1,7 @@
 let params = new URLSearchParams();
 
 function fetchJobs(params) {
-    const url = new URL('/getFilteredJobs', window.location.origin);
+    const url = new URL('/getFilteredJobsComp', window.location.origin);
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `${url}?${params.toString()}`, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');

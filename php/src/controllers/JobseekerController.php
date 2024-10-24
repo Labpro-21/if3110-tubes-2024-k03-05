@@ -36,15 +36,13 @@ class JobseekerController
         }
 
         $userId = $_SESSION['user_id'];
-
         $userDetails = $this->getUserDetails($userId);
         $details = [
             'name' => $_SESSION['name'],
             'email' => $userDetails['email'],
             'role' => $userDetails['role'],
         ];
-        
-    
+
         // Include the view
         include __DIR__ . '/../views/jobsHomepage.php';
     }
@@ -84,5 +82,10 @@ class JobseekerController
         }
 
         include __DIR__ . '/../views/LamaranJobseeker.php';
+    }
+
+    public function profile()
+    {
+        include __DIR__ . '/../views/404.php';
     }
 }

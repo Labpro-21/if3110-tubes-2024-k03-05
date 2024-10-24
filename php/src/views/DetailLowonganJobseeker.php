@@ -54,6 +54,18 @@ include 'jobsNavbar.php'; ?>
             </p>
         </div>
 
+        <!-- Attachment -->
+        <div class="attachment box">
+            <h2>Attachment</h2>
+            <div class="attachment-wrapper">
+                <?php foreach ($attachments as $attachment): ?>
+                    <a href="/serveFile?file=<?= $attachment['file_path'] ?>" target="_blank">
+                        <img src="/serveFile?file=<?= $attachment['file_path'] ?>" alt="Attachment" class="">
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
         <?php
 
         if (!$isAlreadyApply) {

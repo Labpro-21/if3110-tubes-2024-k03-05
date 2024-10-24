@@ -120,6 +120,7 @@ class JobController {
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganJobSeekerById($id);
+        $attachments = $this->job->getAttachmentsByLowonganId($id);
 
         // Check if the job is open
         if ($job['is_open'] !== 1) {
@@ -140,6 +141,7 @@ class JobController {
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganGuestById($id);
+        $attachments = $this->job->getAttachmentsByLowonganId($id);
 
         if (!$job) {
             include __DIR__ . '/../views/404.php';

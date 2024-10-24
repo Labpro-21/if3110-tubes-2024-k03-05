@@ -41,24 +41,18 @@ class SiteController
         } else if ($_SESSION['role'] === 'company') {
             $this->companyController->profile();
         } else {
-            echo "Invalid role";
+            include __DIR__ . '/../views/404.php';
         }
     }
 
     public function getFiles(): void
     {
-        if (!isset($_SESSION['user_id'])) {
-            http_response_code(403);
-            exit('Forbidden');
-        }
-
         $filePath = $_GET['file'];
-
         $baseDir = __DIR__ . '/../uploads/';
         $realBase = realpath($baseDir);
         $realUserPath = realpath($baseDir . $filePath);
 
-        if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {
+        if ($realUserPath === false || !str_starts_with($realUserPath, $realBase)) {
             http_response_code(404);
             exit('File not found');
         }

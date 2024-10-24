@@ -40,6 +40,11 @@
         </div>
     </div>
 </main>
+<script src="../public/JS/GuestHomepage.js"></script>
+    <script src="../public/JS/sortbyBtnHomepage.js"></script>
+    <script src="../public/JS/filterBtnHomepage.js"></script>
+    <script>
+        fetchJobs(new URLSearchParams());
+    </script>
 </body>
 </html>
-<?php

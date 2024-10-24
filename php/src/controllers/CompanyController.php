@@ -266,6 +266,7 @@ class CompanyController
         $totalJobs = count($jobs);
         $totalPages = ceil($totalJobs / $limit);
 
+        
         $jobs = array_slice($jobs, $offset, $limit);
 
         // Jobs.description is stored as HTML entities in the database

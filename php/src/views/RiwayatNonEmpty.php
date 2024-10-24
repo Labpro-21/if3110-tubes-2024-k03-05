@@ -11,8 +11,8 @@
 <body>
     <?php include 'jobsNavbar.php'; ?>
     <main>
-    <div class="container">
-            <header>My Jobs</header>
+        <div class="container">
+            <p class="title">My Jobs</p>
             
             <form method="GET" action="">
                 <ul class="filter-buttons">
@@ -29,8 +29,9 @@
                         <button type="submit" name="status" value="rejected" class="<?= (isset($_GET['status']) && $_GET['status'] === 'rejected') ? 'active' : '' ?>">Rejected</button>
                     </li>
                 </ul>
+                <hr>
             </form>
-            <hr>
+   
 
             <?php foreach ($jobs as $job): ?>
             <div class="job-card">
@@ -43,7 +44,7 @@
                 </div>
                 <p class="status"><?= $job['status'] ?></p>
             </div>
-            <hr>
+
             <?php endforeach; ?>
         </div>
     </main>

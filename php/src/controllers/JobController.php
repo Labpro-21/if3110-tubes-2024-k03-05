@@ -245,7 +245,6 @@ class JobController {
         }
         
         $userId = (int)$_SESSION['user_id'];
-
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!isset($data['lowongan_id'])) {

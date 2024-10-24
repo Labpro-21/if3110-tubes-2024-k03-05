@@ -352,17 +352,75 @@ class Job
     }
 
     public function deleteLowonganCompany(int $lowonganId): bool
-    {
-        try {
-            $query = "DELETE FROM lowongan WHERE lowongan_id = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
-            return $stmt->execute();
-        } catch (PDOException $e) {
-            error_log("Failed to delete lowongan: " . $e->getMessage());
-            return false;
+{
+    $deletedFiles = [];
+    try {
+        $this->conn->beginTransaction();
+
+        foreach ($this->getAttachmentsByLowonganId($lowonganId) as $attachment) {
+            $filePath = '/var/www/html/uploads/' . $attachment['file_path'];
+            $backupPath = $filePath . '.bak';
+            if (copy($filePath, $backupPath) && unlink($filePath)) {
+                $deletedFiles[] = $filePath;
+            } else {
+                $this->conn->rollBack();
+                foreach ($deletedFiles as $file) {
+                    copy($file . '.bak', $file);
+                }
+                return false;
+            }
         }
+
+        foreach ($this->getApplicantsByLowonganId($lowonganId) as $applicant) {
+            $cv = '/var/www/html/uploads/' . $applicant['cv_path'];
+            $cvBackup = $cv . '.bak';
+            if (copy($cv, $cvBackup) && unlink($cv)) {
+                $deletedFiles[] = $cv;
+            } else {
+                $this->conn->rollBack();
+                foreach ($deletedFiles as $file) {
+                    copy($file . '.bak', $file);
+                }
+                return false;
+            }
+
+            if ($applicant['video_path'] !== null) {
+                $video = '/var/www/html/uploads/' . $applicant['video_path'];
+                $videoBackup = $video . '.bak';
+                if (copy($video, $videoBackup) && unlink($video)) {
+                    $deletedFiles[] = $video;
+                } else {
+                    $this->conn->rollBack();
+                    foreach ($deletedFiles as $file) {
+                        copy($file . '.bak', $file);
+                    }
+                    return false;
+                }
+            }
+        }
+
+        $query = "DELETE FROM lowongan WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $this->conn->commit();
+
+        // Delete the backup files
+        foreach ($deletedFiles as $file) {
+            unlink($file . '.bak');
+        }
+
+        return true;
+    } catch (PDOException $e) {
+        $this->conn->rollBack();
+        foreach ($deletedFiles as $file) {
+            copy($file . '.bak', $file);
+        }
+        error_log("Failed to delete lowongan: " . $e->getMessage());
+        return false;
     }
+}
 
 
     public function getJobsByUserId($userId, $status = 'all')

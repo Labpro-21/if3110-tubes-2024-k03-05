@@ -33,7 +33,7 @@ function updateJobList(jobs) {
     if (jobs.length === 0) {
         const noJobsMessage = document.createElement('p');
         noJobsMessage.className = 'no-jobs-message';
-        noJobsMessage.textContent = "You haven't added a job vacancy";
+        noJobsMessage.textContent = "No job vacancy";
         jobContainer.appendChild(noJobsMessage);
     } else {
         jobs.forEach(job => {

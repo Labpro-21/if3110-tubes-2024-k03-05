@@ -9,15 +9,17 @@
     <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
 </head>
 <body>
-<?php include 'jobsNavbar.php'; ?>
+<?php use config\Database;
+use models\Lamaran;
+include 'jobsNavbar.php'; ?>
 <main>
     <div class="container">
         <!-- Name Card -->
         <div class="name-card box">
             <header>
-                <p><?= $jobData['nama'] ?></p>
+                <p><?= $job['nama'] ?></p>
             </header>
-            <h1><?= $jobData['posisi'] ?></h1>
+            <h1><?= $job['posisi'] ?></h1>
             <div class="detail">
                 <p>Location</p>
                 <span class="dot"></span>
@@ -38,9 +40,9 @@
                         <path fill="currentColor" d="M26.5 23a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0"/>
                     </g>
                 </svg>
-                <p><?= $jobData['jenis_lokasi'] ?></p>
+                <p><?= $job['jenis_lokasi'] ?></p>
                 <span class="dot"></span>
-                <p><?= $jobData['jenis_pekerjaan'] ?></p>
+                <p><?= $job['jenis_pekerjaan'] ?></p>
             </div>
         </div>
 
@@ -48,7 +50,7 @@
         <div class="description box">
             <h2>Description</h2>
             <p>
-                <?= htmlspecialchars_decode($jobData['deskripsi']) ?>
+                <?= htmlspecialchars_decode($job['deskripsi']) ?>
             </p>
         </div>
 
@@ -61,26 +63,30 @@
             </div>
         ';
         } else {
-            if ($job['status'] === 'accepted' || $job['status'] === 'rejected') {
+            $id = $_GET['lowonganId'];
+            $db = new Database();
+            $conn = $db->getConnection();
+            $lamaran = new Lamaran($conn);
+            $lamaranData = $lamaran->getLamaranbyUserIdAndJobId($_SESSION['user_id'], $id);
+            if ($lamaranData['status'] === 'accepted' || $lamaranData['status'] === 'rejected') {
                 echo '
             <div class="description box">
                 <h2>Status</h2>
                 <p>
-                    ' . $job['status'] . '
+                    ' . $lamaranData['status'] . '
                 </p>
                 <p>
-                    ' . $job['status_reason'] . '
+                    ' . $lamaranData['status_reason'] . '
                 </p>
-                <div class="resume-video box" >
+                <div class="resume-video">
                     <section>
                         <p>Applicant\'s Resume</p>
-                        <iframe src="/serveFile?file=' . urlencode($job['cv_path']) . '" width="100%" height="600px"></iframe>
+                        <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
                     </section>
-
                     <section>
                         <p>Applicant\'s Video</p>
                         <video width="100%" height="400" controls>
-                            <source src="/serveFile?file=' . urlencode($job['video_path']) . '" type="video/mp4">
+                            <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </section>
@@ -92,19 +98,18 @@
                     <div class="description box">
                         <h2>Status</h2>
                         <p>
-                            ' . $job['status'] . '
+                            ' . $lamaranData['status'] . '
                         </p>
                     </div>
                     <div class="resume-video">
                     <section>
                         <p>Applicant\'s Resume</p>
-                        <iframe src="/serveFile?file=' . urlencode($job['cv_path']) . '" width="100%" height="600px"></iframe>
+                        <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
                     </section>
-
                     <section>
                         <p>Applicant\'s Video</p>
                         <video width="100%" height="400" controls>
-                            <source src="/serveFile?file=' . urlencode($job['video_path']) . '" type="video/mp4">
+                            <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </section>

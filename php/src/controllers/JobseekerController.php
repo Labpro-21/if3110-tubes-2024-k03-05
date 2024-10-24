@@ -53,6 +53,36 @@ class JobseekerController
 
     public function lamaran(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'jobseeker') {
+            header("Location: /login");
+            exit();
+        }
+
+        if (!isset($_GET['lowonganId'])) {
+            header("Location: /dashboard");
+            exit();
+        }
+
+        // Check if the jobs is open
+        $id = (int)$_GET['lowonganId'];
+        $job = $this->job->getLowonganById($id);
+
+        if (!$job) {
+            header("Location: /dashboard");
+            exit();
+        }
+
+        if ($job['is_open'] !== 1) {
+            header("Location: /dashboard");
+            exit();
+        }
+
         include __DIR__ . '/../views/LamaranJobseeker.php';
     }
 }

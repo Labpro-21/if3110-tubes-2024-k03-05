@@ -273,7 +273,10 @@ class Job
 
     public function getDetailLowonganById($lowonganId)
     {
-        $query = "SELECT l.posisi as posisi, l.deskripsi as deskripsi, l.jenis_pekerjaan as jenis_pekerjaan, l.jenis_lokasi as jenis_lokasi, l.created_at as created_at, u.user_id as user_id, c.lokasi as lokasi, u.nama as nama, l.is_open as is_open
+        $query = "SELECT l.posisi as posisi, l.deskripsi as deskripsi, l.company_id as company_id,
+       l.jenis_pekerjaan as jenis_pekerjaan, l.jenis_lokasi as jenis_lokasi, 
+       l.created_at as created_at, u.user_id as user_id, c.lokasi as lokasi, 
+       u.nama as nama, l.is_open as is_open
         FROM lowongan l
         JOIN company_detail c ON c.user_id = l.company_id
         JOIN user u ON u.user_id = c.user_id

@@ -32,7 +32,7 @@ function updateJobList(jobs) {
         jobCard.innerHTML = `
             <div class="jobvacancy-info">
                 <div class="job-name-date">
-                    <a href="/detailLowongan${job.lowongan_id}">${job.posisi}</a>
+                    <a href="/detailLowonganCompany?lowonganId=${job.lowongan_id}">${job.posisi}</a>
                     <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>
                 </div>
                 <div class="comp">

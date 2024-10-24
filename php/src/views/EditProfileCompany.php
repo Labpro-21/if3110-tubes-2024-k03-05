@@ -11,7 +11,7 @@
     <main class="form-container">
         <div class="title">
             <h1>Edit Profile Company</h1>
-            <a href="/Companyprofile?user_id=<?= $_SESSION['user_id'] ?>" class="btn-close">
+            <a href="/Companyprofile" class="btn-close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
             </a>
         </div>

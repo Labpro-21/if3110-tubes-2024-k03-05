@@ -42,7 +42,7 @@
 <!--                        <img src="--><?php //= $item['image']; ?><!--" alt="--><?php //= $item['posisi']; ?><!--">-->
                         <img src="../public/images/paper.id.png" alt="<?= $item['posisi']; ?>">
                         <div class="jobvacancy-info">
-                            <a href="#"><?= $item['posisi']; ?></a>
+                            <a href="/detailLowonganCompany?lowonganId=<?=$item['lowongan_id']?>"><?= $item['posisi']; ?></a>
                             <p><?= $item['deskripsi']; ?></p>
                             <p><?= $item['jenis_pekerjaan']; ?><span> • <?= $item['jenis_lokasi']; ?></span></p>
                         </div>

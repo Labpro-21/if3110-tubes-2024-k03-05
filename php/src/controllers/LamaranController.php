@@ -25,10 +25,11 @@ class LamaranController
             $cv = $_FILES['cv'];
             $video = $_FILES['video'];
 
-            $basename = basename($cv['name']);
+            // Hash the file name to prevent duplicate file names
+            $basename = md5($cv['name']) . '-' . basename($cv['name']);
             $cvPath = $uploadDir . $basename;
-            $basename1 = basename($video['name']);
-            $videoPath = $uploadDir . $basename1;
+            $basename2 = md5($video['name']) . '-' . basename($video['name']);
+            $videoPath = $uploadDir . $basename2;
 
             if (move_uploaded_file($cv['tmp_name'], $cvPath) && move_uploaded_file($video['tmp_name'], $videoPath))  {
                 $query = "INSERT INTO lamaran (user_id, lowongan_id, cv_path, video_path, status, status_reason) 
@@ -37,7 +38,7 @@ class LamaranController
                 $stmt->bindParam(':user_id', $_SESSION['user_id']);
                 $stmt->bindParam(':lowongan_id', $jobId);
                 $stmt->bindParam(':cv_path', $basename);
-                $stmt->bindParam(':video_path', $basename1);
+                $stmt->bindParam(':video_path', $basename2);
 
                 $status = 'waiting';
                 $stmt->bindParam(':status', $status);

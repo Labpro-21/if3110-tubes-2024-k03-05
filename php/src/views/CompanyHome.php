@@ -43,11 +43,11 @@
                             <path fill="currentColor" d="m7 10l5 5l5-5z"/>
                         </svg>
                     </button>
-                    <div class="dropdownLoc-content">
-                            <a href="#" data-id="All">All</a>
-                            <a href="#" data-id="On-site">On-site</a>
-                            <a href="#" data-id="Remote">Remote</a>
-                            <a href="#" data-id="Hybrid">Hybrid</a>
+                    <div class="dropdown-content">
+                        <a href="#" data-id="All">All</a>
+                        <a href="#" data-id="Full-time">Full-time</a>
+                        <a href="#" data-id="Part-time">Part-time</a>
+                        <a href="#" data-id="Internship">Internship</a>
                     </div>
                 </div>
                 <div class="dropdownLoc">
@@ -88,7 +88,6 @@
                 </div>
 
                 <div class="pagination">
-
                 </div>
             </div>
         </section>

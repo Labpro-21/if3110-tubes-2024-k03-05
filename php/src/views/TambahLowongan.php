@@ -14,7 +14,7 @@
         <div class="box form-box">
             <header>Add Job Vacancy</header>
             <div class="divider"></div>
-            <form action="/tambahLowongan" method="post">
+            <form id="jobForm">
                 <div class="input-group">
                     <label for="position">Position</label>
                     <input type="text" name="Position" id="position" placeholder="Enter Position" required>
@@ -41,6 +41,10 @@
                         <option value="remote">Remote</option>
                         <option value="hybrid">Hybrid</option>
                     </select>
+                </div>
+                <div class="input-group">
+                    <label for="Attachment">Attachment</label>
+                    <input type="file" name="Attachment[]" id="Attachment" accept="image/*" multiple required>
                 </div>
                 <div class="add-button">
                     <input type="submit" class="btn" value="Add" name="Add">

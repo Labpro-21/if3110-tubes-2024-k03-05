@@ -10,15 +10,60 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'snow',
     });
 
-    const companyForm = document.querySelector('form');
-
-    companyForm.addEventListener('submit', function(event) {
+    quill.on('text-change', function() {
         const descriptionInput = document.getElementById('descriptionInput');
         descriptionInput.value = quill.root.innerHTML;
+    });
 
+    const companyForm = document.querySelector('form');
+    companyForm.addEventListener('submit', function(event) {
+        event.preventDefault();
         if(quill.getText().trim().length === 0){
-            alert('Please enter description.');
-            return;
+            showToast('Deskripsi perusahaan tidak boleh kosong');
         }
     });
 });
+
+
+document.getElementById('jobForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/tambahLowongan');
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 201) {
+                showToast('Lowongan berhasil ditambahkan!');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1000);
+            } else {
+                showToast('Gagal menambahkan lowongan.');
+            }
+        }
+    };
+
+    xhr.send(formData);
+});
+
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+
+    if (type === 'error') {
+        toast.classList.add('error');
+    }
+
+    if (type === 'success') {
+        toast.classList.add('success');
+    }
+
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}

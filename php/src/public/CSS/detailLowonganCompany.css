@@ -100,6 +100,13 @@ body {
     gap: 10px; 
 }
 
+.attachment img {
+    width: 100px;
+    height: 100px;
+    margin-right: 5px;
+    object-fit: cover;
+}
+
 .button-wrapper {
     display: flex;
     align-items: center;

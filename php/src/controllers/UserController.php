@@ -4,7 +4,6 @@ namespace controllers;
 
 include __DIR__ . '/../config/database.php';
 include __DIR__ . '/../models/User.php';
-include __DIR__ . '/../middleware.php';
 include __DIR__ . '/../models/Job.php';
 
 use config\Database;

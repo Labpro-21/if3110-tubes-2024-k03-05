@@ -174,6 +174,7 @@ class JobController {
         }
 
         $jobData = $this->job->getDetailLowonganById($lowonganId);
+        $attachments = $this->job->getAttachmentsByLowonganId($lowonganId);
 
         // Check if the job is owned by the user
         if ($jobData['company_id'] !== $_SESSION['user_id']) {

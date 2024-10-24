@@ -33,12 +33,14 @@ class CompanyController
             if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
                 http_response_code(403);
                 echo json_encode(['message' => 'Forbidden']);
+                exit();
             }
 
             $position = $_POST['Position'];
             $description = htmlspecialchars(trim($_POST['description']), ENT_QUOTES, 'UTF-8');
             $type = $_POST['Type'];
             $workLocation = $_POST['Work'];
+            $attachment = $_FILES['Attachment'] ?? [];
             $companyId = $_SESSION['user_id'];
 
             if (empty($position) || empty($description) || empty($type) || empty($workLocation)) {
@@ -47,13 +49,15 @@ class CompanyController
                 exit();
             }
 
-            if($this->job->addLowongan($companyId, $position, $description, $type, $workLocation, 1)){
+            if($this->job->addLowongan($companyId, $position, $description, $type, $workLocation, 1, $attachment)){
                 http_response_code(201);
                 echo json_encode(['message' => 'Job added successfully']);
             } else {
                 http_response_code(500);
                 echo json_encode(['message' => 'Failed to add job']);
             }
+            exit();
+
         }
 
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {

@@ -22,12 +22,17 @@ class JobController {
 
     public function getJobs(): void
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
 
         $jobs = $this->job->getJobs($limit, $offset);
-
         header('Content-Type: application/json');
         echo json_encode($jobs);
     }
@@ -35,6 +40,12 @@ class JobController {
     public function getCategoryJobs(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'jobseeker') {
+                http_response_code(403);
+                echo json_encode(['message' => 'Forbidden']);
+                exit;
+            }
+
             $category = isset($_GET['limit']) ? $_GET['Category'] : "ALL";
 
             $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
@@ -47,8 +58,6 @@ class JobController {
         }
     }
 
-    
-
     public function seeLamaran(): void {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] === 'company') {
             header("Location: /login");
@@ -56,7 +65,6 @@ class JobController {
         }
 
         $status = $_GET['status'] ?? 'all';
-
         $jobs = $this->job->getJobsByUserId($_SESSION['user_id'], $status);
 
         if (count($jobs) > 0) {
@@ -106,16 +114,20 @@ class JobController {
         }
 
         if (!isset($_GET['lowonganId'])) {
-            include __DIR__ . '/../views/404.php';
+            header("Location: /dashboard");
             exit();
         }
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganJobSeekerById($id);
+
+        // Check if the job is open
+        if ($job['is_open'] !== 1) {
+            header("Location: /dashboard");
+            exit();
+        }
+
         $isAlreadyApply = $this->job->isAlreadyApply($id, $_SESSION['user_id']);
-
-
-
         $totalApplicants = $this->job->getTotalApplicants($id);
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';
     }
@@ -127,18 +139,26 @@ class JobController {
          }
 
         $id = $_GET['lowonganId'];
-
         $job = $this->job->getLowonganGuestById($id);
 
         if (!$job) {
             include __DIR__ . '/../views/404.php';
+            exit();
+        }
+
+        // Check if the job is open
+        if ($job['is_open'] !== 1) {
+            include __DIR__ . '/../views/404.php';
+            exit();
         }
 
         $totalApplicants = $this->job->getTotalApplicants($id);
-
         include __DIR__ . '/../views/DetailLowonganGuest.php';
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     */
     public function detailLowonganCompany(): void
     {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
@@ -155,11 +175,17 @@ class JobController {
 
         $jobData = $this->job->getDetailLowonganById($lowonganId);
 
-        
+        // Check if the job is owned by the user
+        if ($jobData['company_id'] !== $_SESSION['user_id']) {
+            header("Location: /dashboard");
+            exit();
+        }
+
         if (!$jobData) {
             header("Location: /dashboard");
             exit();
         }
+
         $daysAgo = (new DateTime())->diff(new DateTime($jobData['created_at']))->days;
         $totalApplicants = $this->job->getTotalApplicants($lowonganId);
         $applicants = $this->job->getApplicantsByLowonganId($lowonganId);
@@ -245,51 +271,6 @@ class JobController {
             http_response_code(500);
             echo json_encode(['message' => 'Failed to delete lowongan']);
         }
-    }
-
-    public function guestDashboard(): void
-    {
-        // Check if the user is logged in and has the 'jobseeker' role
-        if (isset($_SESSION['user_id']) && $_SESSION['role'] !== 'jobseeker') {
-            header("Location: /login");
-            exit();
-        }
-    
-        // Get the category and page from the query parameters
-        $category = $_GET['category'] ?? 'all';
-        $categoryLoc = $_GET['categoryLoc'] ?? 'all';
-        $categorySort = $_GET['categorySort'] ?? '';
-        $searchTerm = $_GET['search'] ?? '';
-        // $userId = $_SESSION['user_id'];
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = 5; // Number of jobs per page
-    
-        // Calculate the offset for the database query
-        $offset = ($page - 1) * $limit;
-
-        $jobs = $this->job->getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm);
-        // $userDetails = $this->getUserDetails($userId);
-
-        // Fetch jobs by category with pagination
-        $totalJob = count($jobs);
-        $totalPages = intval($totalJob / 5);
-        if ($totalJob % 5 > 0) {
-            $totalPages++;
-        }
-
-        $parsedJobs = array_slice($jobs, $offset, 5);
-
-        // Prepare details for the view
-
-        // $details = [
-        //     'name' => $_SESSION['name'],
-        //     'email' => $userDetails['email'],
-        //     'role' => $userDetails['role'],
-        // ];
-        
-    
-        // Include the view
-        include __DIR__ . '/../views/GuestHomepage.php';
     }
 
 }

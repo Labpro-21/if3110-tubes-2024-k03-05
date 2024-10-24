@@ -63,6 +63,7 @@ class CompanyController
 
         include __DIR__ . '/../views/TambahLowongan.php';
     }
+
     public function ambilLowongan(): void
     {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
@@ -78,6 +79,12 @@ class CompanyController
         }
 
         $jobData = $this->job->getLowonganById($lowonganId);
+
+        // Check if the user is the owner of the job
+        if ($jobData['company_id'] !== $_SESSION['user_id']) {
+            header("Location: /dashboard");
+            exit();
+        }
 
         if (!$jobData) {
             header("Location: /dashboard");
@@ -135,8 +142,7 @@ class CompanyController
         if (isset($_SESSION['user_id'])) {
             $userId = (int)$_SESSION['user_id'];
         } else {
-            echo 'masuk';
-            header("Location: /dashboard");
+            header("Location: /login");
             exit();
         }
 
@@ -207,7 +213,8 @@ class CompanyController
         $companyData = $this->company->getProfileById($_SESSION['user_id']);
 
         if (!$companyData) {
-            echo "Company not found";
+            include __DIR__ . '/../views/404.php';
+            exit();
         }
 
         $companyJobs = $this->job->getLowonganByCompanyId($_SESSION['user_id'], 'all');
@@ -222,18 +229,30 @@ class CompanyController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
+            if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+                header("Location: /login");
+                exit;
+            }
+
             if (!isset($_GET['lamaran_id'])) {
-                header('/dashboard');
+                header("Location: /dashboard");
                 exit;
             }
 
             $id = $_GET['lamaran_id'];
-
             $lamaran = $this->lamaran->getLamaranById($id);
-            $status = $lamaran['status'];
+            $lowongan = $this->job->getLowonganById($lamaran['lowongan_id']);
 
+            // Check if lamaran went to lowongan that is owned by the company
+            if ($lowongan['company_id'] !== $_SESSION['user_id']) {
+                header("Location: /dashboard");
+                exit;
+            }
+
+            $status = $lamaran['status'];
             include __DIR__ . "/../views/DetailLamaran.php";
         }
+
         http_response_code(405);
         return json_encode(['message' => 'Method not allowed']);
     }

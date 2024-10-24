@@ -40,27 +40,62 @@ function updateJobList(jobs) {
             const jobCard = document.createElement('div');
             jobCard.className = 'job-card';
             jobCard.innerHTML = `
-                <div class="jobvacancy-info">
-                    <div>
-                        <img src="https://imageplaceholder.net/600x400" class="jobvacancy-photo">
+                <div class="card">
+                    <div class="buttons">
+                        <a href="/editLowongan?lowongan_id=${job.lowongan_id}" class="button-wrapper">
+                            Edit
+                        </a>
+                        <button class="button-wrapper close">
+                            Close
+                        </button>
                     </div>
-                    <div>
-                        <div class="job-name-date">
-                            <a href="/detailLowonganCompany?lowonganId=${job.lowongan_id}">${job.posisi}</a>
-                            <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>
+                    
+                    <div class="jobvacancy-info">
+                        <div>
+                            <img src="https://imageplaceholder.net/600x400" class="jobvacancy-photo">
                         </div>
-                        <div class="comp">
-                            <p class="comp-name">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11.465 9.145c-1.242 0-1.98 1.02-1.98 2.73c0 1.7.738 2.73 1.968 2.73c1.266 0 2.05-1.043 2.05-2.73s-.784-2.73-2.038-2.73m.387-7.125c5.554 0 9.457 3.492 9.457 8.707c0 3.691-1.747 6.07-4.606 6.07c-1.453 0-2.566-.703-2.824-1.84h-.164c-.48 1.172-1.465 1.805-2.824 1.805c-2.438 0-4.067-1.98-4.067-4.957c0-2.848 1.606-4.793 3.95-4.793c1.265 0 2.32.633 2.777 1.664h.164V7.27h2.379v6.27c0 .808.375 1.323 1.113 1.323c1.148 0 1.945-1.465 1.945-3.96c0-4.266-2.941-7.02-7.382-7.02c-4.512 0-7.676 3.258-7.676 7.969c0 4.933 3.293 7.816 8.12 7.816c1.255 0 2.532-.164 3.2-.41v1.875c-.914.27-2.11.433-3.375.433c-5.93 0-10.101-3.714-10.101-9.773c0-5.813 4.066-9.773 9.914-9.773"/></svg>
-                                ${job.nama}
-                            </p>
+                        <div>
+                            <div class="job-name-date">
+                                <a href="/detailLowonganCompany?lowonganId=${job.lowongan_id}">${job.posisi}</a>
+                                <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>
+                            </div>
+                            <div class="comp">
+                                <p class="comp-name">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11.465 9.145c-1.242 0-1.98 1.02-1.98 2.73c0 1.7.738 2.73 1.968 2.73c1.266 0 2.05-1.043 2.05-2.73s-.784-2.73-2.038-2.73m.387-7.125c5.554 0 9.457 3.492 9.457 8.707c0 3.691-1.747 6.07-4.606 6.07c-1.453 0-2.566-.703-2.824-1.84h-.164c-.48 1.172-1.465 1.805-2.824 1.805c-2.438 0-4.067-1.98-4.067-4.957c0-2.848 1.606-4.793 3.95-4.793c1.265 0 2.32.633 2.777 1.664h.164V7.27h2.379v6.27c0 .808.375 1.323 1.113 1.323c1.148 0 1.945-1.465 1.945-3.96c0-4.266-2.941-7.02-7.382-7.02c-4.512 0-7.676 3.258-7.676 7.969c0 4.933 3.293 7.816 8.12 7.816c1.255 0 2.532-.164 3.2-.41v1.875c-.914.27-2.11.433-3.375.433c-5.93 0-10.101-3.714-10.101-9.773c0-5.813 4.066-9.773 9.914-9.773"/></svg>
+                                    ${job.nama}
+                                </p>
+                            </div>
+                            <p class="job-desc">${job.deskripsi}</p>
+                            <p class="job-loc">${capitalizeFirstLetter(job.jenis_pekerjaan)} • ${capitalizeFirstLetter(job.jenis_lokasi)}</p>
                         </div>
-                        <p class="job-desc">${job.deskripsi}</p>
-                        <p class="job-loc">${capitalizeFirstLetter(job.jenis_pekerjaan)} • ${capitalizeFirstLetter(job.jenis_lokasi)}</p>
                     </div>
                 </div>
             `;
             jobContainer.appendChild(jobCard);
+            
+            // Add event listener for the close button
+            const closeButton = jobCard.querySelector('.close');
+            closeButton.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('PUT', '/lowongan');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+        
+                const params = {
+                    lowongan_id: job.lowongan_id // Use the correct job ID here
+                };
+        
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            window.location.href = '/dashboard';
+                        } else if (xhr.status === 500 || xhr.status === 403) {
+                            alert(xhr.responseText);
+                        }
+                    }
+                };
+        
+                xhr.send(JSON.stringify(params));
+            });
         });
     }
 }
@@ -203,4 +238,30 @@ function debounce(func, delay) {
     };
 }
 
+const closeButton = document.getElementById('closeButton');
+closeButton.addEventListener('click', () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', '/lowongan');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const lowonganid = urlParams.get('lowonganId');
+    const params = {
+        lowongan_id: lowonganid
+    };
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                window.location.href = '/dashboard';
+            } else if (xhr.status === 500) {
+                alert(xhr.responseText);
+            } else if (xhr.status === 403) {
+                alert(xhr.responseText);
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify(params));
+});
 

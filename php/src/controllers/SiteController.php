@@ -16,7 +16,7 @@ class SiteController
     public function dashboard(): void
     {
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /login");
+            include __DIR__ . '/../views/GuestHomepage.php';
             exit();
         }
 
@@ -25,7 +25,7 @@ class SiteController
         } else if ($_SESSION['role'] === 'company') {
             $this->companyController->dashboard();
         } else {
-            echo "Invalid role";
+            include __DIR__ . '/../views/404.php';
         }
     }
 

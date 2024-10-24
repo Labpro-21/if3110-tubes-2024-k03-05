@@ -20,7 +20,7 @@ body {
     flex-direction: row;
     margin: auto; 
     gap: 40px;
-    width: 1000px;
+    width: 70%;
     margin-top: 20px;
 }
 
@@ -28,7 +28,7 @@ body {
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
-    width: 500px;
+    width: 30%;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -94,12 +94,13 @@ body {
 
 /* FIND JOB BUTTON SECTION */
 .job{
-    width: 1000px;
+    width: 70%;
 }
 
 
 .job-box {
     padding: 20px;
+    width: 100%;
     background-color: white;
     margin-bottom: 15px;
     border-radius: 8px;
@@ -356,7 +357,7 @@ body {
 .feed-post{
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: 100%;
     padding: 20px;
     background-color: white;
     margin-bottom: 15px;

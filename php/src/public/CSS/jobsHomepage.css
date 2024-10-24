@@ -402,6 +402,7 @@ body {
 
 .jobvacancy-info {
     flex-grow: 1;
+    display: flex;
 }
 
 .job-name-date{

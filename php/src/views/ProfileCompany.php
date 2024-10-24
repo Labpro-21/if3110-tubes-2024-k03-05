@@ -28,7 +28,7 @@
                 <div class="info-section">
                     <p class="profile-name"><?= $_SESSION['name']; ?></p>
                     <p class="profile-tagline"><?= $companyData['about']; ?></p>
-                    <p class="profile-location"><?= $companyData['lokasi']; ?> •</p>
+                    <p class="profile-location"><?= $companyData['lokasi']; ?> </p>
                 </div>
             </div>
         </div>

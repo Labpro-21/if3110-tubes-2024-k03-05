@@ -398,10 +398,16 @@ body {
 
 
 /* JOB VACANCY SECTION */
-.jobvacancy-container p {
+.jobvacancy-container .title-job-vacancy {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
+}
+
+.no-jobs-message{
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
 }
   
 .job-card {

@@ -84,7 +84,7 @@
         <section class="feed-post">
             <div class="jobvacancy-container">
                 <div class="wrapper">
-                    <p>Available Job Vacancies</p>
+                    <p class="title-job-vacancy">Available Job Vacancies</p>
                     <a href="/tambahLowongan">
                         Add job
                     </a>

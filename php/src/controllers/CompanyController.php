@@ -164,21 +164,8 @@ class CompanyController
             exit();
         }
 
-        $category = $_GET['category'] ?? 'all';
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $jobs = $this->job->getLowonganByCompanyId($_SESSION['user_id'], $category);
+
         $companyDetails = $this->company->getCompanyDetails($_SESSION['user_id']);
-        $totalJob = count($jobs);
-        $totalPages = intval($totalJob / 5);
-        if ($totalJob % 5 > 0) {
-            $totalPages++;
-        }
-
-        // Calculate the offset
-        $offset = ($page - 1) * 5;
-
-        // Get 5 jobs from the offset
-        $parsedJobs = array_slice($jobs, $offset, 5);
 
         $details = [
             'name' => $_SESSION['name'],
@@ -265,6 +252,7 @@ class CompanyController
         $offset = ($page - 1) * $limit;
 
         $jobs = $this->job->getJobsByCategoryId($_SESSION['user_id'], $category, $categoryLoc, $categorySort, $searchTerm);
+
         $totalJobs = count($jobs);
         $totalPages = ceil($totalJobs / $limit);
 

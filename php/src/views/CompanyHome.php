@@ -89,6 +89,7 @@
                         Add job
                     </a>
                 </div>
+
                 <div id="jobvacancy-cards">
                 </div>
 

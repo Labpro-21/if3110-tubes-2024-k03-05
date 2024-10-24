@@ -26,6 +26,10 @@ function updateJobList(jobs) {
     const jobContainer = document.getElementById('jobvacancy-cards');
     jobContainer.innerHTML = '';
 
+    function capitalizeFirstLetter(jenis_pekerjaan) {
+        return jenis_pekerjaan.charAt(0).toUpperCase() + jenis_pekerjaan.slice(1);
+    }
+
     if (jobs.length === 0) {
         const noJobsMessage = document.createElement('p');
         noJobsMessage.className = 'no-jobs-message';
@@ -55,6 +59,7 @@ function updateJobList(jobs) {
         });
     }
 }
+
 function updatePagination(totalPages, currentPage) {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';

@@ -23,15 +23,11 @@ body {
     margin-bottom: 20px;
 }
 
-.name-card header a {
+.name-card header p {
     font-size: 1rem;
     color: black;
     font-weight: bold;
     text-decoration: none;
-}
-
-.name-card header a:hover{
-    text-decoration: underline;
 }
 
 .name-card {

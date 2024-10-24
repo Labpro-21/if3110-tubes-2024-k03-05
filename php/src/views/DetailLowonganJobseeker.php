@@ -15,7 +15,7 @@
         <!-- Name Card -->
         <div class="name-card box">
             <header>
-                <a href="profileCompany.html"><?= $_SESSION['name']?></a>
+                <p><?=job['nama']?></p>
             </header>
             <h1><?= $job['posisi']?></h1>
             <div class="detail">

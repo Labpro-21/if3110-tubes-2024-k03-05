@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     jobseekerForm.addEventListener('submit', function(event) {
         event.preventDefault();
         if (!validateEmail(emailInputJobSeeker.value)) {
-            alert('Please enter a valid email address.');
+            showToast('Please enter a valid email address.', 'error');
             return;
         }
         onsubmit()

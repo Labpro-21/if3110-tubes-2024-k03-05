@@ -31,7 +31,7 @@ document.getElementById('jobForm').addEventListener('submit', function (event) {
     const formData = new FormData(this);
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/tambahLowongan');
+    xhr.open('POST', '/tambahLowongan', true);
 
     xhr.onreadystatechange = function() {
         if (this.readyState === 4) {

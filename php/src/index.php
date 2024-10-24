@@ -56,10 +56,11 @@ $router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
 $router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
 $router->add('GET', '/detailLowongan', [JobController::class, 'detailLowonganJobseeker']);
 $router->add('GET', '/detailLowonganGuest', [JobController::class, 'detailLowonganGuest']);
-$router->add('GET', '/Companyprofile', [CompanyController::class, 'profile']);
+$router->add('GET', '/profile', [SiteController::class, 'profile']);
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('GET', '/detailLamaran', [CompanyController::class, 'detailLamaran']);
+$router->add('GET', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
 
 // API -----------------------
 $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
@@ -72,6 +73,7 @@ $router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilte
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
 $router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany']);
 
+$router->add('POST', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
 $router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
 $router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
 $router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);

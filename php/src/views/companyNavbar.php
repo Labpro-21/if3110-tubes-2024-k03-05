@@ -2,7 +2,7 @@
 <header>
     <nav>
         <div class="logo-search">
-            <a href="homepage.html"><img src="../public/images/logo.jpg" alt="Logo"></a>
+            <a href="dashboard"><img src="../public/images/logo.jpg" alt="Logo"></a>
         </div>
         <div class="nav-links">
             <ul>

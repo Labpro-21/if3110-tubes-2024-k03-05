@@ -31,7 +31,7 @@
             <hr>
             </form>
             <div class="no-jobs">
-                <img src="../public/images/image.png" alt="No Jobs Image">
+                <img src="../public/images/image.webp" alt="No Jobs Image">
                 <h2>No recent job activity</h2>
                 <p>Find new opportunities and manage your job search progress here.</p>
                 <button onclick="window.location.href='/dashboard'">Search for jobs</button>

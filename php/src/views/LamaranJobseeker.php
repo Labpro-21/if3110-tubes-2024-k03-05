@@ -12,7 +12,7 @@
 
 <main class="form-container">
     <h1>Application Form</h1>
-    <form id="applicantForm" onsubmit="handleSubmit()">
+    <form id="applicantForm">
         <div class="input-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?= $_SESSION['name']?>" readonly>

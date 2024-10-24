@@ -29,29 +29,38 @@ class CompanyController
 
     public function tambahLowongan(): void
     {
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
-            header("Location: /login");
-            exit();
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+                http_response_code(403);
+                echo json_encode(['message' => 'Forbidden']);
+            }
 
             $position = $_POST['Position'];
             $description = htmlspecialchars(trim($_POST['description']), ENT_QUOTES, 'UTF-8');
             $type = $_POST['Type'];
             $workLocation = $_POST['Work'];
-            $isOpen = 1;
-
             $companyId = $_SESSION['user_id'];
 
-            if (!empty($position) && !empty($description) && !empty($type) && !empty($workLocation)) {
-                $this->job->addLowongan($companyId, $position, $description, $type, $workLocation, $isOpen);
-                header('Location: /dashboard');
+            if (empty($position) || empty($description) || empty($type) || empty($workLocation)) {
+                http_response_code(400);
+                echo json_encode(['message' => 'All fields are required']);
                 exit();
+            }
+
+            if($this->job->addLowongan($companyId, $position, $description, $type, $workLocation, 1)){
+                http_response_code(201);
+                echo json_encode(['message' => 'Job added successfully']);
             } else {
-                echo "Failed to add job vacancy";
+                http_response_code(500);
+                echo json_encode(['message' => 'Failed to add job']);
             }
         }
+
+        if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
+            header("Location: /login");
+            exit();
+        }
+
         include __DIR__ . '/../views/TambahLowongan.php';
     }
     public function ambilLowongan(): void
@@ -81,19 +90,35 @@ class CompanyController
     public function editLowongan(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             $position = $_POST['Position'];
             $description = $_POST['description'];
             $type = $_POST['Type'];
             $workLocation = $_POST['Work'];
-            $isOpen = 1;
+            $lowonganId = $_POST['lowonganId'];
 
-            if (!empty($position) && !empty($description) && !empty($type) && !empty($workLocation)) {
-                $lowonganId = (int)$_GET['lowonganId'];
-                $this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation, $isOpen);
-                header('Location: /dashboard');
+            // Check if all variables are not empty
+            if (empty($position) || empty($description) || empty($type) || empty($workLocation) || empty($lowonganId)) {
+                http_response_code(400);
+                echo json_encode(['message' => 'All fields are required']);
+            }
+
+            $companyId = $_SESSION['user_id'];
+
+            // Check if the user is the owner of the job
+            $jobData = $this->job->getLowonganById($lowonganId);
+            if ($jobData['company_id'] !== $companyId) {
+                http_response_code(403);
+                echo json_encode(['message' => 'Forbidden']);
                 exit();
+            }
+
+            if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation)){
+                http_response_code(200);
+                echo json_encode(['message' => 'Job updated successfully']);
             } else {
-                $error = "All fields are required.";
+                http_response_code(500);
+                echo json_encode(['message' => 'Failed to update job']);
             }
         }
 
@@ -213,13 +238,26 @@ class CompanyController
         return json_encode(['message' => 'Method not allowed']);
     }
 
-    public function updateLamaranStatus()
+    public function updateLamaranStatus(): false|string
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = json_decode(file_get_contents('php://input'), true);
             $id = $data['lamaranId'];
             $status = $data['status'];
             $reason = $data['reason'];
+
+            // Check if the status is valid
+            if ($status !== 'accepted' && $status !== 'rejected') {
+                http_response_code(400);
+                return json_encode(['message' => 'Invalid status']);
+            }
+
+            // Check if lamaran changed by the owner
+            $lamaran = $this->lamaran->getCompanyIdbyLamaranId($id);
+            if ($lamaran['company_id'] !== $_SESSION['user_id']) {
+                http_response_code(403);
+                return json_encode(['message' => 'Forbidden']);
+            }
 
             if ($this->lamaran->updateStatus($id, $status, $reason)){
                 http_response_code(200);
@@ -228,8 +266,8 @@ class CompanyController
                 http_response_code(400);
                 return json_encode(['message' => 'Failed to update status']);
             }
-
         }
+
         http_response_code(405);
         return json_encode(['message' => 'Method not allowed']);
     }

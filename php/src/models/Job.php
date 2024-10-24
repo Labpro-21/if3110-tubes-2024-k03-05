@@ -243,19 +243,30 @@ class Job
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen)
+    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen = 2)
     {
-        $query = "UPDATE lowongan 
-                SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?, is_open = ?
+        if ($isOpen === 2) {
+            $query = "UPDATE lowongan 
+                SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?
                 WHERE lowongan_id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
-        $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
-        $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
-        $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
-        $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
-        $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
-
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
+            $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
+            $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
+            $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
+            $stmt->bindParam(5, $lowonganId, PDO::PARAM_INT);
+        } else {
+            $query = "UPDATE lowongan 
+                    SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?, is_open = ?
+                    WHERE lowongan_id = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
+            $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
+            $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
+            $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
+            $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
+            $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
+        }
         return $stmt->execute();
     }
 

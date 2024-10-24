@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="picture">
-                    <img src="../public/images/landing.png" alt="profile banner">
+                    <img src="../public/images/landing.webp" alt="profile banner">
                 </div>
             </div>
         </section>
@@ -42,7 +42,7 @@
         <section class="last">
         <div class="last-container">
             <div class="logo">
-                <img src="../public/images/LinkIn.png" alt="LinkedIn Logo">
+                <img src="../public/images/LinkIn.webp" alt="LinkedIn Logo">
             </div>
             <div class="last-links">
                 <div class="last-column">

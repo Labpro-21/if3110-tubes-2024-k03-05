@@ -15,7 +15,7 @@
             <div class="profile-content">
                 <div class="profile-banner">
 <!--                    <img src="--><?php //= $companyData['bannerSrc']; ?><!--" alt="profile banner">-->
-                    <img src="../public/images/linkedinbanner.jpg" alt="profile banner">
+                    <img src="../public/images/linkedinbanner.webp" alt="profile banner">
                 </div>
                 <a href="/editProfileCompany" class="editcomprofile-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" style="color: #0a66c2;" viewBox="0 0 24 24"><path fill="currentColor" d="M8.707 19.707L18 10.414L13.586 6l-9.293 9.293a1 1 0 0 0-.263.464L3
@@ -23,7 +23,7 @@
                 </a>
                 <div class="profile-photo">
 <!--                    <img src="--><?php //= $companyData['photoSrc']; ?><!--" alt="Profile Picture">-->
-                    <img src="../public/images/paper.id.png" alt="Profile Picture">
+                    <img src="../public/images/paper.webp" alt="Profile Picture">
                 </div>
                 <div class="info-section">
                     <p class="profile-name"><?= $_SESSION['name']; ?></p>

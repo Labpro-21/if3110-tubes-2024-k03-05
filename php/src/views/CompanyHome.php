@@ -15,9 +15,9 @@
     <!-- Sidebar Profile -->
     <div class="sidebar">
         <div class="profile-card">
-            <img src="../public/images/linkedinbanner.jpg" class="banner" alt="Banner">
+            <img src="../public/images/linkedinbanner.webp" class="banner" alt="Banner">
             <div class="avatar">
-                <img src="../public/images/profile-img.jpg" alt="Profile Picture">
+                <img src="../public/images/profile-img.webp" alt="Profile Picture">
             </div>
             <div class="info-section">
                 <p class="user-name"><?= $details['name']?></p>

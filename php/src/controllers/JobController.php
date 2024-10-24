@@ -188,7 +188,6 @@ class JobController {
         $lowonganId = (int)$data['lowongan_id'];
 
         // Check if the user is the owner of the job
-
         $jobData = $this->job->getDetailLowonganById($lowonganId);
 
         if ($jobData['user_id'] !== $userId) {
@@ -229,7 +228,6 @@ class JobController {
         $lowonganId = (int)$data['lowongan_id'];
 
         // Check if the user is the owner of the job
-
         $jobData = $this->job->getDetailLowonganById($lowonganId);
 
         if ($jobData['user_id'] !== $userId) {

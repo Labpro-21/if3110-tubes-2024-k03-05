@@ -217,7 +217,7 @@ class Job
     }
 
     public function getLowonganJobSeekerById($lowonganId) {
-        $query = "SELECT l.lowongan_id, l.company_id, l.posisi, l.deskripsi, l.jenis_pekerjaan, l.jenis_lokasi, l.is_open, l.created_at, l.updated_at, u.nama FROM lowongan l JOIN user u ON l.company_id = u.user_id WHERE lowongan_id = ?";
+        $query = "SELECT l.lowongan_id, l.company_id, l.posisi, l.deskripsi, l.jenis_pekerjaan, l.jenis_lokasi, l.is_open, l.created_at, l.updated_at, u.nama FROM lowongan l JOIN user u ON l.company_id = u.user_id JOIN lamaran r ON r.lowongan_id = l.lowongan_id WHERE lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
         $stmt->execute();

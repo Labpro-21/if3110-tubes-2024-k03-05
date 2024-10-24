@@ -27,16 +27,6 @@ class CompanyController
         $this->lamaran = new Lamaran($this->conn);
     }
 
-    public function getCompanyDetails($companyId)
-    {
-        $query = "SELECT * FROM company_detail WHERE user_id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $companyId);
-        $stmt->execute();
-
-        return $stmt->fetch();
-    }
-
     public function tambahLowongan(): void
     {
         if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'company') {
@@ -177,7 +167,7 @@ class CompanyController
         $category = $_GET['category'] ?? 'all';
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $jobs = $this->job->getLowonganByCompanyId($_SESSION['user_id'], $category);
-        $companyDetails = $this->getCompanyDetails($_SESSION['user_id']);
+        $companyDetails = $this->company->getCompanyDetails($_SESSION['user_id']);
         $totalJob = count($jobs);
         $totalPages = intval($totalJob / 5);
         if ($totalJob % 5 > 0) {
@@ -209,6 +199,9 @@ class CompanyController
         }
 
         $companyJobs = $this->job->getLowonganByCompanyId($_SESSION['user_id'], 'all');
+        foreach ($companyJobs as $key => $company) {
+            $companyJobs[$key]['deskripsi'] = preg_replace('/<\/?p>/', '', html_entity_decode($company['deskripsi']));
+        }
 
         include __DIR__ . "/../views/ProfileCompany.php";
     }

@@ -70,5 +70,13 @@ class Company
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getCompanyDetails($companyId)
+    {
+        $query = "SELECT * FROM company_detail WHERE user_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $companyId, PDO::PARAM_INT);
+        $stmt->execute();
 
+        return $stmt->fetch();
+    }
 }

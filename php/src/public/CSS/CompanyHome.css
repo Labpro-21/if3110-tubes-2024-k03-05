@@ -13,6 +13,7 @@ body {
     min-height: 100vh;
 }
 
+
 /* Container Grid */
 .container {
     display: flex;
@@ -93,12 +94,11 @@ body {
 
 /* FIND JOB BUTTON SECTION */
 .job{
-    width: 1500px;
+    width: 1000px;
 }
 
+
 .job-box {
-    display: flex;
-    flex-direction: column;
     padding: 20px;
     background-color: white;
     margin-bottom: 15px;
@@ -107,6 +107,11 @@ body {
     border-width: 1.5px;
     border-style: solid;
     border-color: rgb(218, 218, 218);
+}
+
+.job-options {
+    display: flex;
+    gap: 10px;
 }
 
 .job-box p {
@@ -351,6 +356,7 @@ body {
 .feed-post{
     display: flex;
     flex-direction: column;
+    width: 700px;
     padding: 20px;
     background-color: white;
     margin-bottom: 15px;
@@ -423,6 +429,7 @@ body {
     font-weight: 500;
     margin-bottom: auto;
 }
+
   
 .jobvacancy-info .job-desc {
     margin: 5px 0;
@@ -437,6 +444,11 @@ body {
     color: grey;
     font-weight: 400;
 }
+
+
+
+
+
 
 
   

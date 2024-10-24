@@ -114,10 +114,7 @@ class JobController {
         $job = $this->job->getLowonganJobSeekerById($id);
         $isAlreadyApply = $this->job->isAlreadyApply($id, $_SESSION['user_id']);
 
-        if (!$job) {
-            include __DIR__ . '/../views/404.php';
-            exit();
-        }
+
 
         $totalApplicants = $this->job->getTotalApplicants($id);
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';

@@ -31,7 +31,8 @@ class Job
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllJobs(int $limit, int $offset) {
+    public function getAllJobs(int $limit, int $offset)
+    {
         $query = "SELECT posisi, company_id, deskripsi, jenis_pekerjaan, jenis_lokasi, is_open, created_at 
         FROM lowongan 
         LIMIT :limit 
@@ -45,8 +46,8 @@ class Job
     }
 
 
-    
-    public function getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm) {
+    public function getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm)
+    {
         // Base query
         $query = "SELECT * FROM lowongan l JOIN user u ON l.company_id  = u.user_id WHERE is_open = 1";
 
@@ -60,16 +61,16 @@ class Job
         if ($categoryLoc !== 'all') {
             $query .= " AND jenis_lokasi = :categoryLoc";
         }
-    
+
         // Add sorting based on categorySort
         if ($categorySort === 'ascending') {
             $query .= " ORDER BY created_at ASC";
         } else if ($categorySort === 'descending') {
             $query .= " ORDER BY created_at DESC";
         }
-    
+
         $stmt = $this->conn->prepare($query);
-    
+
         // Bind parameters if necessary
         if (!empty($searchTerm)) {
             // The % wildcard is added here for substring matching
@@ -82,12 +83,13 @@ class Job
         if ($categoryLoc !== 'all') {
             $stmt->bindParam(':categoryLoc', $categoryLoc);
         }
-    
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getJobsByCategoryId($user_id, $category, $categoryLoc, $categorySort, $searchTerm) {
+    public function getJobsByCategoryId($user_id, $category, $categoryLoc, $categorySort, $searchTerm)
+    {
         // Base query
         $query = "SELECT *
         FROM lowongan l 
@@ -97,7 +99,7 @@ class Job
         if (!empty($searchTerm)) {
             $query .= " AND posisi LIKE :searchTerm";
         }
-        
+
         // Add conditions based on category and location
         if ($category !== 'all') {
             $query .= " AND jenis_pekerjaan = :category";
@@ -105,16 +107,16 @@ class Job
         if ($categoryLoc !== 'all') {
             $query .= " AND jenis_lokasi = :categoryLoc";
         }
-    
+
         // Add sorting based on categorySort
         if ($categorySort === 'ascending') {
             $query .= " ORDER BY created_at ASC";
         } else if ($categorySort === 'descending') {
             $query .= " ORDER BY created_at DESC";
         }
-    
+
         $stmt = $this->conn->prepare($query);
-    
+
         // Bind parameters if necessary
         $stmt->bindParam(':user_id', $user_id);
 
@@ -129,7 +131,7 @@ class Job
         if ($categoryLoc !== 'all') {
             $stmt->bindParam(':categoryLoc', $categoryLoc);
         }
-    
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -173,7 +175,7 @@ class Job
     {
         $query = "INSERT INTO lowongan (company_id, posisi, deskripsi, jenis_pekerjaan, jenis_lokasi, is_open) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $companyId, PDO::PARAM_INT); 
+        $stmt->bindParam(1, $companyId, PDO::PARAM_INT);
         $stmt->bindParam(2, $posisi, PDO::PARAM_STR);
         $stmt->bindParam(3, $deskripsi, PDO::PARAM_STR);
         $stmt->bindParam(4, $jenisPekerjaan, PDO::PARAM_STR);
@@ -208,7 +210,8 @@ class Job
     }
 
 
-    public function getLowonganById($lowonganId) {
+    public function getLowonganById($lowonganId)
+    {
         $query = "SELECT * FROM lowongan WHERE lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
@@ -216,8 +219,14 @@ class Job
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getLowonganJobSeekerById($lowonganId) {
-        $query = "SELECT l.lowongan_id, l.company_id, l.posisi, l.deskripsi, l.jenis_pekerjaan, l.jenis_lokasi, l.is_open, l.created_at, l.updated_at, u.nama, r.cv_path, r.video_path FROM lowongan l JOIN user u ON l.company_id = u.user_id JOIN lamaran r ON r.lowongan_id = l.lowongan_id WHERE lowongan_id = ?";
+    public function getLowonganJobSeekerById($lowonganId)
+    {
+        $query = "SELECT l.lowongan_id, l.company_id, l.posisi, l.deskripsi, l.jenis_pekerjaan, l.jenis_lokasi, 
+           l.is_open, l.created_at, l.updated_at, u.nama, r.cv_path, r.video_path, r.status, r.status_reason
+            FROM lowongan l 
+                JOIN user u ON l.company_id = u.user_id 
+                JOIN lamaran r ON r.lowongan_id = l.lowongan_id 
+            WHERE l.lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
         $stmt->execute();
@@ -241,7 +250,8 @@ class Job
     }
 
 
-    public function getDetailLowonganById($lowonganId) {
+    public function getDetailLowonganById($lowonganId)
+    {
         $query = "SELECT l.posisi as posisi, l.deskripsi as deskripsi, l.jenis_pekerjaan as jenis_pekerjaan, l.jenis_lokasi as jenis_lokasi, l.created_at as created_at, u.user_id as user_id, c.lokasi as lokasi, u.nama as nama, l.is_open as is_open
         FROM lowongan l
         JOIN company_detail c ON c.user_id = l.company_id
@@ -253,7 +263,8 @@ class Job
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getApplicantsByLowonganId($lowonganId) {
+    public function getApplicantsByLowonganId($lowonganId)
+    {
         $query = "SELECT l.lamaran_id, u.nama, l.status FROM lamaran l
                   JOIN user u ON l.user_id = u.user_id
                   WHERE l.lowongan_id = ?";
@@ -289,7 +300,8 @@ class Job
     }
 
 
-    public function getJobsByUserId($userId, $status = 'all') {
+    public function getJobsByUserId($userId, $status = 'all')
+    {
         if ($status === 'all') {
             $query = "SELECT l.lowongan_id, p.posisi, l.created_at, u.nama, c.lokasi, l.status
                       FROM lamaran l

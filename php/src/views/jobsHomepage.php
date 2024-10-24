@@ -78,7 +78,7 @@
 
             <section class="feed-post">
                 <div class="jobvacancy-container">
-                    <p>Available Job Vacancies</p>
+                    <p class="title-job-vacancy">Available Job Vacancies</p>
                     <div id="jobvacancy-cards">
                     </div>
 

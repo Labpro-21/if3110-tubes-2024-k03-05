@@ -60,6 +60,15 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send();
         }
     });
+
+    // Attachment input
+    const attachmentInput = document.getElementById('Attachment');
+    const attachmentCountInput = document.getElementById('AttachmentCount');
+
+    attachmentInput.addEventListener('change', function() {
+        const fileCount = attachmentInput.files.length;
+        attachmentCountInput.value = fileCount;
+    });
 });
 
 document.getElementById('jobForm').addEventListener('submit', function (event) {
@@ -72,7 +81,7 @@ document.getElementById('jobForm').addEventListener('submit', function (event) {
 
     xhr.onreadystatechange = function() {
         if (this.readyState === 4) {
-            if (this.status === 200) {
+            if (this.status === 201) {
                 showToast('Lowongan berhasil diubah!');
                 setTimeout(() => {
                     window.location.href = '/dashboard';
@@ -85,6 +94,8 @@ document.getElementById('jobForm').addEventListener('submit', function (event) {
 
     xhr.send(formData);
 });
+
+const attachmentCount = document.getElementById('attachmentCount');
 
 function showToast(message, type = 'success') {
     const toast = document.createElement('div');

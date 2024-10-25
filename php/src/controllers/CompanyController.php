@@ -114,6 +114,7 @@ class CompanyController
             $workLocation = $_POST['Work'];
             $attachment = $_FILES['Attachment'] ?? [];
             $lowonganId = $_POST['lowonganId'];
+            $attachmentcount = intval($_POST['AttachmentCount']);
 
             // Check if all variables are not empty
             if (empty($position) || empty($description) || empty($type) || empty($workLocation) || empty($lowonganId)) {
@@ -131,7 +132,7 @@ class CompanyController
                 exit();
             }
 
-            if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation,2, $attachment)){
+            if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation,2, $attachment, $attachmentcount)){
                 http_response_code(201);
                 echo json_encode(['message' => 'Job updated successfully']);
             } else {

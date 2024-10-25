@@ -286,58 +286,59 @@ class Job
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen, $attachment)
+    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen, $attachment, $attachmentCount): bool
     {
         $uploadDir = '/var/www/html/uploads/';
-        if ($isOpen === 2) {
-            $query = "UPDATE lowongan 
+        $this->conn->beginTransaction();
+        try {
+            if ($isOpen === 2) {
+                $query = "UPDATE lowongan 
                 SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?
                 WHERE lowongan_id = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
-            $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
-            $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
-            $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
-            $stmt->bindParam(5, $lowonganId, PDO::PARAM_INT);
-        } else {
-            $query = "UPDATE lowongan 
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
+                $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
+                $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
+                $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
+                $stmt->bindParam(5, $lowonganId, PDO::PARAM_INT);
+            } else {
+                $query = "UPDATE lowongan 
                     SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?, is_open = ?
                     WHERE lowongan_id = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
-            $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
-            $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
-            $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
-            $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
-            $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
-        }
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(1, $posisi, PDO::PARAM_STR);
+                $stmt->bindParam(2, $deskripsi, PDO::PARAM_STR);
+                $stmt->bindParam(3, $jenisPekerjaan, PDO::PARAM_STR);
+                $stmt->bindParam(4, $jenisLokasi, PDO::PARAM_STR);
+                $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
+                $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
+            }
+            $stmt->execute();
 
-        if (empty($attachment)) {
-            $this->conn->commit();
-            return true;
-        }
+            if ($attachmentCount !== 0) {
+                foreach ($attachment['tmp_name'] as $key => $tmpName) {
+                    $fileName = $attachment['name'][$key];
 
-        foreach ($attachment['tmp_name'] as $key => $tmpName) {
-            $fileName = $attachment['name'][$key];
+                    $basename = md5($fileName . time()) . '-' . basename($fileName);
+                    $filePath = $uploadDir . $basename;
 
-            // Perform additional checks on file type and size if needed
-            $basename = md5($fileName . time()) . '-' . basename($fileName);
-            $filePath = $uploadDir . $basename;
+                    move_uploaded_file($tmpName, $filePath);
 
-            if (!move_uploaded_file($tmpName, $filePath)) {
-                $this->conn->rollBack();
-                return false;
+                    $query = "INSERT INTO attachment_lowongan (lowongan_id, file_path) VALUES (:lowongan_id, :file_path)";
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->bindParam(':lowongan_id', $lowonganId, PDO::PARAM_INT);
+                    $stmt->bindParam(':file_path', $basename, PDO::PARAM_STR);
+                    $stmt->execute();
+                }
             }
 
-            $query = "INSERT INTO attachment_lowongan (lowongan_id, file_path) VALUES (:lowongan_id, :file_path)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':lowongan_id', $lowonganId, PDO::PARAM_INT);
-            $stmt->bindParam(':file_path', $basename, PDO::PARAM_STR);
-            $stmt->execute();
+            $this->conn->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->conn->rollBack();
+            error_log("Failed to edit lowongan: " . $e->getMessage());
+            return false;
         }
-
-        $this->conn->commit();
-        return $stmt->execute();
     }
 
 

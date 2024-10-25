@@ -70,7 +70,8 @@
 
                 <div class="new">
                     <label for="Attachment">New Attachment</label>
-                    <input type="file" name="Attachment[]" id="Attachment" accept="image/*" multiple required>
+                    <input type="file" name="Attachment[]" id="Attachment" accept="image/*" multiple>
+                    <input type="hidden" name="AttachmentCount" id="AttachmentCount" value=0>
                 </div>
 
                 <div class="add-button">

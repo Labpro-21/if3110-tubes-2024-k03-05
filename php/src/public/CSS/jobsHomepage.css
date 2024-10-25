@@ -313,7 +313,7 @@ body {
 }
 
 /* JOB VACANCY SECTION */
-.jobvacancy-container p {
+.title-job-vacancy {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -338,7 +338,8 @@ body {
 }
 
 .jobvacancy-info {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
 }
 
 .job-name-date {
@@ -448,6 +449,11 @@ body {
         width: 100%;
     }
 
+    .no-jobs-message{
+        font-weight: 400;
+        font-size: 15px;
+    }
+
     .job-card {
         flex-direction: column;
         align-items: center;
@@ -460,6 +466,7 @@ body {
 
     .jobvacancy-info {
         text-align: center;
+        flex-direction: column;
     }
 
     .job-name-date {

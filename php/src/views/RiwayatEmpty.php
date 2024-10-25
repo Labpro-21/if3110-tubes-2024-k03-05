@@ -12,7 +12,7 @@
 <?php include 'jobsNavbar.php'; ?>
 <main>
         <div class="container">
-            <h1>My Jobs</h1>
+            <p class="title">My Jobs</p>
             <form method="GET" action="">
                 <ul class="filter-buttons">
                     <li>
@@ -28,8 +28,8 @@
                         <button type="submit" name="status" value="rejected" class="<?= (isset($_GET['status']) && $_GET['status'] === 'rejected') ? 'active' : '' ?>">Rejected</button>
                     </li>
                 </ul>
-            <hr>
             </form>
+            <hr>
             <div class="no-jobs">
                 <img src="../public/images/image.webp" alt="No Jobs Image">
                 <h2>No recent job activity</h2>

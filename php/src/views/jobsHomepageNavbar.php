@@ -38,4 +38,5 @@
             </ul>
         </div>
     </nav>
+    <script src="../public/JS/navbarResponsif.js"></script>
 </header>

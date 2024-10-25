@@ -65,7 +65,7 @@ function updatePagination(totalPages, currentPage) {
     const pagination = document.querySelector('.pagination');
     pagination.innerHTML = '';
 
-    const maxVisibleButtons = 5;
+    const maxVisibleButtons = 3;
 
     const createButton = (text, isActive = false) => {
         const button = document.createElement('button');

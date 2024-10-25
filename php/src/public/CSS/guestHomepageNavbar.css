@@ -129,6 +129,7 @@ ul {
         display: none;
     }
 
+
     .logo-search img {
         width: 28px;
         height: 28px;
@@ -142,10 +143,12 @@ ul {
 
     .nav-links {
         display: none;
+        margin-top: 20px;
         flex-direction: column;
         gap: 20px;
         width: 100%;
         align-items: center;
+        z-index: 100;
     }
 
     .nav-links.active {

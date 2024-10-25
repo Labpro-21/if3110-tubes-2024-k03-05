@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -13,28 +13,23 @@ body {
     min-height: 100vh;
 }
 
-
 /* Container Grid */
 .container {
     display: flex;
     flex-direction: row;
-    margin: auto; 
+    margin: auto;
     gap: 40px;
-    width: 70%;
+    width: 1000px;
     margin-top: 20px;
 }
-
 
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
-    width: 30%;
+    width: 300px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
 }
 
 .profile-card {
@@ -52,9 +47,8 @@ body {
 .avatar {
     position: relative;
     height: 0;
-
 }
-  
+
 .avatar > * {
     position: absolute;
     top: 0;
@@ -76,43 +70,27 @@ body {
 }
 
 .user-desc {
-    margin: 20px 0 20px 0;
+    margin: 5px 0;
 }
 
-.info-section{
+.info-section {
     padding: 0px 20px 20px 20px;
 }
 
-.user-location{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.user-location {
     margin-top: 15px;
     color: grey;
 }
 
-
 /* FIND JOB BUTTON SECTION */
-.job{
-    width: 70%;
-}
-
-
 .job-box {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    width: 100%;
     background-color: white;
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
-}
-
-.job-options {
-    display: flex;
-    gap: 10px;
 }
 
 .job-box p {
@@ -140,9 +118,7 @@ body {
     border: none;
 }
 
-
 /* DROPDOWN JOB */
-
 .dropdown {
     position: relative;
     display: inline-block;
@@ -170,7 +146,6 @@ body {
     color: white;
     border: none;
 }
-
 
 /* Hidden Dropdown Content */
 .dropdown-content {
@@ -204,16 +179,7 @@ body {
     display: block;
 }
 
-
-
-
-
-
-
 /* DROPDOWN LOCATION */
-
-
-/* Dropdown Container */
 .dropdownLoc {
     position: relative;
     display: inline-block;
@@ -274,19 +240,7 @@ body {
     display: block;
 }
 
-
-
-
-
-
-
-
-
-
 /* DROPDOWN SORT */
-
-
-/* Dropdown Container */
 .sortBy {
     position: relative;
     display: inline-block;
@@ -347,41 +301,24 @@ body {
     display: block;
 }
 
-
-
-
-
-
-/*FEED POST SECTION */
-
-.feed-post{
+/* FEED POST SECTION */
+.feed-post {
     display: flex;
     flex-direction: column;
-    width: 100%;
     padding: 20px;
     background-color: white;
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: rgb(218, 218, 218);
 }
 
-
 /* JOB VACANCY SECTION */
-.jobvacancy-container .title-job-vacancy {
+.jobvacancy-container p {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
-.no-jobs-message{
-    font-size: 16px;
-    font-weight: 400;
-    margin-top: 10px;
-}
-  
 .job-card {
     display: flex;
     align-items: flex-start;
@@ -402,17 +339,14 @@ body {
 
 .jobvacancy-info {
     flex-grow: 1;
-    display: flex;
 }
 
-.job-name-date{
+.job-name-date {
     display: flex;
     justify-content: space-between;
 }
 
-
-
-.job-name-date span{
+.job-name-date span {
     color: grey;
     font-size: 13px;
 }
@@ -426,46 +360,34 @@ body {
     margin-bottom: 10px;
 }
 
-.jobvacancy-info a:hover {
-    text-decoration: underline;
-}
-
-.jobvacancy-info .comp{
-    margin: 5px 0 15px 0;
-}
-
-.jobvacancy-info .comp-name{
+.jobvacancy-info .comp {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 3px;
+    margin: 5px 0 10px 0;
+}
+
+.jobvacancy-info .comp-name {
     font-size: 16px;
     color: black;
     font-weight: 500;
     margin-bottom: auto;
 }
 
-  
 .jobvacancy-info .job-desc {
     margin: 5px 0;
     font-size: 15px;
     color: black;
     font-weight: 400;
 }
-    
-.jobvacancy-info .job-loc{
+
+.jobvacancy-info .job-loc {
     margin: 5px 0;
     font-size: 15px;
     color: grey;
     font-weight: 400;
 }
 
-
-
-
-
-
-
-  
 /* Pagination Styles */
 .pagination {
     display: flex;
@@ -500,4 +422,65 @@ body {
     cursor: not-allowed;
     border-color: #e3e3e3;
 }
-  
+
+/* Responsive Styles for 400x800 screen size */
+@media (max-width: 400px) {
+    .container {
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .profile-card {
+        display: none;
+    }
+
+    .job-box {
+        width: 100%;
+    }
+
+    .feed-post {
+        width: 100%;
+    }
+
+    .job-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .job-card img {
+        margin-bottom: 10px;
+    }
+
+    .jobvacancy-info {
+        text-align: center;
+    }
+
+    .job-name-date {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .job-name-date span {
+        margin-top: 5px;
+    }
+
+    .jobvacancy-info .comp {
+        justify-content: center;
+    }
+
+    .pagination {
+        flex-direction: row;
+        gap: 3px;
+    }
+
+    .pagination button {
+        width: 50px;
+    }
+}

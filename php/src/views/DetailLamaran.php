@@ -33,15 +33,15 @@ include __DIR__ . '/../views/companyNavbar.php';
             if ($lamaran['status'] === 'waiting') {
                 ?>
                 <div class="btn-group">
-                    <button class="btn-approve" onclick="toggleReasonInput()">Approve</button>
-                    <button class="btn-reject" onclick="toggleReasonInput()">Reject</button>
-                    <div class="form-group" id="reasonForm" style="display:none;">
-                        <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
-                        <button onclick={submitReason('accepted')}>Submit</button>
+                    <button class="btn-approve" onclick="toggleReasonInputA()">Approve</button>
+                    <button class="btn-reject" onclick="toggleReasonInputR()">Reject</button>
+                    <div class="form-group" id="reasonFormA" style="display:none;">
+                        <textarea id="reasonInputA" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
+                        <button onclick={submitReason('accepted')}>Submit Accept</button>
                     </div>
-                    <div class="form-group" id="reasonForm" style="display:none;">
-                        <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
-                        <button onclick={submitReason('rejected')}>Submit</button>
+                    <div class="form-group" id="reasonFormR" style="display:none;">
+                        <textarea id="reasonInputR" placeholder="Berikan alasan/tindak lanjut..." ></textarea>
+                        <button onclick={submitReason('rejected')}>Submit Reject</button>
                     </div>
                 </div>
             <?php

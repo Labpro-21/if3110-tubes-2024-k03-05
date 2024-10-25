@@ -1,19 +1,20 @@
 const statusText = document.getElementById('statusText');
 const followUpReason = document.getElementById('followUpReason');
-const reasonText = document.getElementById('reasonText');
-const reasonInput = document.getElementById('reasonInput').value;
+const reasonInputA = document.getElementById('reasonInputA');
+const reasonInputR = document.getElementById('reasonInputR');
+
+
+
 
 function updateStatus(status) {
   if (status === 'accepted') {
     statusText.textContent = 'Approved';
     statusText.className = 'status approved';
     followUpReason.style.display = 'block';
-    reasonText.textContent = reasonInput || 'Lamaran Anda telah disetujui.';
   } else if (status === 'rejected') {
     statusText.textContent = 'Rejected';
     statusText.className = 'status rejected';
     followUpReason.style.display = 'block';
-    reasonText.textContent = reasonInput || 'Tidak ada alasan yang diberikan.';
   }
 }
 
@@ -48,13 +49,20 @@ function submitReason(status) {
   xhr.send(JSON.stringify({
     lamaranId: lamaranid,
     status: status,
-    reason: reasonInput
+    reason: status === 'accepted' ? reasonInputA.value : reasonInputR.value
   }));
 }
 
-function toggleReasonInput() {
-  const reasonForm = document.getElementById('reasonForm');
-  reasonForm.style.display = reasonForm.style.display === 'none' ? 'block' : 'none';
+const reasonFormA = document.getElementById('reasonFormA');
+const reasonFormR = document.getElementById('reasonFormR');
+function toggleReasonInputA() {
+  reasonFormA.style.display = reasonFormA.style.display === 'none' ? 'block' : 'none';
+  reasonFormR.style.display = 'none';
+}
+
+function toggleReasonInputR() {
+  reasonFormR.style.display = reasonFormR.style.display === 'none' ? 'block' : 'none';
+  reasonFormA.style.display = 'none';
 }
 
 function showToast(message, type) {

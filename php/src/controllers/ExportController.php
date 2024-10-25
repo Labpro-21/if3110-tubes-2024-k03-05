@@ -26,22 +26,23 @@ class ExportController
             return;
         }
 
-        // Check if user is logged in
-//        if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'company') {
-//            http_response_code(401);
-//            echo json_encode(['message' => 'Unauthorized']);
-//        }
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'company') {
+            http_response_code(401);
+            echo json_encode(['message' => 'Unauthorized']);
+            return;
+        }
 
         $lowonganId = $_GET['lowongan_id'];
 
         // Check if user is authorized to access this data
-//        $company_id = $_SESSION['user_id'];
-//        $lowongan_company_id = $this->lowongan->getCompanyId($lowonganId);
+        $company_id = $_SESSION['user_id'];
+        $lowongan_company_id = $this->lowongan->getCompanyId($lowonganId);
 
-//        if ($company_id !== $lowongan_company_id) {
-//            http_response_code(403);
-//            echo json_encode(['message' => 'Forbidden']);
-//        }
+        if ($company_id !== $lowongan_company_id) {
+            http_response_code(403);
+            echo json_encode(['message' => 'Forbidden']);
+            return;
+        }
 
         $query = "
             SELECT u.nama AS company_name, l.posisi, u.nama AS applicant_name, u.email AS applicant_email, r.status

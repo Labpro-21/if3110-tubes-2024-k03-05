@@ -26,14 +26,16 @@ deleteButton.addEventListener('click', () => {
     xhr.send(JSON.stringify(params));
 });
 
+const urlParams = new URLSearchParams(window.location.search);
+const lowonganid = urlParams.get('lowonganId');
+
 const closeButton = document.getElementById('closeButton');
 closeButton.addEventListener('click', () => {
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', '/lowongan');
     xhr.setRequestHeader('Content-Type', 'application/json');
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const lowonganid = urlParams.get('lowonganId');
+
     const params = {
         lowongan_id: lowonganid
     };
@@ -51,4 +53,28 @@ closeButton.addEventListener('click', () => {
     };
 
     xhr.send(JSON.stringify(params));
+});
+
+const downloadCsvButton = document.getElementById('downloadButton');
+downloadCsvButton.addEventListener('click', () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/csvFile?lowongan_id=' + lowonganid);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                const url = window.URL.createObjectURL(new Blob([xhr.response]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'lowongan.csv');
+                document.body.appendChild(link);
+                link.click();
+            } else {
+                alert(xhr.responseText);
+            }
+        }
+    };
+
+    xhr.send();
 });

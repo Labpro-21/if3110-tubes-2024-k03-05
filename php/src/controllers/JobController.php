@@ -275,4 +275,33 @@ class JobController {
         }
     }
 
+    public function deleteAttachment()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
+            http_response_code(405);
+            echo json_encode(['message' => 'Method not allowed']);
+            exit;
+        }
+
+        $userId = (int)$_SESSION['user_id'];
+        $id = (int)$_GET['attachmentId'];
+
+        $companyID = $this->job->getCompanyIdByAttachmentId($id);
+
+        if ($companyID !== $userId) {
+            http_response_code(403);
+            echo json_encode(['message' => 'Forbidden']);
+            exit;
+        }
+
+        $berhasil = $this->job->deleteAttachment($id);
+
+        if ($berhasil) {
+            http_response_code(200);
+            echo json_encode(['message' => 'Attachment deleted']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['message' => 'Failed to delete attachment']);
+        }
+    }
 }

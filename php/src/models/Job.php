@@ -253,7 +253,9 @@ class Job
 
     public function getLowonganById($lowonganId)
     {
-        $query = "SELECT * FROM lowongan WHERE lowongan_id = ?";
+        $query = "SELECT * 
+        FROM lowongan
+         WHERE lowongan_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
         $stmt->execute();
@@ -284,8 +286,9 @@ class Job
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen = 2)
+    public function editLowongan($lowonganId, $posisi, $deskripsi, $jenisPekerjaan, $jenisLokasi, $isOpen, $attachment)
     {
+        $uploadDir = '/var/www/html/uploads/';
         if ($isOpen === 2) {
             $query = "UPDATE lowongan 
                 SET posisi = ?, deskripsi = ?, jenis_pekerjaan = ?, jenis_lokasi = ?
@@ -308,6 +311,32 @@ class Job
             $stmt->bindParam(5, $isOpen, PDO::PARAM_INT);
             $stmt->bindParam(6, $lowonganId, PDO::PARAM_INT);
         }
+
+        if (empty($attachment)) {
+            $this->conn->commit();
+            return true;
+        }
+
+        foreach ($attachment['tmp_name'] as $key => $tmpName) {
+            $fileName = $attachment['name'][$key];
+
+            // Perform additional checks on file type and size if needed
+            $basename = md5($fileName . time()) . '-' . basename($fileName);
+            $filePath = $uploadDir . $basename;
+
+            if (!move_uploaded_file($tmpName, $filePath)) {
+                $this->conn->rollBack();
+                return false;
+            }
+
+            $query = "INSERT INTO attachment_lowongan (lowongan_id, file_path) VALUES (:lowongan_id, :file_path)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':lowongan_id', $lowonganId, PDO::PARAM_INT);
+            $stmt->bindParam(':file_path', $basename, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+
+        $this->conn->commit();
         return $stmt->execute();
     }
 
@@ -352,7 +381,7 @@ class Job
     }
 
     public function deleteLowonganCompany(int $lowonganId): bool
-{
+    {
     $deletedFiles = [];
     try {
         $this->conn->beginTransaction();
@@ -471,6 +500,8 @@ class Job
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+
     public function getCompanyId($lowonganId)
     {
         $query = "SELECT company_id FROM lowongan WHERE lowongan_id = ?";
@@ -480,5 +511,31 @@ class Job
         return $stmt->fetchColumn();
     }
 
+    public function getCompanyIdByAttachmentId(int $id)
+    {
+        $query = "SELECT l.company_id FROM lowongan l
+                  JOIN attachment_lowongan a ON l.lowongan_id = a.lowongan_id
+                  WHERE a.attachment_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function deleteAttachment(int $id)
+    {
+        $query = "SELECT file_path FROM attachment_lowongan WHERE attachment_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $filePath = $stmt->fetchColumn();
+
+        $query = "DELETE FROM attachment_lowongan WHERE attachment_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $filePath;
+    }
 
 }

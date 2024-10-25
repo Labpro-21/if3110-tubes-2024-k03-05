@@ -83,6 +83,12 @@ class CompanyController
         }
 
         $jobData = $this->job->getLowonganById($lowonganId);
+        $attachments = $this->job->getAttachmentsByLowonganId($lowonganId);
+
+        foreach ($attachments as $key => $attachment) {
+            $attachments[$key]['url'] = '/serveFile?file=' . $attachment['file_path'];
+            $attachments[$key]['name'] = preg_replace('/^[a-f0-9]{32}-/', '', $attachment['file_path']);
+        }
 
         // Check if the user is the owner of the job
         if ($jobData['company_id'] !== $_SESSION['user_id']) {
@@ -106,6 +112,7 @@ class CompanyController
             $description = $_POST['description'];
             $type = $_POST['Type'];
             $workLocation = $_POST['Work'];
+            $attachment = $_FILES['Attachment'] ?? [];
             $lowonganId = $_POST['lowonganId'];
 
             // Check if all variables are not empty
@@ -124,9 +131,9 @@ class CompanyController
                 exit();
             }
 
-            if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation)){
-                http_response_code(200);
-                header("Location: /detailLowonganCompany?lowonganId=$lowonganId");
+            if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation,2, $attachment)){
+                http_response_code(201);
+                echo json_encode(['message' => 'Job updated successfully']);
             } else {
                 http_response_code(500);
                 echo json_encode(['message' => 'Failed to update job']);

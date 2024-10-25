@@ -16,7 +16,7 @@
         <div class="box form-box">
             <header>Edit Job Vacancy</header>
             <div class="divider"></div>
-            <form action="/editLowongan" method="post">
+            <form id="jobForm">
 
                 <input type="hidden" name="lowonganId" value="<?= $jobData['lowongan_id'] ?>">
 
@@ -51,11 +51,28 @@
                 </div>
 
                 <div class="input-group">
-                    <label for="attachment">Attachment</label>
+                    <label for="attachment">Current Attachment</label>
+                    <div id="attachment-container">
+                        <?php foreach ($attachments as $attachment) : ?>
+                        <div class="attachment">
+                            <label for="Attachment">File Name</label>
+                            <div>
+                                <input type="text" name="<?= $attachment['attachment_id']?>" value="<?= $attachment['name'] ?>" readonly>
+                                <img src="<?= $attachment['url']?>" alt="Attachment" class="attachment-image">
+                            </div>
+                            <button type="button" class="remove-attachment">Remove</button>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="Attachment">New Attachment</label>
+                    <input type="file" name="Attachment[]" id="Attachment" accept="image/*" multiple required>
                 </div>
 
                 <div class="add-button">
-                    <input type="submit" class="btn" value="Save" name="Save">
+                    <input type="submit" class="btn">
                 </div>
             </form>
         </div>

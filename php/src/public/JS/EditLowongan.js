@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Quill
     const quill = new Quill('#editor', {
         modules: {
             toolbar: [
@@ -27,4 +28,76 @@ document.addEventListener('DOMContentLoaded', function() {
     quill.on('text-change', function() {
         descriptionInput.value = quill.root.innerHTML; 
     });
+
+    // Attachment
+    const attachmentList = document.getElementById('attachment-container');
+
+    // Handle removal of existing attachments
+    attachmentList.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-attachment')) {
+            const listItem = event.target.closest('.attachment');
+            const input = listItem.querySelector('input[type="text"]');
+            const attachmentId = input.name;
+
+            // Send delete request to the endpoint
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', `/deleteAttachment?attachmentId=${attachmentId}`, true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Remove the attachment from the DOM
+                        listItem.remove();
+                    } else {
+                        console.error('Failed to delete attachment');
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+    });
 });
+
+document.getElementById('jobForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/editLowongan', true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                showToast('Lowongan berhasil diubah!');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1000);
+            } else {
+                showToast('Gagal mengubah lowongan.', 'error');
+            }
+        }
+    };
+
+    xhr.send(formData);
+});
+
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+
+    if (type === 'error') {
+        toast.classList.add('error');
+    }
+
+    if (type === 'success') {
+        toast.classList.add('success');
+    }
+
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}

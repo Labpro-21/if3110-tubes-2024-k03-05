@@ -73,6 +73,8 @@ $router->add('GET', '/csvFile', [ExportController::class, 'exportLamaranDataToCS
 
 
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
+$router->add('DELETE', '/deleteAttachment', [JobController::class, 'deleteAttachment']);
+
 $router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany']);
 
 $router->add('POST', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);

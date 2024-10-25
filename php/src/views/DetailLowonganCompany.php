@@ -52,7 +52,7 @@
             </div>
 
             <!-- Attachment -->
-            <div class="attachment box">
+            <div class="description box">
                 <h2>Attachment</h2>
                 <div class="attachment-wrapper">
                     <?php foreach ($attachments as $attachment): ?>
@@ -80,6 +80,7 @@
                         echo '<Button class="close" id="closeButton">Close Recruitment</Button>';
                     }
                 ?>
+                <Button class="download" id="downloadButton">Download All CSV</Button>
             </div>
         </div>
     </main>

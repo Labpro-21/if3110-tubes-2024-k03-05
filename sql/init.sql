@@ -14,8 +14,8 @@ CREATE TABLE `user`
     `nama`     varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `role`     enum('jobseeker', 'company') NOT NULL,
-    `image_path` varchar(255),
-    `banner_path` varchar(255),
+    `image_path` varchar(255) DEFAULT 'linkedinbanner.webp',
+    `banner_path` varchar(255) DEFAULT 'profile-img.webp',
     PRIMARY KEY (`user_id`)
 );
 

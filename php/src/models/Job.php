@@ -471,5 +471,14 @@ class Job
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getCompanyId($lowonganId)
+    {
+        $query = "SELECT company_id FROM lowongan WHERE lowongan_id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $lowonganId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
 
 }

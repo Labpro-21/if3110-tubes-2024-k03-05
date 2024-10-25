@@ -216,6 +216,18 @@ button.accept {
     font-weight: bold;
 }
 
+.attachment h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.attachment-wrapper img {
+    width: 100%;
+    min-height:500px;
+}
+
 
 @media only screen and (max-width: 950px) {
     .name-card {

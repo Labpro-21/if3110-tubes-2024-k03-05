@@ -26,7 +26,7 @@ body {
 /* Sidebar Styling */
 .sidebar {
     height: fit-content;
-    width: 300px;
+    width: 500px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -322,6 +322,7 @@ body {
 .job-card {
     display: flex;
     align-items: flex-start;
+    min-width: 100%;
     padding: 15px;
 }
 
@@ -340,10 +341,18 @@ body {
 .jobvacancy-info {
     display: flex;
     flex-direction: row;
+    min-width: 100%;
 }
 
 .job-name-date {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.job-name-date a:hover {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
@@ -351,6 +360,10 @@ body {
     color: grey;
     font-size: 13px;
 }
+.skibidi {
+    width: 100%;
+}
+
 
 .jobvacancy-info a {
     margin: 0;
@@ -359,6 +372,10 @@ body {
     color: black;
     text-decoration: none;
     margin-bottom: 10px;
+}
+
+.jobvacancy-info a:hover {
+    text-decoration: underline;
 }
 
 .jobvacancy-info .comp {
@@ -379,6 +396,7 @@ body {
     margin: 5px 0;
     font-size: 15px;
     color: black;
+    min-width: 100%;
     font-weight: 400;
 }
 
@@ -456,6 +474,7 @@ body {
 
     .job-card {
         flex-direction: column;
+        width: 100%;
         align-items: center;
         text-align: center;
     }

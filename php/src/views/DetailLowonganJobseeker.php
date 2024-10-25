@@ -95,14 +95,15 @@ include 'jobsNavbar.php'; ?>
                             <div class="resume-video">
                                 <section>
                                     <p>Applicant\'s Resume</p>
-                                    <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
+                                    CV
+                                    </a>
                                 </section>
                                 <section>
                                     <p>Applicant\'s Video</p>
-                                    <video width="100%" height="400" controls>
-                                        <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['video_path']) . '">
+                                    Video
+                                    </a>
                                 </section>
                             </div>
                         </div>
@@ -116,16 +117,17 @@ include 'jobsNavbar.php'; ?>
                                     </p>
                                 </div>
                                 <div class="resume-video">
-                                <section>
+                                <section class="resume">
                                     <p>Applicant\'s Resume</p>
-                                    <iframe src="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '" width="100%" height="600px"></iframe>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
+                                    CV
+                                    </a>
                                 </section>
-                                <section>
+                                <section class="resume">
                                     <p>Applicant\'s Video</p>
-                                    <video width="100%" height="400" controls>
-                                        <source src="/serveFile?file=' . urlencode($lamaranData['video_path']) . '" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['video_path']) . '">
+                                    Video
+                                    </a>
                                 </section>
                             </div>
                             ';

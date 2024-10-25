@@ -58,9 +58,10 @@
                         <div class="attachment">
                             <p for="Attachment">File Name: <?= $attachment['name'] ?></p>
                             <div class ="att-img">
+                                <!-- <input type="text" name="<?= $attachment['attachment_id']?>" value="<?= $attachment['name'] ?>" readonly> -->
                                 <img src="<?= $attachment['url']?>" alt="Attachment" class="attachment-image">
                             </div>
-                            <button type="button" class="remove-attachment">Remove</button>
+                            <button name="<?= $attachment['attachment_id']?>" value="<?= $attachment['name'] ?>" type="button" class="remove-attachment">Remove</button>
                         </div>
                         <hr>
                         <?php endforeach; ?>

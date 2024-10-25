@@ -326,6 +326,10 @@ body {
     padding: 15px;
 }
 
+.card{
+    width: 100%;
+}
+
 .job-card:not(:last-child) {
     border-bottom: 1px solid #ddd;
 }

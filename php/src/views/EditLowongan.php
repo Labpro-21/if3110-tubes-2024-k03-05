@@ -16,7 +16,10 @@
         <div class="box form-box">
             <header>Edit Job Vacancy</header>
             <div class="divider"></div>
-            <form action="/editLowongan?lowonganId=<?= $lowonganId ?>" method="post">
+            <form action="/editLowongan" method="post">
+
+                <input type="hidden" name="lowonganId" value="<?= $jobData['lowongan_id'] ?>">
+
                 <div class="input-group">
                     <label for="position">Position</label>
                     <input type="text" name="Position" id="position" placeholder="Enter Position"
@@ -45,6 +48,10 @@
                         <option value="remote" <?= isset($jobData['work_location']) && $jobData['work_location'] === 'remote' ? 'selected' : '' ?>>Remote</option>
                         <option value="hybrid" <?= isset($jobData['work_location']) && $jobData['work_location'] === 'hybrid' ? 'selected' : '' ?>>Hybrid</option>
                     </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="attachment">Attachment</label>
                 </div>
 
                 <div class="add-button">

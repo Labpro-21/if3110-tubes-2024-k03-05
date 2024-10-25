@@ -52,7 +52,7 @@
                 </div>
                 <div class="last-column">
                     <h4>Browse LinkInPurry</h4>
-                    <a href="/guestHomePage">Jobs</a>
+                    <a href="/dashboard">Jobs</a>
                 </div>
             </div>
     </div>

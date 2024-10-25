@@ -23,6 +23,7 @@ spl_autoload_register(function ($class_name) {
 
 include 'Router.php';
 
+use controllers\ExportController;
 use controllers\JobController;
 use controllers\JobseekerController;
 use controllers\SiteController;
@@ -68,6 +69,7 @@ $router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
 $router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
 $router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
 $router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
+$router->add('GET', '/csvFile', [ExportController::class, 'exportLamaranDataToCSV']);
 
 
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);

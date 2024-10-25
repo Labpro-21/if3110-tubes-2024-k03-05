@@ -49,7 +49,7 @@ class Job
     public function getJobsByCategory($category, $categoryLoc, $categorySort, $searchTerm)
     {
         // Base query
-        $query = "SELECT * FROM lowongan l JOIN user u ON l.company_id  = u.user_id WHERE is_open = 1";
+        $query = "SELECT * FROM lowongan l JOIN user u ON l.company_id  = u.user_id";
 
         if (!empty($searchTerm)) {
             $query .= " AND posisi LIKE :searchTerm";

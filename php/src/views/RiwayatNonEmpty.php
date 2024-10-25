@@ -36,7 +36,7 @@
             <?php foreach ($jobs as $job): ?>
             <div class="job-card">
                 <div class="position-status">
-                    <a href="" class="Position"><?= $job['posisi'] ?></a>
+                    <p class="Position"><?= $job['posisi'] ?></p>
                     <p class="status"><?= $job['status'] ?></p>
                 </div>
                 <p class="perusahaan"><?= $job['nama'] ?></p>

@@ -209,10 +209,14 @@ section {
         font-size: 24px;
     }
 
-    .profile-tagline,
     .profile-location {
         font-size: 16px;
     }
+
+    .profile-tagline + p{
+        font-size: 16px;
+    }
+    
 
     .jobvacancy-container h5{
         padding: 15px;

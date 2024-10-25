@@ -322,6 +322,7 @@ body {
 .job-card {
     display: flex;
     align-items: flex-start;
+    min-width: 100%;
     padding: 15px;
 }
 
@@ -340,10 +341,12 @@ body {
 .jobvacancy-info {
     display: flex;
     flex-direction: row;
+    min-width: 100%;
 }
 
 .job-name-date {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
@@ -351,6 +354,10 @@ body {
     color: grey;
     font-size: 13px;
 }
+.skibidi {
+    width: 100%;
+}
+
 
 .jobvacancy-info a {
     margin: 0;
@@ -379,6 +386,7 @@ body {
     margin: 5px 0;
     font-size: 15px;
     color: black;
+    min-width: 100%;
     font-weight: 400;
 }
 
@@ -456,6 +464,7 @@ body {
 
     .job-card {
         flex-direction: column;
+        width: 100%;
         align-items: center;
         text-align: center;
     }

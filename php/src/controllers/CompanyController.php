@@ -126,11 +126,12 @@ class CompanyController
 
             if($this->job->editLowongan($lowonganId, $position, $description, $type, $workLocation)){
                 http_response_code(200);
-                echo json_encode(['message' => 'Job updated successfully']);
+                header("Location: /detailLowonganCompany?lowonganId=$lowonganId");
             } else {
                 http_response_code(500);
                 echo json_encode(['message' => 'Failed to update job']);
             }
+            exit();
         }
 
         include __DIR__ . '/../views/editLowongan.php';

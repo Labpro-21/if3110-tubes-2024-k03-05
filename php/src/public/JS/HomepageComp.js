@@ -52,7 +52,9 @@ function updateJobList(jobs) {
                     
                     <div class="jobvacancy-info">
                         <div>
-                            <img src="https://imageplaceholder.net/600x400" class="jobvacancy-photo">
+                            <img src="
+                            ${job.image_path ? '/serveFile?file=' + job.image_path : '/images/placeholder.png'}
+                            " class="jobvacancy-photo">
                         </div>
                         <div>
                             <div class="job-name-date">

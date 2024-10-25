@@ -11,11 +11,11 @@
     <main class="form-container">
         <div class="title">
             <h1>Edit Profile Company</h1>
-            <a href="/Companyprofile" class="btn-close">
+            <a href="/profile" class="btn-close">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
             </a>
         </div>
-        <form id="applicantForm">
+        <form id="applicantForm" enctype="multipart/form-data" method="post">
             <div class="input-group">
                 <label for="name">Company Name</label>
                 <input type="text" id="name" name="name" placeholder="Enter new company name" value="<?= $companyData['nama'] ?>" required>
@@ -36,6 +36,16 @@
                 <div id="editor"><?= $companyData['about'] ?></div>
                 <input type="hidden" name="about" id="aboutInput" 
                     value="<?= $companyData['about'] ?>" required>
+            </div>
+
+            <div class="input-group">
+            <label for="profileImage">Profile Image</label>
+            <input type="file" id="profileImage" name="profileImage" accept="image/*" required>
+            </div>
+
+            <div class="input-group">
+                <label for="bannerImage">Banner Image</label>
+                <input type="file" id="bannerImage" name="bannerImage" accept="image/*" required>
             </div>
 
             <div class="add-button">

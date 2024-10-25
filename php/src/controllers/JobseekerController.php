@@ -115,8 +115,9 @@ class JobseekerController
             }
 
             $query = "UPDATE user 
-SET image_path = :image, banner_path = :banner 
-WHERE user_id = :id";
+            SET image_path = :image, banner_path = :banner 
+            WHERE user_id = :id";
+
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':image', $imagePath);
             $stmt->bindParam(':banner', $bannerPath);

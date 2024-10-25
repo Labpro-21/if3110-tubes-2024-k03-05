@@ -95,11 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const description = document.querySelector('input[name="about"]');
         description.value = quill.root.innerHTML;
         if (!validateEmail(emailInputCompany.value)) {
-            alert('Please enter a valid email address.');
+            showToast('Please enter a valid email address.', 'error');
             return;
         }
         if(quill.getText().trim().length === 0){
-            alert('Please enter about.');
+            showToast('Please enter a description.', 'error');
             return;
         }
         onsubmit()

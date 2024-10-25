@@ -15,9 +15,21 @@
     <!-- Sidebar Profile -->
     <div class="sidebar">
         <div class="profile-card">
-            <img src="../public/images/linkedinbanner.webp" class="banner" alt="Banner">
+            <img src="<?php
+            if ($companyDetails['banner_path']) {
+                echo '/serveFile?file=' . $companyDetails['banner_path'];
+            } else {
+                echo '/public/images/linkedinbanner.webp';
+            }
+            ?>" class="banner" alt="Banner">
             <div class="avatar">
-                <img src="../public/images/profile-img.webp" alt="Profile Picture">
+                <img src="<?php
+                if ($companyDetails['image_path']) {
+                    echo '/serveFile?file=' . $companyDetails['image_path'];
+                } else {
+                    echo '/public/images/profile-img.webp';
+                }
+                ?>" alt="Profile Picture">
             </div>
             <div class="info-section">
                 <p class="user-name"><?= $details['name']?></p>

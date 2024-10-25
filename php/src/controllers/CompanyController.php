@@ -163,11 +163,19 @@ class CompanyController
     public function editProfile(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = json_decode(file_get_contents('php://input'), true);
-            $name = $data['name'];
-            $about = $data['about'];
-            $email = $data['email'];
-            $location = $data['location'];
+
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $location = $_POST['location'] ?? '';
+            $about = $_POST['about'] ?? '';
+
+            if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === 0) {
+                $imagePath = $this->uploadImage($_FILES['profileImage']);
+            }
+
+            if (isset($_FILES['bannerImage']) && $_FILES['bannerImage']['error'] === 0) {
+                $bannerPath = $this->uploadImage($_FILES['bannerImage']);
+            }
 
             if (!empty($name) && !empty($about) && !empty($email) && !empty($location)) {
                 $userId = (int)$_SESSION['user_id'];
@@ -179,9 +187,10 @@ class CompanyController
                     exit();
                 }
 
-                $this->company->editProfile($userId, $name, $about, $email, $location);
+                $this->company->editProfile($userId, $name, $about, $email, $location, $imagePath, $bannerPath);
                 http_response_code(200);
                 echo json_encode(['message' => 'Profile updated successfully']);
+
             } else {
                 http_response_code(400);
                 echo json_encode(['message' => 'All fields are required']);
@@ -329,5 +338,19 @@ class CompanyController
 
         header('Content-Type: application/json');
         echo json_encode(['jobs' => $jobs, 'totalPages' => $totalPages, 'currentPage' => $page]);
+    }
+
+    private function uploadImage(mixed $profileImage)
+    {
+        $targetDir = __DIR__ . '/../uploads/';
+        $fileName = basename($profileImage['name']);
+        $newFileName = md5($fileName) . '-' . $fileName;
+        $newFilePath = $targetDir . $newFileName;
+
+        if (move_uploaded_file($profileImage['tmp_name'], $newFilePath)) {
+            return '/../uploads/' . $newFileName;
+        }
+
+        return '';
     }
 }

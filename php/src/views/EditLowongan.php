@@ -50,23 +50,24 @@
                     </select>
                 </div>
 
-                <div class="input-group">
+                <hr>
+                <div class="current">
                     <label for="attachment">Current Attachment</label>
                     <div id="attachment-container">
                         <?php foreach ($attachments as $attachment) : ?>
                         <div class="attachment">
-                            <label for="Attachment">File Name</label>
-                            <div>
-                                <input type="text" name="<?= $attachment['attachment_id']?>" value="<?= $attachment['name'] ?>" readonly>
+                            <p for="Attachment">File Name: <?= $attachment['name'] ?></p>
+                            <div class ="att-img">
                                 <img src="<?= $attachment['url']?>" alt="Attachment" class="attachment-image">
                             </div>
                             <button type="button" class="remove-attachment">Remove</button>
                         </div>
+                        <hr>
                         <?php endforeach; ?>
                     </div>
                 </div>
 
-                <div class="input-group">
+                <div class="new">
                     <label for="Attachment">New Attachment</label>
                     <input type="file" name="Attachment[]" id="Attachment" accept="image/*" multiple required>
                 </div>

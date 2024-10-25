@@ -213,3 +213,34 @@ input:focus~label,input:not(:placeholder-shown)~label{
     object-fit: cover;
     margin-right: 10px;
 }
+
+.current{
+    margin-top: 20px;
+    position:relative;
+    margin-bottom: 20px;
+}
+
+.current label{
+    display: block;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.att-img{
+    max-width:400px;
+    min-height:100%;
+}
+
+.current button{
+    border-radius: 15px;
+    font-weight: bold;
+    font-size:14px;
+    margin-bottom: 10px;
+    padding:8px;
+}
+
+.new{
+    margin-bottom: 20px;
+}

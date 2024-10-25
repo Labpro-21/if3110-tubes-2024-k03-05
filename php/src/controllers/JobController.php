@@ -120,11 +120,7 @@ class JobController {
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganJobSeekerById($id);
-        $attachments = $this->job->getAttachmentsByLowonganId($id);
-
-        // Check if the job is open
-       
-
+        $attachments = $this->job->getAttachmentsByLowonganId($id);      
         $isAlreadyApply = $this->job->isAlreadyApply($id, $_SESSION['user_id']);
         $totalApplicants = $this->job->getTotalApplicants($id);
         include __DIR__ . '/../views/DetailLowonganJobseeker.php';

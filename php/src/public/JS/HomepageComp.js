@@ -56,7 +56,7 @@ function updateJobList(jobs) {
                             ${job.image_path ? '/serveFile?file=' + job.image_path : '/images/placeholder.png'}
                             " class="jobvacancy-photo">
                         </div>
-                        <div>
+                        <div class="skibidi">
                             <div class="job-name-date">
                                 <a href="/detailLowonganCompany?lowonganId=${job.lowongan_id}">${job.posisi}</a>
                                 <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>

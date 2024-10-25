@@ -23,6 +23,7 @@ spl_autoload_register(function ($class_name) {
 
 include 'Router.php';
 
+use controllers\ExportController;
 use controllers\JobController;
 use controllers\JobseekerController;
 use controllers\SiteController;
@@ -56,22 +57,25 @@ $router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
 $router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
 $router->add('GET', '/detailLowongan', [JobController::class, 'detailLowonganJobseeker']);
 $router->add('GET', '/detailLowonganGuest', [JobController::class, 'detailLowonganGuest']);
-$router->add('GET', '/Companyprofile', [CompanyController::class, 'profile']);
+$router->add('GET', '/profile', [SiteController::class, 'profile']);
 $router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
 $router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
 $router->add('GET', '/detailLamaran', [CompanyController::class, 'detailLamaran']);
-$router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
-$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
+$router->add('GET', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
 
 // API -----------------------
 $router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
 $router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
 $router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
+$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
+$router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
+$router->add('GET', '/csvFile', [ExportController::class, 'exportLamaranDataToCSV']);
 
 
 $router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
 $router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany']);
 
+$router->add('POST', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
 $router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
 $router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
 $router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);

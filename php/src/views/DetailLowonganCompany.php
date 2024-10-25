@@ -15,7 +15,7 @@
             <!-- Name Card -->
             <div class="name-card box">
                 <header>
-                    <a href="/Companyprofile?user_id=<?= $jobData['user_id'] ?>"><?= $jobData['nama'] ?></a>
+                    <a href="/profile?user_id=<?= $jobData['user_id'] ?>"><?= $jobData['nama'] ?></a>
                 </header>
                 <h1><?= $jobData['posisi']?></h1>
                 <div class="detail">
@@ -51,6 +51,18 @@
                 <div><?= htmlspecialchars_decode($jobData['deskripsi']) ?></div>
             </div>
 
+            <!-- Attachment -->
+            <div class="description box">
+                <h2>Attachment</h2>
+                <div class="attachment-wrapper">
+                    <?php foreach ($attachments as $attachment): ?>
+                        <a href="/serveFile?file=<?= $attachment['file_path'] ?>" target="_blank">
+                            <img src="/serveFile?file=<?= $attachment['file_path'] ?>" alt="Attachment" class="">
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
             <!-- Applicants -->
             <div class="applicants box">
                 <h2>Applicants</h2>
@@ -68,6 +80,7 @@
                         echo '<Button class="close" id="closeButton">Close Recruitment</Button>';
                     }
                 ?>
+                <Button class="download" id="downloadButton">Download All CSV</Button>
             </div>
         </div>
     </main>

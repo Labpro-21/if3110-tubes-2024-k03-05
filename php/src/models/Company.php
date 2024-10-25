@@ -20,25 +20,27 @@ class Company
 
     public function getProfileById($userId)
     {
-        $query = "SELECT nama, about, lokasi, email FROM user NATURAL JOIN company_detail WHERE user_id = ?";
+        $query = "SELECT * FROM user NATURAL JOIN company_detail WHERE user_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $userId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function editProfile($userId, $name, $about, $email, $location)
+    public function editProfile($userId, $name, $about, $email, $location, $profileImage, $bannerImage)
     {
         try {
             $this->conn->beginTransaction();
 
             $queryUser = "UPDATE user 
-                      SET nama = ?, email = ?
+                      SET nama = ?, email = ?, image_path = ?, banner_path = ?
                       WHERE user_id = ?";
             $stmtUser = $this->conn->prepare($queryUser);
             $stmtUser->bindParam(1, $name, PDO::PARAM_STR);
             $stmtUser->bindParam(2, $email, PDO::PARAM_STR);
-            $stmtUser->bindParam(3, $userId, PDO::PARAM_INT);
+            $stmtUser->bindParam(3, $profileImage, PDO::PARAM_STR);
+            $stmtUser->bindParam(4, $bannerImage, PDO::PARAM_STR);
+            $stmtUser->bindParam(5, $userId, PDO::PARAM_INT);
             $stmtUser->execute();
 
             // Query untuk mengupdate data company_detail
@@ -72,7 +74,9 @@ class Company
 
     public function getCompanyDetails($companyId)
     {
-        $query = "SELECT * FROM company_detail WHERE user_id = ?";
+        $query = "SELECT * 
+        FROM company_detail NATURAL JOIN user
+         WHERE user_id = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $companyId, PDO::PARAM_INT);
         $stmt->execute();

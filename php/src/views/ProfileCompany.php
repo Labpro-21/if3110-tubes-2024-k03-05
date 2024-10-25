@@ -14,16 +14,26 @@
         <div class="profile-container">
             <div class="profile-content">
                 <div class="profile-banner">
-<!--                    <img src="--><?php //= $companyData['bannerSrc']; ?><!--" alt="profile banner">-->
-                    <img src="../public/images/linkedinbanner.webp" alt="profile banner">
+                    <img src="<?php
+                    if ($companyData['banner_path']) {
+                        echo '/serveFile?file=' . $companyData['banner_path'];
+                    } else {
+                        echo '/public/images/linkedinbanner.webp';
+                    }
+                    ?>" alt="profile banner">
                 </div>
                 <a href="/editProfileCompany" class="editcomprofile-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" style="color: #0a66c2;" viewBox="0 0 24 24"><path fill="currentColor" d="M8.707 19.707L18 10.414L13.586 6l-9.293 9.293a1 1 0 0 0-.263.464L3
                         21l5.242-1.03c.176-.044.337-.135.465-.263M21 7.414a2 2 0 0 0 0-2.828L19.414 3a2 2 0 0 0-2.828 0L15 4.586L19.414 9z"/></svg>
                 </a>
                 <div class="profile-photo">
-<!--                    <img src="--><?php //= $companyData['photoSrc']; ?><!--" alt="Profile Picture">-->
-                    <img src="../public/images/paper.webp" alt="Profile Picture">
+                    <img src="<?php
+                    if ($companyData['image_path']) {
+                        echo '/serveFile?file=' . $companyData['image_path'];
+                    } else {
+                        echo '/public/images/profile-img.webp';
+                    }
+                    ?>" alt="Profile Picture">
                 </div>
                 <div class="info-section">
                     <p class="profile-name"><?= $_SESSION['name']; ?></p>

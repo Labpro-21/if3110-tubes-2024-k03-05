@@ -38,7 +38,7 @@ function updateJobList(jobs) {
             jobCard.innerHTML = `
                 <div class="jobvacancy-info">
                     <div>
-                        <img src="https://imageplaceholder.net/600x400" class="jobvacancy-photo">
+                        <img src="/serveFile?file=${job.image_path}" class="jobvacancy-photo">
                     </div>
                     <div>
                         <div class="job-name-date">

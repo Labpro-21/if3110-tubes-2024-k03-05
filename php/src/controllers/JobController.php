@@ -120,6 +120,7 @@ class JobController {
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganJobSeekerById($id);
+        $attachments = $this->job->getAttachmentsByLowonganId($id);
 
         // Check if the job is open
         if ($job['is_open'] !== 1) {
@@ -140,6 +141,7 @@ class JobController {
 
         $id = $_GET['lowonganId'];
         $job = $this->job->getLowonganGuestById($id);
+        $attachments = $this->job->getAttachmentsByLowonganId($id);
 
         if (!$job) {
             include __DIR__ . '/../views/404.php';
@@ -174,6 +176,7 @@ class JobController {
         }
 
         $jobData = $this->job->getDetailLowonganById($lowonganId);
+        $attachments = $this->job->getAttachmentsByLowonganId($lowonganId);
 
         // Check if the job is owned by the user
         if ($jobData['company_id'] !== $_SESSION['user_id']) {
@@ -242,7 +245,6 @@ class JobController {
         }
         
         $userId = (int)$_SESSION['user_id'];
-
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!isset($data['lowongan_id'])) {

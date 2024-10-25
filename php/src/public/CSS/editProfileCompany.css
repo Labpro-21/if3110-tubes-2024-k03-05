@@ -59,8 +59,7 @@ body {
 label {
     display: block;
     margin-bottom: 5px;
-    font-size: 14px;
-    font: weight 500px;;
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -109,27 +108,6 @@ input[type="email"] {
     background-color: #dc3545; /* Red */
 }
 
-
-
-
-/* button {
-    width: 100%;
-    padding: 10px;
-    background-color: #0a66c2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-button:hover {
-    background-color: #bdd5ee;
-    color: #0a66c2;
-    font-weight: 500;
-} */
-
 .add-button {
     margin-bottom: 10px;
 }
@@ -177,4 +155,29 @@ button:hover {
 
 #response {
     color : #0a66c2;
+}
+
+.input-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-button {
+    text-align: right;
+}
+
+.add-button .btn {
+    background-color: #0a66c2;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-button .btn:hover {
+    background-color: #004a99;
 }

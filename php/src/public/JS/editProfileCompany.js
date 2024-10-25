@@ -10,10 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
         theme: 'snow',
     });
 
-    const aboutInput = document.getElementById('aboutInput');
-    const form = document.querySelector('form');
+    quill.on('text-change', function() {
+        const descriptionInput = document.getElementById('aboutInput');
+        descriptionInput.value = quill.root.innerHTML;
+    });
 
-    quill.root.innerHTML = aboutInput.value;
+    const aboutInput = document.getElementById('aboutInput');
+    const form = document.getElementById('applicantForm');
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -24,30 +27,24 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const formData = {
-            name: document.getElementById('name').value,
-            about: quill.root.innerHTML,
-            email: document.getElementById('email').value,
-            location: document.getElementById('location').value
-        };
-
+        const formData = new FormData(form);
         const xhr = new XMLHttpRequest();
+
         xhr.open('POST', '/editProfileCompany', true);
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
                 const response = JSON.parse(xhr.responseText);
                 if (xhr.status === 200) {
                     showToast(response.message, 'success');
-                    window.location.href = '/Companyprofile';
+                    window.location.href = '/profile';
                 } else {
                     showToast(response.message, 'error');
                 }
             }
         };
 
-        xhr.send(JSON.stringify(formData));
+        xhr.send(formData);
     });
 
     quill.on('text-change', function() {

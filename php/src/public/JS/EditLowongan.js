@@ -36,24 +36,27 @@ document.addEventListener('DOMContentLoaded', function() {
     attachmentList.addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-attachment')) {
             const listItem = event.target.closest('.attachment');
-            const input = listItem.querySelector('input[type="text"]');
-            const attachmentId = input.name;
-
+            const button = listItem.querySelector('button[type="button"]');
+            const attachmentId = button.name;
+    
+            console.log('Removing attachment with ID:', attachmentId);
+    
             // Send delete request to the endpoint
             const xhr = new XMLHttpRequest();
             xhr.open('DELETE', `/deleteAttachment?attachmentId=${attachmentId}`, true);
-
+    
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
+                        console.log('Attachment removed successfully.');
                         // Remove the attachment from the DOM
                         listItem.remove();
                     } else {
-                        console.error('Failed to delete attachment');
+                        console.error('Failed to delete attachment:', xhr.status);
                     }
                 }
             };
-
+    
             xhr.send();
         }
     });

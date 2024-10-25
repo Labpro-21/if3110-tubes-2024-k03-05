@@ -27,15 +27,15 @@ class Lamaran
     public function getCompanyIdbyLamaranId($id)
     {
         $query = "SELECT company_id
-            FROM lamaran NATURAL JOIN lowongan
-            WHERE lamaran_id = :id";
+        FROM lamaran JOIN lowongan l on lamaran.lowongan_id = l.lowongan_id
+        WHERE lamaran_id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch();
     }
 
-    public function updateStatus(mixed $id, mixed $status, mixed $reason)
+    public function updateStatus(mixed $id, mixed $status, mixed $reason): bool
     {
         try {
             $this->conn->beginTransaction();

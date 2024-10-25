@@ -281,7 +281,9 @@ class CompanyController
     public function updateLamaranStatus(): false|string
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             $data = json_decode(file_get_contents('php://input'), true);
+
             $id = $data['lamaranId'];
             $status = $data['status'];
             $reason = $data['reason'];
@@ -294,6 +296,8 @@ class CompanyController
 
             // Check if lamaran changed by the owner
             $lamaran = $this->lamaran->getCompanyIdbyLamaranId($id);
+
+
             if ($lamaran['company_id'] !== $_SESSION['user_id']) {
                 http_response_code(403);
                 return json_encode(['message' => 'Forbidden']);

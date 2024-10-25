@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs Homepage</title>
-    <link rel="stylesheet" href="../public/CSS/jobsHomepage.css">
-    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
+    <link rel="stylesheet" href="../public/CSS/guestHomepage.css">
+    <link rel="stylesheet" href="../public/CSS/guestHomepageNavbar.css">
 </head>
 
 <body>

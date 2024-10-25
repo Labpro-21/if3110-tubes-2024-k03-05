@@ -1,16 +1,16 @@
 /* Navbar Styling */
 nav {
     display: flex;
-    width: 100vw;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     background-color: white;
     padding: 10px 100px;
+    width: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    top: 0;
 }
 
-ul{
+ul {
     display: flex;
     list-style: none;
     gap: 40px;
@@ -44,8 +44,7 @@ ul{
     width: 100%;
 }
 
-
-.nav-links li a{
+.nav-links li a {
     text-decoration: none;
     color: rgb(102, 101, 101);
     font-size: 12px;
@@ -53,9 +52,8 @@ ul{
     margin-bottom: 5px;
 }
 
-
-.nav-links li a{
-  color: black;
+.nav-links li a {
+    color: black;
 }
 
 .logo-search {
@@ -70,28 +68,122 @@ ul{
     border-radius: 3px;
 }
 
-.search-bar{
-  display: flex;
-  gap: 10px;
+.search-bar {
+    display: flex;
+    gap: 10px;
 }
 
-.search-bar input{
-  border: none;
-  padding: 12px;
-  background-color: aliceblue;
-  border-radius: 5px;
-  color: black;
-  font-weight: 450;
-  width: 300px;
+.search-bar input {
+    border: none;
+    padding: 12px;
+    background-color: aliceblue;
+    border-radius: 5px;
+    color: black;
+    font-weight: 450;
+    width: 300px;
 }
 
-.search-bar button{
-  padding: 11px;
-  background-color: rgb(246, 246, 246);
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
+.search-bar button {
+    padding: 11px;
+    background-color: rgb(246, 246, 246);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Toggle Button Styling */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: grey;
+
+}
+
+.menu-toggle.active svg {
+    fill: red; /* Change the color when active */
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Styles for 400x800 screen size */
+@media (max-width: 400px) {
+    nav {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .icon-navbar{
+        display: none;
+    }
+
+
+    .logo-search img {
+        width: 28px;
+        height: 28px;
+        border-radius: 3px;
+    }
+    
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        margin-top: 20px;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+        z-index: 100;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .logo-search {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .search-bar {
+        width: 100%;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .search-bar input {
+        width: 100%;
+    }
+
+    ul {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links li a {
+        font-size: 14px;
+    }
 }

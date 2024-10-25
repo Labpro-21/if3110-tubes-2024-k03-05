@@ -35,14 +35,16 @@
 
             <?php foreach ($jobs as $job): ?>
             <div class="job-card">
-                <a href="" class="Position"><?= $job['posisi'] ?></a>
+                <div class="position-status">
+                    <a href="" class="Position"><?= $job['posisi'] ?></a>
+                    <p class="status"><?= $job['status'] ?></p>
+                </div>
                 <p class="perusahaan"><?= $job['nama'] ?></p>
                 <div class="dot-elmt">
                     <p class="location"><?= $job['lokasi']?></p>
                     <span class="dot"></span>
                     <p>applied at <?= date('Y-m-d', strtotime($job['created_at'])) ?></p>
                 </div>
-                <p class="status"><?= $job['status'] ?></p>
             </div>
             <?php endforeach; ?>
         </div>

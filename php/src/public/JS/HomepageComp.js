@@ -41,13 +41,16 @@ function updateJobList(jobs) {
             jobCard.className = 'job-card';
             jobCard.innerHTML = `
                 <div class="card">
-                    <div class="buttons">
-                        <a href="/editLowongan?lowongan_id=${job.lowongan_id}" class="button-wrapper">
-                            Edit
-                        </a>
-                        <button class="button-wrapper close">
-                            Close
-                        </button>
+                    <div class="date-btn">
+                        <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>
+                        <div class="buttons">
+                            <a href="/editLowongan?lowongan_id=${job.lowongan_id}" class="button-wrapper">
+                                Edit
+                            </a>
+                            <button class="button-wrapper close">
+                                Close
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="jobvacancy-info">
@@ -56,10 +59,9 @@ function updateJobList(jobs) {
                             ${job.image_path ? '/serveFile?file=' + job.image_path : '/images/placeholder.png'}
                             " class="jobvacancy-photo">
                         </div>
-                        <div class="skibidi">
+                        <div>
                             <div class="job-name-date">
                                 <a href="/detailLowonganCompany?lowonganId=${job.lowongan_id}">${job.posisi}</a>
-                                <span>Posted on ${new Date(job.created_at).toLocaleDateString()}</span>
                             </div>
                             <div class="comp">
                                 <p class="comp-name">

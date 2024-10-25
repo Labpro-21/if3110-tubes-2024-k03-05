@@ -393,14 +393,22 @@ body {
     justify-content: space-between;
 }
 
-.job-name-date span {
+.date-btn span {
     color: grey;
-    font-size: 13px;
+    font-size: 15px;
+    margin-bottom: 15px;
 }
 
 .skibidi {
     width: 100%;
 }
+
+.date-btn{
+    display: flex;
+    justify-content: space-between;
+}
+
+
 
 
 .jobvacancy-info a {
@@ -589,7 +597,7 @@ hr {
         align-items: center;
     }
 
-    .job-name-date span {
+    .date-btn span {
         margin-top: 5px;
     }
 

@@ -249,3 +249,23 @@ button.accept {
         display: inline-block;
     }
 }
+
+.resume a{
+    color:#333;
+    text-decoration: none;
+    background-color: #d2e7fdd3;
+    font-size: 0.9rem;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.resume a:hover{
+    text-decoration: underline;
+    background-color: #bcdbff;
+    font-size: 0.9rem;
+    padding: 8px;
+    border-radius: 8px;
+}
+.resume p{
+    margin-bottom:10px;
+}

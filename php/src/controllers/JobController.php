@@ -123,10 +123,7 @@ class JobController {
         $attachments = $this->job->getAttachmentsByLowonganId($id);
 
         // Check if the job is open
-        if ($job['is_open'] !== 1) {
-            header("Location: /dashboard");
-            exit();
-        }
+       
 
         $isAlreadyApply = $this->job->isAlreadyApply($id, $_SESSION['user_id']);
         $totalApplicants = $this->job->getTotalApplicants($id);

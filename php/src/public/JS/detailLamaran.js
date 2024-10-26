@@ -55,14 +55,23 @@ function submitReason(status) {
 
 const reasonFormA = document.getElementById('reasonFormA');
 const reasonFormR = document.getElementById('reasonFormR');
+const approveButton = document.querySelector('.btn-approve');
+const rejectButton = document.querySelector('.btn-reject');
+
 function toggleReasonInputA() {
-  reasonFormA.style.display = reasonFormA.style.display === 'none' ? 'block' : 'none';
-  reasonFormR.style.display = 'none';
+    reasonFormA.style.display = reasonFormA.style.display === 'none' ? 'block' : 'none';
+    reasonFormR.style.display = 'none';
+    
+    approveButton.classList.toggle('active', reasonFormA.style.display === 'block');
+    rejectButton.classList.remove('active');
 }
 
 function toggleReasonInputR() {
-  reasonFormR.style.display = reasonFormR.style.display === 'none' ? 'block' : 'none';
-  reasonFormA.style.display = 'none';
+    reasonFormR.style.display = reasonFormR.style.display === 'none' ? 'block' : 'none';
+    reasonFormA.style.display = 'none';
+
+    rejectButton.classList.toggle('active', reasonFormR.style.display === 'block');
+    approveButton.classList.remove('active');
 }
 
 function showToast(message, type) {

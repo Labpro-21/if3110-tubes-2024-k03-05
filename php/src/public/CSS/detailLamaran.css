@@ -171,6 +171,14 @@ button {
   background-color: red;
 }
 
+.btn-approve.active {
+  border:2px solid black;
+}
+
+.btn-reject.active {
+  border:2px solid black;
+}
+
 .form-group {
   margin-top: 10px;
 }

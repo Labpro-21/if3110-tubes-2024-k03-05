@@ -93,14 +93,14 @@ include 'jobsNavbar.php'; ?>
                                 ' . $lamaranData['status_reason'] . '
                             </p>
                             <div class="resume-video">
-                                <section>
-                                    <p>Applicant\'s Resume</p>
+                                <section class="resume">
+                                    <p>Your Resume</p>
                                     <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
                                     CV
                                     </a>
                                 </section>
-                                <section>
-                                    <p>Applicant\'s Video</p>
+                                <section class="resume">
+                                    <p>Your Video</p>
                                     <a href="/serveFile?file=' . urlencode($lamaranData['video_path']) . '">
                                     Video
                                     </a>
@@ -118,13 +118,13 @@ include 'jobsNavbar.php'; ?>
                                 </div>
                                 <div class="resume-video">
                                 <section class="resume">
-                                    <p>Applicant\'s Resume</p>
+                                    <p>Your Resume</p>
                                     <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
                                     CV
                                     </a>
                                 </section>
                                 <section class="resume">
-                                    <p>Applicant\'s Video</p>
+                                    <p>Your Video</p>
                                     <a href="/serveFile?file=' . urlencode($lamaranData['video_path']) . '">
                                     Video
                                     </a>

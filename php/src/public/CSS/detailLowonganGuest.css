@@ -172,6 +172,21 @@ button.close:hover{
     background-color: red;
 }
 
+.attachment-wrapper {
+    display: flex;                
+    gap: 20px;                   
+    overflow-x: auto;             
+    padding-bottom: 10px;        
+}
+
+.attachment-wrapper img {
+    height: 100px;                
+    width: auto;                  
+    object-fit: cover;            
+    border-radius: 4px;           
+    border : 1px solid black;
+}
+
 
 @media only screen and (max-width: 950px) {
     .name-card {

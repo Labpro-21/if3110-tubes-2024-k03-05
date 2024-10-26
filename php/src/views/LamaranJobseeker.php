@@ -34,7 +34,7 @@
         <div class="input-group">
             <label for="video">Upload Video</label>
             <div class="custom-file-input">
-                <input type="file" id="video" name="video" accept="video/*" required>
+                <input type="file" id="video" name="video" accept="video/*">
                 <span id="video-filename">Choose a file...</span>
             </div>
         </div>

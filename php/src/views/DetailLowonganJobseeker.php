@@ -68,14 +68,15 @@ include 'jobsNavbar.php'; ?>
 
         <?php
 
-
-        if ($job['is_open']===1){
             if (!$isAlreadyApply) {
-                        echo '
+                if ($job['is_open']===1){
+                    echo '
                         <div class="end">
                             <button class="close" id="applyButton">Apply</button>
                         </div>
                     ';
+                }
+                        
                     } else {
                         $id = $_GET['lowonganId'];
                         $db = new Database();
@@ -83,16 +84,17 @@ include 'jobsNavbar.php'; ?>
                         $lamaran = new Lamaran($conn);
                         $lamaranData = $lamaran->getLamaranbyUserIdAndJobId($_SESSION['user_id'], $id);
                         if ($lamaranData['status'] === 'accepted' || $lamaranData['status'] === 'rejected') {
-                            echo '
-                        <div class="description box">
-                            <h2>Status</h2>
-                            <p>
-                                ' . $lamaranData['status'] . '
-                            </p>
-                            <p>
+                            if (!empty($lamaranData['video_path'])){
+                                echo '
+                                <div class="description box">
+                                    <h2>Status</h2>
+                                    <p>
+                                        ' . $lamaranData['status'] . '
+                                    </p>
+                                    <p>
                                 ' . $lamaranData['status_reason'] . '
-                            </p>
-                            <div class="resume-video">
+                                    </p>
+                                <div class="resume-video">
                                 <section class="resume">
                                     <p>Your Resume</p>
                                     <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
@@ -106,10 +108,31 @@ include 'jobsNavbar.php'; ?>
                                     </a>
                                 </section>
                             </div>
-                        </div>
-                        ';
+                            ';
+                            } else{
+                                echo '
+                                <div class="description box">
+                                    <h2>Status</h2>
+                                    <p>
+                                        ' . $lamaranData['status'] . '
+                                    </p>
+                                    <p>
+                                ' . $lamaranData['status_reason'] . '
+                                    </p>
+                                
+                                <div class="resume-video">
+                                <section class="resume">
+                                    <p>Your Resume</p>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
+                                    CV
+                                    </a>
+                                </section>
+                            </div>
+                            ';
+                            }
                         } else {
-                            echo '
+                            if (!empty($lamaranData['video_path'])){
+                                echo '
                                 <div class="description box">
                                     <h2>Status</h2>
                                     <p>
@@ -131,9 +154,28 @@ include 'jobsNavbar.php'; ?>
                                 </section>
                             </div>
                             ';
+                            } else{
+                                echo '
+                                <div class="description box">
+                                    <h2>Status</h2>
+                                    <p>
+                                        ' . $lamaranData['status'] . '
+                                    </p>
+                                </div>
+                                <div class="resume-video">
+                                <section class="resume">
+                                    <p>Your Resume</p>
+                                    <a href="/serveFile?file=' . urlencode($lamaranData['cv_path']) . '">
+                                    CV
+                                    </a>
+                                </section>
+                            </div>
+                            ';
+                            }
+                            
                         }
                     }
-        }
+        
         
         ?>
 

@@ -1,7 +1,6 @@
 # Tugas Besar IF3110 2024/2025
 
 # LinkInPurry
-<img src="php\src\public\images\meme.jpg">
 
 <div align="center">
   
@@ -106,4 +105,6 @@ LinkInPurry includes a range of essential and optional (bonus) features:
 
 ### Contribution Guidelines
 1. Fauzhan Azhim -13522
+2. Shabrina maharani - 13522134
+3. Auralea Alvinia Syaikha - 13522148
 

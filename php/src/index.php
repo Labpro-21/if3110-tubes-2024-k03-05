@@ -1,4 +1,90 @@
 <?php
+session_start();
 
-echo 'Hello World!';
-echo '<script src="/public/index.js"></script>';
+$sessionTimeout = 1800;
+
+// Check if the session is set and if it has expired
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > $sessionTimeout)) {
+    session_unset();
+    session_destroy();
+    header("Location: /login");
+    exit;
+}
+
+// Update last activity time stamp
+$_SESSION['LAST_ACTIVITY'] = time();
+
+spl_autoload_register(function ($class_name) {
+    $file = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
+    if (file_exists($file)) {
+        include $file;
+    }
+});
+
+include 'Router.php';
+
+use controllers\ExportController;
+use controllers\JobController;
+use controllers\JobseekerController;
+use controllers\SiteController;
+use controllers\UserController;
+use controllers\CompanyController;
+use controllers\LamaranController;
+
+$router = new Router();
+
+// [Controller] : Controller Class
+// Eg: UserController::class
+// [function] : Controller Function
+// Eg: home => home() function in UserController
+// [method] : HTTP Method
+// Eg: GET, POST, PUT, DELETE
+// [path] : URL Path
+// Eg: /, /login, /dashboard
+//$router->add([method], '[path]', [[Controller]::class, '[function]']);
+// Eg: $router->add('GET', '/', [UserController::class, 'home']);
+
+// Getter -----------------------
+$router->add('GET', '/', [UserController::class, 'home']);
+$router->add('GET', '', [UserController::class, 'home']);
+$router->add('GET', '/login', [UserController::class, 'login']);
+$router->add('GET', '/logout', [UserController::class, 'logout']);
+$router->add('GET', '/register', [UserController::class, 'register']);
+$router->add('GET', '/dashboard', [SiteController::class, 'dashboard']);
+$router->add('GET', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
+$router->add('GET', '/editLowongan', [CompanyController::class, 'ambilLowongan']);
+$router->add('GET', '/riwayatLamaran', [JobController::class, 'seeLamaran']);
+$router->add('GET', '/editProfileCompany', [CompanyController::class, 'ambilProfile']);
+$router->add('GET', '/detailLowongan', [JobController::class, 'detailLowonganJobseeker']);
+$router->add('GET', '/detailLowonganGuest', [JobController::class, 'detailLowonganGuest']);
+$router->add('GET', '/profile', [SiteController::class, 'profile']);
+$router->add('GET', '/detailLowonganCompany', [JobController::class, 'detailLowonganCompany']);
+$router->add('GET', '/lamaran', [JobseekerController::class, 'lamaran']);
+$router->add('GET', '/detailLamaran', [CompanyController::class, 'detailLamaran']);
+$router->add('GET', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
+
+// API -----------------------
+$router->add('GET', '/getCategoryJobs', [JobController::class, 'getCategoryJobs']);
+$router->add('GET', '/api/jobs', [JobController::class, 'getJobs']);
+$router->add('GET', '/getFilteredJobs', [JobController::class, 'getFilteredJobs']);
+$router->add('GET', '/serveFile', [SiteController::class, 'getFiles']);
+$router->add('GET', '/getFilteredJobsComp', [CompanyController::class, 'getFilteredJobsComp']);
+$router->add('GET', '/csvFile', [ExportController::class, 'exportLamaranDataToCSV']);
+
+
+$router->add('DELETE', '/lowongan', [JobController::class, 'deleteLowonganCompany']);
+$router->add('DELETE', '/deleteAttachment', [JobController::class, 'deleteAttachment']);
+
+$router->add('PUT', '/lowongan', [JobController::class, 'closeLowonganCompany']);
+
+$router->add('POST', '/editProfileJobseeker', [JobseekerController::class, 'editProfile']);
+$router->add('POST', '/submitApplication', [LamaranController::class, 'submitLamaran']);
+$router->add('POST', '/updateLamaranStatus', [CompanyController::class, 'updateLamaranStatus']);
+$router->add('POST', '/editProfileCompany', [CompanyController::class, 'editProfile']);
+$router->add('POST', '/editLowongan', [CompanyController::class, 'editLowongan']);
+$router->add('POST', '/login', [UserController::class, 'login']);
+$router->add('POST', '/register', [UserController::class, 'register']);
+$router->add('POST', '/tambahLowongan', [CompanyController::class, 'tambahLowongan']);
+
+$path = $_SERVER['REQUEST_URI'];
+$router->dispatch($path);

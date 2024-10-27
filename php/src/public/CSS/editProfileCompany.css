@@ -1,0 +1,180 @@
+* {
+    box-sizing: border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 90px;
+    margin-bottom: 90px;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 800px;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.title h1{
+    color:#000000E6;
+    font-size: 1.5rem;
+    font-weight:550;
+}
+
+.btn-close{
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+    justify-content: center;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+    color: #0a66c2;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group input{
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font: weight 500px;;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#editor {
+    height: 130px;
+    width:100%;
+}
+
+/* Toast Notification Styles */
+.toast {
+    visibility: hidden;
+    max-width: 300px;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(0);
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.toast.success {
+    background-color: #28a745; /* Green */
+}
+
+.toast.error {
+    background-color: #dc3545; /* Red */
+}
+
+
+
+
+/* button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0a66c2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #bdd5ee;
+    color: #0a66c2;
+    font-weight: 500;
+} */
+
+.add-button {
+    margin-bottom: 10px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0a66c2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: #bdd5ee;
+    color: #0a66c2;
+    font-weight: 500;
+}
+
+#response {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.custom-file-input {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+.custom-file-input span {
+    display: block;
+    font-size: 14px;
+    color: #555;
+}
+
+#response {
+    color : #0a66c2;
+}

@@ -1,0 +1,242 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f3f2ef;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.profile-company {
+    width: 1200px;
+    margin: 50px auto 5px auto; /* top right bottom left */
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: rgb(218, 218, 218);
+    padding: 0px;
+}
+
+section {
+    width: 1200px;
+    margin: 5px auto 5px auto; /* top right bottom left */
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-style: 5px solid black;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: rgb(218, 218, 218);
+    padding: 30px 40px 30px 40px;
+}
+
+.profile-banner img {
+    min-height: 270px;
+    max-height: 270px;
+    width: 100%;
+}
+
+.profile-container {
+    position: relative;
+    width: 100%;
+}
+
+.editcomprofile-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    height: auto;
+    width: auto;
+}
+
+.editcomprofile-btn:hover {
+    transform: scale(1.1);
+}
+
+.profile-photo {
+    position: relative;
+    height: 0;
+}
+
+.profile-photo > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid white;
+    translate: 30px -150px;
+}
+
+.info-section {
+    padding: 70px 40px 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.profile-name {
+    font-size: 45px;
+    font-weight: 500;
+}
+
+.profile-tagline + p{
+    font-size: 25px;
+}
+
+.profile-location {
+    font-size: 20px;
+    color: grey;
+}
+
+.profile-location a {
+    color: grey;
+    text-decoration: none;
+}
+
+/* ABOUT SECTION */
+.about-container h5 {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.company-desc {
+    font-size: 15px;
+}
+
+/* JOB VACANCY SECTION */
+.jobvacancy-container h5 {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.jobvacancy-card {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.jobvacancy-card:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+.jobvacancy-card img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.jobvacancy-info {
+    flex-grow: 1;
+}
+
+.jobvacancy-info a {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+
+.jobvacancy-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* Responsive Styles for 400x800 screen size */
+@media (max-width: 400px) {
+    main {
+        margin-bottom: 20px;
+    }
+
+    .profile-company,
+    section {
+        width: 90%;
+        margin: 10px auto;
+        padding: 0px;
+    }
+
+    .profile-banner img {
+        min-height: 150px;
+        max-height: 150px;
+        width: 100%;
+    }
+
+    .editcomprofile-btn {
+        top: 10px;
+        right: 10px;
+        padding: 5px;
+    }
+
+    .profile-photo > * {
+        width: 100px;
+        height: 100px;
+        translate: 15px -75px;
+    }
+
+    .info-section {
+        padding: 50px 20px 20px 20px;
+    }
+
+    .profile-name {
+        font-size: 24px;
+    }
+
+    .profile-location {
+        font-size: 16px;
+    }
+
+    .profile-tagline + p{
+        font-size: 16px;
+    }
+    
+
+    .jobvacancy-container h5{
+        padding: 15px;
+    }
+
+    .jobvacancy-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .jobvacancy-card img {
+        margin-bottom: 10px;
+    }
+
+    .jobvacancy-info a {
+        font-size: 16px;
+    }
+
+    .jobvacancy-info p {
+        font-size: 14px;
+    }
+}

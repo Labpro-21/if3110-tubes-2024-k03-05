@@ -1,0 +1,188 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body{
+    background-color: #f3f2ef;
+}
+
+.container{
+    background-color: white;
+    width: 1000px;
+    padding: 1.5rem;
+    margin:50px auto;
+    border-radius:10px;
+    border: 0.1px solid rgba(198, 197, 197, 0.681); 
+}
+
+.box header{
+    color:#000000E6;
+    font-size: 1.5rem;
+    font-weight:550;
+    margin-bottom: 20px;
+}
+
+.divider {
+    width: 100%;
+    border-bottom: 0.2px solid rgba(192, 192, 192, 0.575);
+    margin: 20px 0;
+}
+
+.form-title{
+    font-size:1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding:1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.toast.success {
+    background-color: #4CAF50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+.toast.show {
+    animation: showToast 0.5s;
+}
+
+input{
+    color:inherit;
+    width:100%;
+    background-color: white;
+    border:1px solid #757575;
+    border-radius: 10px;
+    padding :12px;
+    font-size:16px;
+    box-sizing:border-box;
+    height:55px;
+}
+
+.input-group{
+    position:relative;
+    margin-bottom: 20px;
+}
+
+input:focus{
+    background-color: white;
+    outline: none;
+    border: 2px solid #0a66c2;
+}
+
+input::placeholder{
+    color:#757575;
+}
+
+input:focus::placeholder,
+input:not(:placeholder-shown)::placeholder {
+    opacity: 0;
+    visibility: hidden;
+}
+
+input:focus~label,input:not(:placeholder-shown)~label{
+    top:-4.8em;
+    left:1.2em;
+    color:black;
+    font-size:12px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.input-group p{
+    display: block;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.input-group select {
+    color:#757575;
+    width:100%;
+    background-color: white;
+    border:1px solid #757575;
+    border-radius: 10px;
+    padding :12px;
+    font-size:16px;
+    box-sizing:border-box;
+    height:55px;
+    position: relative;
+    margin-bottom: 3px;
+    
+}
+
+.input-group select:focus {
+    background-color: white;
+    outline: none;
+    border: 2px solid #0a66c2; 
+}
+
+.input-group select:focus,
+.input-group select:valid {
+    color: black; 
+}
+
+.input-group select option {
+    color: #004182; 
+    background-color: white; 
+}
+
+.add-button {
+    margin-bottom: 70px;
+}
+
+.btn {
+    width: 250px; 
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-radius: 20px;
+    background: #0a66c2;
+    cursor: pointer;
+    transition: 0.9s;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    float: right; 
+    margin-bottom: 100px;
+}
+
+.btn:hover {
+    background: #004182;
+}
+
+#editor {
+    height: 130px;
+    width:100%;
+}
+
+@media only screen and (max-width:1035px){
+    .container{
+        background-color: white;
+        width: 100%;
+        padding: 1.5rem;
+        margin:10px auto;
+        border: 0px solid rgba(198, 197, 197, 0.681); 
+    }
+}

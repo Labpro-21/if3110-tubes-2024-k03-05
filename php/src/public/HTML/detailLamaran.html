@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/detailLamaran.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Profile -->
+        <div class="detail-status">
+          <section class="applicant-details">
+            <p>Applicants Details</p>
+            <p>Name<br><span class="pelamar-name"></span></p>
+            <p>E-mail<br><span class="pelamar-email"></span></p>
+          </section>
+          <section>
+            <p>Status</p>
+            <div>
+              <p class="status waiting" id="statusText">Waiting</p>
+              <div id="followUpReason" style="display:none;">
+                <p id="reasonText"></p>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button class="btn-approve" onclick="updateStatus('approved')">Approve</button>
+              <button class="btn-reject" onclick="toggleReasonInput()">Reject</button>
+              <div class="form-group" id="reasonForm" style="display:none;">
+                <textarea id="reasonInput" placeholder="Berikan alasan/tindak lanjut..."></textarea>
+                <button onclick="updateStatus('rejected')">Submit</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Main Content -->
+        <div class="resume-video">
+            <section>
+              <p>Applicant's Resume</p>
+              <embed src="" type="application/pdf" class="cv-viewer" />
+            </section>
+
+            <section>
+              <p>Applicant's Video</p>
+              <video controls>
+                <source src="" type="" class="video-viewer">
+                Browser Anda tidak mendukung video tag.
+              </video>
+            </section>
+        </div>
+    </div>
+
+
+    <script src="../JS/detailLamaran.js"></script>
+</body>
+</html>

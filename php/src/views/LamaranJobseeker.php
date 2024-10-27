@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Form</title>
+    <link rel="stylesheet" href="../public/CSS/jobsHomepageNavbar.css">
+    <link rel="stylesheet" href="../public/CSS/jobsLamaran.css">
+</head>
+<body>
+<?php include 'jobsNavbar.php'; ?> <!-- Include the navbar -->
+
+<main class="form-container">
+    <h1>Application Form</h1>
+    <form id="applicantForm">
+        <div class="input-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<?= $_SESSION['name']?>" readonly>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="<?= $_SESSION['email']?>" readonly>
+        </div>
+
+        <div class="input-group">
+            <label for="cv">Upload CV (PDF)</label>
+            <div class="custom-file-input">
+                <input type="file" id="cv" name="cv" accept=".pdf" required>
+                <span id="cv-filename">Choose a file...</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="video">Upload Video</label>
+            <div class="custom-file-input">
+                <input type="file" id="video" name="video" accept="video/*">
+                <span id="video-filename">Choose a file...</span>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+
+    </form>
+    <div id="response"></div>
+</main>
+<script src="../public/JS/jobsLamaran.js"></script>
+</body>
+</html>

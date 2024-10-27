@@ -2,11 +2,20 @@ services:
   php:
     build:
       context: .
-      dockerfile: php/Dockerfile
+      dockerfile: ./php/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./php/src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - db
 
+  # mysql
   db:
     image: mysql:8.0
     volumes:
+      - ./sql:/docker-entrypoint-initdb.d
       - mysqldata:/var/lib/mysql
     ports:
       - "3307:3306"

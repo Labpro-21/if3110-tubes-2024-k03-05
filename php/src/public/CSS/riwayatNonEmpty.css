@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: #f3f2ef;
+}
+
+.container {
+    width: 90%;
+    height: fit-content;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: white;
+    border-radius: 8px;
+    outline-style: solid; 
+    outline-width: 0.5px;   
+    outline-color: #ddd;
+    padding-top: 8px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: normal;
+    margin-top: 10px; 
+    margin-left: 25px;
+    margin-bottom: 8px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin-left: 25px;
+    margin-bottom: 25px;
+}
+
+.filter-buttons li {
+    display: inline-block;
+}
+
+.filter-buttons button {
+    padding: 6px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-buttons button.active {
+    background-color: #01754f;
+    color: white;
+}
+
+.filter-buttons button.active:hover {
+    background-color: #083e2c;
+    color: white;
+    outline-style: none;
+}
+
+.filter-buttons button:hover {
+    outline-style: solid; 
+    outline-width: 1px;   
+    outline-color: #333; 
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+hr {
+    height: 0.5px;
+    background: #ddd;
+    margin: 8px 0;
+}
+
+.dot-elmt {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    margin-bottom: 20px;
+}
+
+.dot-elmt p {
+    color:#666;
+}
+
+.dot {
+    height: 5px;
+    width: 5px;
+    background-color: #666;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.job-card {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 25px; 
+    background-color: transparent;
+}
+
+.job-card:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+
+.job-card a {
+    font-size: 1.5rem;
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.job-card a:hover {
+    text-decoration: underline;
+}
+
+.position-status{
+    display: flex;
+    justify-content: space-between;
+}
+
+.perusahaan {
+    color:#666;
+}
+
+.status {
+    font-weight: bold;
+    color: #0a66c2;
+    font-size: 0.9rem;
+}
+
+/* Responsive Styles for 400x800 screen size */
+@media (max-width: 400px) {
+    .container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-left: 5px;
+        margin-bottom: 20px;
+    }
+
+    .filter-buttons {
+        flex-direction: row;
+        gap: 5px;
+        margin-left: 5px;
+    }
+
+    .filter-buttons button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .job-card {
+        padding: 10px 15px;
+        gap: 5px;
+    }
+
+    .job-card a {
+        font-size: 1.2rem;
+    }
+
+    .Position{
+        margin-bottom: 10px;
+    }
+
+    .dot-elmt {
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .position-status{
+        flex-direction: column;
+    }
+}

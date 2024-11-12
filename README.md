@@ -26,35 +26,20 @@ LinkInPurry connects job seekers with companies offering various positions. The 
 - Both authenticated job seekers and unauthenticated users can view job listings, but only authenticated users can apply for roles or manage their postings.
 
 ### Requirements
-- **Client-Side**:
-  - HTML, CSS, and JavaScript 
-  
-- **Server-Side**:
-  - PHP
-  
-- **Database**:
-  - MySQL
-
-  
-- **Libraries**:
-  - Rich Text Editor: Using `quill.js`.
-
-
 - **Docker**:
-  - Dockerfile and docker-compose.yml should be configured to run both the application and the database as services.
+  - Download docker latest version from [Docker](https://www.docker.com/products/docker-desktop).
+  - Run docker desktop.
 
 ### Installation
 To set up the LinkInPurry project locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository_url>
-   cd <repository_directory>
+   git clone https://github.com/Labpro-21/if3110-tubes-2024-k03-05.git
+   cd if3110-tubes-2024-k03-05
    ```
-2. **Set up the database**:
-   - Ensure that a MySQL is installed.
-
-3. **Docker Setup**:
+   
+2. **Docker Setup**:
    - Ensure Docker and Docker Compose are installed on your machine.
    - Use the provided `docker-compose.yml` file to set up and launch both the application and the database services:
      ```bash
@@ -94,17 +79,17 @@ LinkInPurry includes a range of essential and optional (bonus) features:
 
 ### Screenshots
 #### Home Page (Job Seeker)
-![Job Seeker Home Page](images/job_seeker_home.png)
+![img.png](images/JobseekerHomepage.png)
 
 #### Home Page (Company)
-![Company Home Page](images/company_home.png)
+![img.png](images/CompanyHomePage.png)
 
 #### Job Details
-![Job Details Page](images/job_details.png)
+![img.png](images/JobDetails.png)
 
 
 ### Contribution Guidelines
-1. Fauzhan Azhim -13522
+1. Fauzhan Azhim -13522153
 2. Shabrina maharani - 13522134
 3. Auralea Alvinia Syaikha - 13522148
 
